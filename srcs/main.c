@@ -23,7 +23,7 @@ int	main(void)
 	{
 		input = readline("minishell:");
 		//	pass input into lexer
-		token_count = lexical_analysis(&tokens, input);
+		token_count = lexical_analysis(tokens, input);
 		//	Process commands
 		
 		//	fork and execute
