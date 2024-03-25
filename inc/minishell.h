@@ -22,6 +22,7 @@
 # include <sys/wait.h>
 # include <dirent.h>
 # include <termios.h>
+# include <errno.h>
 
 typedef struct s_token {
 	char	*string;

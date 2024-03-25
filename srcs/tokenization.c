@@ -14,5 +14,19 @@
 
 void	lexical_analysis(t_token **tokens, char *input)
 {
+	char **arguments;
+	int	i;
+	int	words;
+
+	i = 0;
+	words = 0;
+	//	Count the number of words
+	while (input[i])
+	{
+		if (iswhitespace(input[i]))
+			words++;
+		i++;
+	}
+	//	Loop over string and seperate words into char **arguments
 	return ;
 }
