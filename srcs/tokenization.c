@@ -12,21 +12,31 @@
 
 #include "minishell.h"
 
-void	lexical_analysis(t_token **tokens, char *input)
+int	lexical_analysis(t_token **tokens, char *input)
 {
 	char **arguments;
 	int	i;
 	int	words;
 
+	if (!input)
+		return (-1);
 	i = 0;
 	words = 0;
 	//	Count the number of words
 	while (input[i])
 	{
 		if (iswhitespace(input[i]))
-			words++;
+		{
+			while (iswhitespace(input[i]) && input[i])
+			{
+				i++;
+			}
+			if (input[i] != ';' && input[i])
+				words++;
+		}
 		i++;
 	}
 	//	Loop over string and seperate words into char **arguments
+	arguments = (char **)malloc(words * sizeof(char *));
 	return ;
 }

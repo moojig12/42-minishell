@@ -15,6 +15,7 @@
 
 int	main(void)
 {
+	int		token_count;
 	char	*input;
 	t_token	*tokens;
 
@@ -22,9 +23,10 @@ int	main(void)
 	{
 		input = readline("minishell:");
 		//	pass input into lexer
-		lexical_analysis(&tokens, input);
-		//	fork and execute
+		token_count = lexical_analysis(&tokens, input);
+		//	Process commands
 		
+		//	fork and execute
 		//	wait();
 		
 		//	add history to readline
