@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/03/22 19:27:47 by nmandakh         ###   ########.fr       */
+/*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
+/*   Updated: 2024/03/25 15:13:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int	main(void)
+void	lexical_analysis(t_token **tokens, char *input)
 {
-	char	*input;
-	t_token	*tokens;
-
-	while (1)
-	{
-		input = readline("minishell:");
-		//	pass input into lexer
-		lexical_analysis(&tokens, input);
-		//	fork and execute
-		
-		//	wait();
-		
-		//	add history to readline
-		
-		//	free;
-	}
+	return ;
 }
