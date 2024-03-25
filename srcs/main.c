@@ -12,18 +12,18 @@
 
 #include "minishell.h"
 
+
+
 int	main(void)
 {
-	char *input;
-	char **lexicon;
+	char	*input;
+	t_token	lexicon;
 
 	while (1)
 	{
 		input = readline("minishell:");
 		//	pass input into lexer
 		lexicon = lexical_analysis();
-		//	tokenize ??
-		
 		//	fork and execute
 		
 		//	wait();

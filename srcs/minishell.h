@@ -23,4 +23,9 @@
 # include <dirent.h>
 # include <termios.h>
 
+typedef struct s_token {
+	char	*string;
+	int	type;
+}	t_token;
+
 #endif
