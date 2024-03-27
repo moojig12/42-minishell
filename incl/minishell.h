@@ -24,6 +24,7 @@
 # define STDERR 2
 
 # include <unistd.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <readline/readline.h>

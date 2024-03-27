@@ -10,15 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../incl/minishell.h"
 
 // TODO: fix compile error
 
 void	*is_whitespace(char c)
 {
 	if (c == '\t' | c == '\n' | c == ' ')
-		return (&c);
+		return (1);
 	else
+		return (0);
+}
+
+t_token	*last_node(t_token *node)
+{
+	t_token	*temp;
+
+	if (!node)
 		return (NULL);
+	temp = node;
+	while(temp->next)
+	{
+		temp = temp->next;
+	}
+	return (temp);
 }
 
