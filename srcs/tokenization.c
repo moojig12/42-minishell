@@ -6,31 +6,11 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/27 16:33:21 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:36:47 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* int	count_words(char *input)
-{
-	int	words;
-	int	i;
-
-	i = 0;
-	words = 0;
-	skip_space(input, &i);
-	while (input[i])
-	{
-		while (!iswhitespace(input[i]))
-		{
-			i++;
-		}
-		words++;
-		skip_space(input, &i);
-	}
-	return (words);
-} */
 
 void	convert_to_token(t_token **tokens, char *input, int word)
 {
@@ -42,7 +22,7 @@ void	convert_to_token(t_token **tokens, char *input, int word)
 		new_token->type = 1;
 	i = 0;
 	new_token->value = (char *)malloc((count_letters(input) + 1) * sizeof(char));
-	while (!is_white_space(*input))
+	while (!iswhitespace(*input))
 	{
 		new_token->value[i] = *input;
 		input++;
