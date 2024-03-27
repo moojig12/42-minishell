@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/03/27 16:33:14 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:12:21 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define SUCCESS 0
+# define FAILURE -1
+
+# define TRUE 1
+# define FALSE 0
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
 
 # include <unistd.h>
 # include <stdlib.h>
