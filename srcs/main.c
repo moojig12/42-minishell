@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/03/22 19:27:47 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:46:01 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,7 @@ int	main(void)
 	{
 		input = readline("minishell:");
 		//	pass input into lexer
-		token_count = lexical_analysis(tokens, input);
-		//	Process commands
+		token_count = lexical_analysis(&tokens, input);
 		
-		//	fork and execute
-		//	wait();
-		
-		//	add history to readline
-		
-		//	free;
 	}
 }

@@ -3,20 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/25 15:13:58 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/27 15:49:10 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	lexical_analysis(t_token *tokens, char *input)
+/* int	count_words(char *input)
 {
-	//	Iterate over command and check
+	int	words;
+	int	i;
 
-	//	iterate over arguments and check for operator
-	
-	return ;
+	i = 0;
+	words = 0;
+	skip_space(input, &i);
+	while (input[i])
+	{
+		while (!iswhitespace(input[i]))
+		{
+			i++;
+		}
+		words++;
+		skip_space(input, &i);
+	}
+	return (words);
+} */
+
+void	convert_to_token(t_token **tokens, char *input, int word)
+{
+	int	i;
+	t_token	*new_token;
+
+	add_to_back(tokens, new_token);
+	if (word == 1)
+		new_token->type = 1;
+	i = 0;
+	new_token->string = (char *)malloc((count_letters(input) + 1) * sizeof(char));
+	while (!is_white_space(*input))
+	{
+		new_token->string[i] = *input;
+		input++;
+		i++;
+	}
+}
+
+int	lexical_analysis(t_token **tokens, char *input)
+{
+	int	word;
+	int	i;
+	int	j;
+
+	/* word = count_words(input);
+	if (word == 0)
+		error("No arguments found"); */
+	i = 0;
+	word = 1;
+	skip_space(input, &i);
+	while (input[i])
+	{
+		convert_to_token(tokens, &input[i], word);
+		skip_letters(input, &i);
+		skip_space(input, &i);
+		word++;
+	}
+	return (word);
 }
