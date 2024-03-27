@@ -6,13 +6,13 @@
 #    By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 19:08:35 by nmandakh          #+#    #+#              #
-#    Updated: 2024/03/22 19:14:48 by nmandakh         ###   ########.fr        #
+#    Updated: 2024/03/27 17:01:54 by nmandakh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		=	cc
 CFLAGS	=	-Wall -Werror -Wextra -g -lreadline
-SRCS	=	srcs/main.c
+SRCS	=	srcs/main.c srcs/utils.c srcs/tokenization.c
 
 NAME	=	minishell
 

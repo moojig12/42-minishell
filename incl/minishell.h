@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/03/27 16:55:17 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:29:17 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <unistd.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <readline/readline.h>
@@ -28,12 +29,14 @@
 typedef struct s_token {
 	char	*value;
 	int	type;
-	t_token	*next;
-	t_token	*prev;
+	struct s_token	*next;
+	struct s_token	*prev;
 }	t_token;
 
+int		lexical_analysis(t_token **tokens, char *input);
+int		count_letters(char *input);
+int		iswhitespace(char c);
 void	add_to_back(t_token **tokens, t_token *new);
-void	*iswhitespace(char c);
 void	skip_letters(char *input, int *i);
 void	skip_space(char *input, int *i);
 
