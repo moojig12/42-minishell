@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/27 16:36:47 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:58:33 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	convert_to_token(t_token **tokens, char *input, int word)
 	int	i;
 	t_token	*new_token;
 
-	add_to_back(tokens, new_token);
+	new_token = malloc(sizeof(t_token));
 	if (word == 1)
 		new_token->type = 1;
 	i = 0;
@@ -28,6 +28,7 @@ void	convert_to_token(t_token **tokens, char *input, int word)
 		input++;
 		i++;
 	}
+	add_to_back(tokens, new_token);
 }
 
 int	lexical_analysis(t_token **tokens, char *input)
