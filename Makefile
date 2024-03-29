@@ -19,12 +19,12 @@ OBJS_DIR =			objs
 LIBFT_DIR =			libs/libft
 
 # Files
-INCL	=	$(INCL_DIR)/minishell.h
-SRCS	=	$(SRCS_DIR)/main.c \
-			$(SRCS_DIR)/tokenization.c \
-			$(SRCS_DIR)/utils.c \
-			$(SRCS_DIR)/free.c \
-			$(SRCS_DIR)/error.c
+INCL	=	$(wildcard $(INCL_DIR)/*.h) # FIX: change this before submit
+# INCL	=	$(INCL_DIR)/minishell.h
+SRCS	=	$(wildcard $(SRCS_DIR)/*.c) # FIX: change this before submit
+# SRCS	=	$(SRCS_DIR)/main.c \
+# 			$(SRCS_DIR)/tokenization.c \
+# 			...
 OBJS 	=	$(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 
 #libft
@@ -68,7 +68,7 @@ $(LIBFT):
 
 clean:
 		rm -rf $(OBJS)
-		rm -d $(OBJS_DIR)
+		rm -df $(OBJS_DIR)
 		make -C $(LIBFT_DIR) clean
 
 fclean:		clean
