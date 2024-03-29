@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/27 16:33:21 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:21:54 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 	skip_space(input, &i);
 	while (input[i])
 	{
-		while (!iswhitespace(input[i]))
+		while (!is_whitespace(input[i]))
 		{
 			i++;
 		}
@@ -32,6 +32,7 @@
 	return (words);
 } */
 
+/*
 void	convert_to_token(t_token **tokens, char *input, int word)
 {
 	int	i;
@@ -49,16 +50,18 @@ void	convert_to_token(t_token **tokens, char *input, int word)
 		i++;
 	}
 }
+*/
 
+/*
 int	lexical_analysis(t_token **tokens, char *input)
 {
 	int	word;
 	int	i;
 	int	j;
 
-	/* word = count_words(input);
-	if (word == 0)
-		error("No arguments found"); */
+	// word = count_words(input);
+	// if (word == 0)
+	// 	error("No arguments found");
 	i = 0;
 	word = 1;
 	skip_space(input, &i);
@@ -71,3 +74,4 @@ int	lexical_analysis(t_token **tokens, char *input)
 	}
 	return (word);
 }
+*/

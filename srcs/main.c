@@ -3,27 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/03/27 15:46:01 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:11:14 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int	main(void)
+int	main(void) // TODO: add env
 {
-	int		token_count;
+	// int		token_count;
 	char	*input;
-	t_token	*tokens;
+	// t_token	*tokens;
 
+	rl_outstream = stderr;
 	while (1)
 	{
-		input = readline("minishell:");
+		input = readline("minishell$ ");
+		if (input == NULL)
+			break ;
+		if (*input)
+			add_history(input);
 		//	pass input into lexer
-		token_count = lexical_analysis(&tokens, input);
-		
+		// token_count = lexical_analysis(&tokens, input);
 	}
+	free (input);
+	// free hist
+	// free token
+	return (SUCCESS);
 }
