@@ -24,6 +24,7 @@
 # include <dirent.h>
 # include <termios.h>
 # include <errno.h>
+# include "../libs/libft/incl/libft.h"
 
 //	Type -> 0 == Command, 1 == Argument, 2 == Operator
 typedef struct s_token {
@@ -35,9 +36,10 @@ typedef struct s_token {
 
 int		lexical_analysis(t_token **tokens, char *input);
 int		count_letters(char *input);
-int		iswhitespace(char c);
+int		is_whitespace(char c);
 void	add_to_back(t_token **tokens, t_token *new);
 void	skip_letters(char *input, int *i);
 void	skip_space(char *input, int *i);
+int		is_operator(char *input, int index);
 
 #endif

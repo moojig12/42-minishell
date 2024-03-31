@@ -12,7 +12,7 @@
 
 #include "../incl/minishell.h"
 
-int	iswhitespace(char c)
+int	is_whitespace(char c)
 {
 	if (c == '\t' | c == '\n' | c == ' ')
 		return (1);
@@ -51,7 +51,7 @@ void	add_to_back(t_token **tokens, t_token *new)
 
 void	skip_letters(char *input, int *i)
 {
-	while (!iswhitespace(input[(*i)]) && input[(*i)])
+	while (!is_whitespace(input[*i]) && !is_operator(input, *i) && input[*i])
 	{
 		(*i)++;
 	}
@@ -59,7 +59,7 @@ void	skip_letters(char *input, int *i)
 
 void	skip_space(char *input, int *i)
 {
-	while (iswhitespace(input[(*i)]) && input[(*i)])
+	while (is_whitespace(input[(*i)]) && input[(*i)])
 	{
 		(*i)++;
 	}
@@ -70,7 +70,7 @@ int	count_letters(char *input)
 	int	i;
 
 	i = 0;
-	while (!iswhitespace((input[i])) && input[i])
+	while (!is_whitespace((input[i])) && !is_operator(input, i) && input[i])
 	{
 		i++;
 	}
@@ -86,7 +86,7 @@ int	count_letters(char *input)
 	skip_space(input, &i);
 	while (input[i])
 	{
-		while (!iswhitespace(input[i]))
+		while (!is_whitespace(input[i]))
 		{
 			i++;
 		}
