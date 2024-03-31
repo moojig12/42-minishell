@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/16 19:50:47 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/17 06:23:38 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(void) // TODO: add env
 {
 	char	*input;
-	t_token	*tokens;
+	// t_token	*tokens;
 
 	rl_outstream = stderr;
 	while (1)
