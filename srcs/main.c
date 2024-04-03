@@ -3,21 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/03/29 12:11:14 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:10:20 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../incl/minishell.h"
 
-int	main(void) // TODO: add env
+void	print_tokens(t_token *token)
+{
+	t_token	*temp;
+	int		i;
+
+	i = 0;
+	temp = token;
+	while (temp != NULL)
+	{
+		i++;
+		printf("*Token %i*\nvalue: %s\ntype: %i\n", i, temp->value, temp->type);
+		temp = temp->next;
+	}
+}
+
+int	main(void)
 {
 	// int		token_count;
 	char	*input;
-	// t_token	*tokens;
+	t_token	*tokens;
 
+	tokens = NULL;
 	rl_outstream = stderr;
 	while (1)
 	{
@@ -27,7 +43,15 @@ int	main(void) // TODO: add env
 		if (*input)
 			add_history(input);
 		//	pass input into lexer
-		// token_count = lexical_analysis(&tokens, input);
+		if (input)
+		{
+			// token_count = lexical_analysis(&tokens, input);
+			print_tokens(tokens);
+			free(input);
+		}
+		//	execute
+		//	free tokens
+		// free_tokens(tokens);
 	}
 	free (input);
 	// free hist

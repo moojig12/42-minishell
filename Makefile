@@ -1,37 +1,14 @@
-# VAR = val: Normal setting - values within are recursively expand when var used.
-# VAR := val: Setting of var with simple expansion of values inside - values are expanded at decl time.
-# VAR ?= val: Set var only if it doesn't have a value.
-# VAR += val: Append val to existing value (or set if var didn't exist).
-#
-# $@: name of the target file (one before colon)
-# $<: name of first prerequisite file (first one after colon)
-# $^: names of all prerequisite files (space separated)
-# $*: stem (bit which matches the % wildcard in rule definition)
-
-# name
-OUTPUT_DIR = 		.
-NAME = 				$(OUTPUT_DIR)/minishell
-
-# dirs
-INCL_DIR =			incl
-SRCS_DIR =			srcs
-OBJS_DIR =			objs
-LIBFT_DIR =			libs/libft
-
-# Files
-INCL	=	$(wildcard $(INCL_DIR)/*.h) # FIX: change this before submit
-# INCL	=	$(INCL_DIR)/minishell.h
-SRCS	=	$(wildcard $(SRCS_DIR)/*.c) # FIX: change this before submit
-# SRCS	=	$(SRCS_DIR)/main.c \
-# 			$(SRCS_DIR)/tokenization.c \
-# 			...
-OBJS 	=	$(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
-
-#libft
-LIBFT_DIR =			libs/libft
-LIBFT_INCL_DIR =	$(LIBFT_DIR)/incl
-LIBFT =				$(LIBFT_DIR)/libft.a
-LIBFT_LL_FLAGS +=	-lft
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/03/22 19:08:35 by nmandakh          #+#    #+#              #
+#    Updated: 2024/04/03 20:06:30 by nmandakh         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 CC		=	cc
 CFLAGS	=	-Wall -Werror -Wextra -g

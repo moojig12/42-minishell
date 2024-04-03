@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/03 18:38:57 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:09:09 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define STDERR 2
 
 # include <unistd.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <readline/readline.h>
