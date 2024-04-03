@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/27 17:33:21 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:26:19 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		is_operator(char *input, int index)
 		return (check_operator(input, index, 0));
 }
 
-int		
+// int		???
 //	Add is_operator function
 
 void	convert_to_token(t_token **tokens, char *input, int word)
@@ -61,7 +61,7 @@ void	convert_to_token(t_token **tokens, char *input, int word)
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return ;
-	init(new_token);
+	init(new_token, NULL);
 	if (word == 1)
 		new_token->type = 1;
 	i = 0;
@@ -102,7 +102,7 @@ int	lexical_analysis(t_token **tokens, char *input)
 		convert_to_token(tokens, &input[i], word);
 		skip_letters(input, &i);
 		if (is_operator(input, i))
-			operator_to_token();
+			operator_to_token(tokens, input, i, word);
 		if (input[i])
 			skip_space(input, &i);
 		word++;
