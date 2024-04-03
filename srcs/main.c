@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/03 20:36:24 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:16:02 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char** argv) //, char **env)
 	while (rl_event_hook != NULL)
 	{
 		input = readline("minishell$ ");
-		if (input == NULL) // when input == EOF
+		if (input == NULL) // FIX: add when input == EOF
 			break ;
 		if (*input)
 			add_history(input);
