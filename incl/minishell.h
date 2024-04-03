@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/03 20:30:17 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:39:51 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_token {
 	int				type;
 	struct 	s_token *next;
 	struct	s_token *prev;
-	struct	s_token *prev;
 }	t_token;
 
 typedef struct s_hist {
@@ -79,6 +78,18 @@ int		main(int argc, char** argv);
 // int	count_words(char *input);
 void	convert_to_token(t_token **tokens, char *input, int word);
 int		lexical_analysis(t_token **tokens, char *input);
+
+//utils.c
+int		is_whitespace(char c);
+t_token	*last_node(t_token *node);
+void	add_to_back(t_token **tokens, t_token *new); //FIX: new is a reserved keyword
+void	skip_letters(char *input, int *i);
+void	skip_operator(char *input, int *i);
+void	skip_space(char *input, int *i);
+int		count_letters(char *input);
+
+int		check_operator(char *input, int index, int mode);
+int		is_operator(char *input, int index);
 
 //signal.c
 void	signals_process_exit(int signum);

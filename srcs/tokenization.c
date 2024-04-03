@@ -6,11 +6,11 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/03 20:33:30 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:36:16 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/minishell.h"
+#include "minishell.h"
 
 t_token	*init(char *mode)
 {

@@ -6,11 +6,11 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:25:17 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/03 20:33:37 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:36:29 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/minishell.h"
+#include "minishell.h"
 
 int	is_whitespace(char c)
 {

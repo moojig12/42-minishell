@@ -6,11 +6,11 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/03 20:32:44 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:36:24 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/minishell.h"
+#include "minishell.h"
 
 void	print_tokens(t_token *token)
 {
