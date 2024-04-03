@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 15:25:17 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/29 12:22:33 by yjinnouc         ###   ########.fr       */
+/*   Created: 2024/04/01 13:38:53 by yjinnouc          #+#    #+#             */
+/*   Updated: 2024/04/03 19:37:43 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TODO: fix compile error
-/*
-void	*is_whitespace(char c)
+void	signals_process_exit(int signum)
 {
-	if (c == '\t' | c == '\n' | c == ' ')
-		return (&c);
-	else
-		return (NULL);
+	if (signum == SIGINT)
+	{
+		rl_done = 1;
+		rl_event_hook = 0;
+	}
 }
-*/
+
+int		signals_handler(void)
+{
+	signal(SIGINT, signals_process_exit);
+	// signal(SIGQUIT, signal_handler_exit);
+	return (SUCCESS);
+}
