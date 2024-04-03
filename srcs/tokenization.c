@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/03 18:26:19 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:29:31 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	operator_to_token(t_token **tokens, char *input, int index, int word)
 	if (!new_token)
 		return ;
 	init(new_token, "operator");
+	
 }
 
 int	lexical_analysis(t_token **tokens, char *input)
