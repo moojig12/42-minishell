@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/03 18:25:00 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:24:48 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ int		is_whitespace(char c);
 void	add_to_back(t_token **tokens, t_token *new);
 void	skip_letters(char *input, int *i);
 void	skip_space(char *input, int *i);
+int		check_operator(char *input, int index, int mode);
 int		is_operator(char *input, int index);
+void	skip_operator(char *input, int *i);
+
 
 #endif

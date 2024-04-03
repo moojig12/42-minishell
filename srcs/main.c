@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/03/27 17:35:30 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:03:30 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_tokens(t_token *token)
 	while (temp != NULL)
 	{
 		i++;
-		printf("Token number %i: %s\n", i, temp->value);
+		printf("*Token %i*\nvalue: %s\ntype: %i\n", i, temp->value, temp->type);
 		temp = temp->next;
 	}
 }
@@ -47,6 +47,6 @@ int	main(void)
 		//	execute
 		
 		//	free tokens
-		free_tokens(tokens);
+		// free_tokens(tokens);
 	}
 }

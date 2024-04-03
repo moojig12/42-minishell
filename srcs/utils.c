@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:25:17 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/27 17:26:00 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:00:33 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ void	skip_letters(char *input, int *i)
 	}
 }
 
+void	skip_operator(char *input, int *i)
+{
+	int	j;
+
+	j = 0;
+	while (is_operator(input, *i) && input[*i])
+	{
+		(*i)++;
+	}
+}
+
 void	skip_space(char *input, int *i)
 {
 	while (is_whitespace(input[(*i)]) && input[(*i)])
@@ -70,12 +81,43 @@ int	count_letters(char *input)
 	int	i;
 
 	i = 0;
-	while (!is_whitespace((input[i])) && !is_operator(input, i) && input[i])
+	while (!is_whitespace((input[i])) && is_operator(input, i) == 0 && input[i])
 	{
 		i++;
 	}
 	return (i);
 }
+
+
+int		check_operator(char *input, int index, int mode)
+{
+	if (mode == 1)
+	{
+		if (ft_strncmp(&input[index], "<<", 2) == 0)
+			return (2);
+		if (ft_strncmp(&input[index], ">>", 2) == 0)
+			return (2);
+	}
+	if (ft_strncmp(&input[index], ">", 1) == 0)
+		return (1);
+	if (ft_strncmp(&input[index], "<", 1) == 0)
+		return (1);
+	if (ft_strncmp(&input[index], "|", 1) == 0)
+		return (1);
+	return (0);
+}
+
+int		is_operator(char *input, int index)
+{
+	int	max;
+
+	max = ft_strlen(input);
+	if (index + 1 < max)
+		return (check_operator(input, index, 1));
+	else
+		return (check_operator(input, index, 0));
+}
+
 /* int	count_words(char *input)
 {
 	int	words;

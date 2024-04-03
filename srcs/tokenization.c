@@ -6,48 +6,29 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/03 18:29:31 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:02:24 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-void	init(t_token *new, char mode)
+t_token	*init(char *mode)
 {
-	if (ft_strncmp(mode, "operator", ft_strlen(mode)))
+	t_token	*new;
+
+	new = malloc(sizeof(t_token));
+	if (!new)
+		return (NULL);
+	if (!ft_strncmp(mode, "operator", ft_strlen(mode)))
 		new->type = 2;
+	else if (!ft_strncmp(mode, "argument", ft_strlen(mode)))
+		new->type = 1;
 	else
 		new->type = INT_MIN;
 	new->value = NULL;
 	new->next = NULL;
 	new->prev = NULL;
-}
-
-int		check_operator(char *input, int index, int mode)
-{
-	int	res;
-
-	res = 0;
-	if (mode == 1)
-	{
-		res = ft_strncmp(&input[index], "<<", 2);
-		res = ft_strncmp(&input[index], ">>", 2);
-	}
-	res = ft_strncmp(&input[index], ">", 1);
-	res = ft_strncmp(&input[index], "<", 1);
-	res = ft_strncmp(&input[index], "|", 1);
-	return (res);
-}
-
-int		is_operator(char *input, int index)
-{
-	int	max;
-
-	max = ft_strlen(input);
-	if (index + 1 < max)
-		return (check_operator(input, index, 1));
-	else
-		return (check_operator(input, index, 0));
+	return (new);
 }
 
 // int		???
@@ -55,18 +36,15 @@ int		is_operator(char *input, int index)
 
 void	convert_to_token(t_token **tokens, char *input, int word)
 {
-	int	i;
 	t_token	*new_token;
+	int		i;
 
-	new_token = malloc(sizeof(t_token));
-	if (!new_token)
-		return ;
-	init(new_token, NULL);
+	new_token = init("argument");
 	if (word == 1)
-		new_token->type = 1;
+		new_token->type = 0;
 	i = 0;
 	new_token->value = (char *)malloc((count_letters(input) + 1) * sizeof(char));
-	while (!is_whitespace(*input) && *input)
+	while (!is_whitespace(*input) && !is_operator(input, 0) && *input)
 	{
 		new_token->value[i] = *input;
 		input++;
@@ -76,15 +54,22 @@ void	convert_to_token(t_token **tokens, char *input, int word)
 	add_to_back(tokens, new_token);
 }
 
-void	operator_to_token(t_token **tokens, char *input, int index, int word)
+void	operator_to_token(t_token **tokens, char *input, int index)
 {
 	t_token	*new_token;
+	int		i;
 
-	new_token = malloc(sizeof(t_token));
-	if (!new_token)
-		return ;
-	init(new_token, "operator");
-	
+	i = 0;
+	new_token = init("operator");
+	new_token->value = (char *)malloc((is_operator(input, index) + 1) * sizeof(char));
+	while (is_operator(input, index))
+	{
+		new_token->value[i] = input[index];
+		index++;
+		i++;
+	}
+	new_token->value[i] = '\0';
+	add_to_back(tokens, new_token);
 }
 
 int	lexical_analysis(t_token **tokens, char *input)
@@ -100,10 +85,14 @@ int	lexical_analysis(t_token **tokens, char *input)
 	skip_space(input, &i);
 	while (input[i])
 	{
+		printf("pre_in: %s\n", &input[i]);
 		convert_to_token(tokens, &input[i], word);
 		skip_letters(input, &i);
 		if (is_operator(input, i))
-			operator_to_token(tokens, input, i, word);
+		{
+			operator_to_token(tokens, input, i);
+			skip_operator(input, &i);
+		}
 		if (input[i])
 			skip_space(input, &i);
 		word++;
