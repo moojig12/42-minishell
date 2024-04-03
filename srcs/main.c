@@ -29,7 +29,7 @@ void	print_tokens(t_token *token)
 
 int	main(void)
 {
-	// int		token_count;
+	int		token_count;
 	char	*input;
 	t_token	*tokens;
 
@@ -45,7 +45,7 @@ int	main(void)
 		//	pass input into lexer
 		if (input)
 		{
-			// token_count = lexical_analysis(&tokens, input);
+			token_count = lexical_analysis(&tokens, input);
 			print_tokens(tokens);
 			free(input);
 		}
