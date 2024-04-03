@@ -6,31 +6,38 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/03/29 12:11:14 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:02:24 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void) // TODO: add env
+int	main(int argc, char** argv) //, char **env)
 {
-	// int		token_count;
 	char	*input;
+	// int		token_count;
 	// t_token	*tokens;
 
+	if (argc != 1 || argv[1] != NULL)
+	{
+		printf("Error: minishell does not take any arguments\n");
+		return (FAILURE);
+	}
 	rl_outstream = stderr;
-	while (1)
+	rl_event_hook = signals_handler;
+	while (rl_event_hook != NULL)
 	{
 		input = readline("minishell$ ");
-		if (input == NULL)
+		if (input == NULL) // when input == EOF
 			break ;
 		if (*input)
 			add_history(input);
-		//	pass input into lexer
+		// execute(argc, argv, env);
+		// pass input into lexer
 		// token_count = lexical_analysis(&tokens, input);
+		free (input);
 	}
-	free (input);
-	// free hist
-	// free token
+	//free token
+	printf("exit\n");
 	return (SUCCESS);
 }
