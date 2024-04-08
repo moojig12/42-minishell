@@ -6,13 +6,13 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/08 17:33:42 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:01:45 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char** argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	int		token_count;

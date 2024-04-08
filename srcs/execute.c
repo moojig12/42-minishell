@@ -6,16 +6,16 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/08 17:52:08 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:01:03 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int count_token(t_token *tokens)
+int	count_token(t_token *tokens)
 {
-	int count;
-	t_token *temp;
+	int		count;
+	t_token	*temp;
 
 	count = 0;
 	temp = tokens;
@@ -27,11 +27,11 @@ int count_token(t_token *tokens)
 	return (count);
 }
 
-char **tokens_to_args(t_token *tokens)
+char	**tokens_to_args(t_token *tokens)
 {
-	char 	**args;
+	char	**args;
 	t_token *temp;
-	int 	i;
+	int		i;
 
 	args = malloc(sizeof(char *) * (count_token(tokens) + 1));
 	if (args == NULL)
@@ -50,19 +50,19 @@ char **tokens_to_args(t_token *tokens)
 	return (args);
 }
 
-int execute(t_token	*tokens, char **env)
+int	execute(t_token	*tokens, char **env)
 {
 //	pid_t pid;
 //	int status;
-	char **argv;
-	char *pgr_path;
+	char	**argv;
+	char	*pgr_path;
 
 	argv = tokens_to_args(tokens);
 	printf("argv[0]: %s\n", argv[0]);
 //	if (is_builtin(argv[0]) == FALSE) // TODO: is_builtin
 //	{
-		pgr_path = find_pgr(argv[0], env);
-		printf("pgr_path: %s\n\n", pgr_path);
+	pgr_path = find_pgr(argv[0], env);
+	printf("pgr_path: %s\n\n", pgr_path);
 //	}
 //	else
 //		execute_builtin(argv, env);
@@ -76,10 +76,10 @@ int execute(t_token	*tokens, char **env)
 	return (SUCCESS);
 }
 
-int fork_program(char *pgr_path, char **argv, char **env)
+int	fork_program(char *pgr_path, char **argv, char **env)
 {
-	pid_t pid;
-	int status;
+	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)

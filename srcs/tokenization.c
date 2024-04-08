@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/08 17:26:12 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:03:26 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	convert_to_token(t_token **tokens, char *input, int word)
 	if (word == 1)
 		new_token->type = 0;
 	i = 0;
-	new_token->value = (char *)malloc((count_letters(input) + 1) * sizeof(char));
+	new_token->value = \
+		(char *)malloc((count_letters(input) + 1) * sizeof(char));
 	while (!is_whitespace(*input) && !is_operator(input, 0) && *input)
 	{
 		new_token->value[i] = *input;
@@ -61,7 +62,8 @@ void	operator_to_token(t_token **tokens, char *input, int index)
 
 	i = 0;
 	new_token = init("operator");
-	new_token->value = (char *)malloc((is_operator(input, index) + 1) * sizeof(char));
+	new_token->value = \
+		(char *) malloc((is_operator(input, index) + 1) * sizeof(char));
 	while (is_operator(input, index))
 	{
 		new_token->value[i] = input[index];

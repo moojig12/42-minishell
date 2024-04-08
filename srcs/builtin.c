@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/08 17:23:01 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:59:15 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ pwd: pwd [-LP]
     Returns 0 unless an invalid option is given or the current directory
     cannot be read.
 */
-int pwd(char *pwd) //char **args, char **env
+int	pwd(char *pwd) //char **args, char **env
 {
 	printf("%s\n", pwd);
 	return (0);
@@ -126,7 +126,6 @@ export: export [-fn] [name[=value] ...] or export -p
 	Exit Status:
 	Returns success unless an invalid option is given or NAME is invalid.
 */
-
 
 /*
 unset with no options

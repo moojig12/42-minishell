@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:44:06 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/08 17:34:14 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:01:20 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_array(char **array)
 
 void	free_token(t_token *head)
 {
-	int	i;
+	int		i;
 	t_token	*temp;
 	t_token	*next;
 

@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:25:17 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/03 20:36:29 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:58:38 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_token	*last_node(t_token *node)
 	if (!node)
 		return (NULL);
 	temp = node;
-	while(temp->next)
+	while (temp->next)
 	{
 		temp = temp->next;
 	}
@@ -88,8 +88,7 @@ int	count_letters(char *input)
 	return (i);
 }
 
-
-int		check_operator(char *input, int index, int mode)
+int	check_operator(char *input, int index, int mode)
 {
 	if (mode == 1)
 	{
@@ -107,7 +106,7 @@ int		check_operator(char *input, int index, int mode)
 	return (0);
 }
 
-int		is_operator(char *input, int index)
+int	is_operator(char *input, int index)
 {
 	int	max;
 

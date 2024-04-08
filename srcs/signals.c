@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:38:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/08 14:12:52 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:02:45 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	signals_process_np(int signum)
 	}
 }
 
-int		signals_handler(void)
+int	signals_handler(void)
 {
 	signal(SIGINT, signals_process_np);
 	signal(SIGQUIT, NULL);
