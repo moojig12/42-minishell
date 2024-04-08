@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/03 20:39:51 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:50:08 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,20 @@ typedef struct s_hist {
 }	t_hist;
 
 // main.c
-int		main(int argc, char** argv);
+int		main(int argc, char** argv, char **env);
 
 //tokenization.c
 // int	count_words(char *input);
 void	convert_to_token(t_token **tokens, char *input, int word);
 int		lexical_analysis(t_token **tokens, char *input);
+void	print_tokens(t_token *token);
+
+//exec.c
+int		exec_wrapper(char **cmd, char **env);
+int		count_token(t_token *tokens);
+char	**tokens_to_args(t_token *tokens);
+int		execute(t_token	*tokens, char **env);
+int		fork_program(char *pgr_path, char **argv, char **env);
 
 //utils.c
 int		is_whitespace(char c);
@@ -88,15 +96,23 @@ void	skip_operator(char *input, int *i);
 void	skip_space(char *input, int *i);
 int		count_letters(char *input);
 
+//
 int		check_operator(char *input, int index, int mode);
 int		is_operator(char *input, int index);
 
 //signal.c
-void	signals_process_exit(int signum);
+void	signals_process_np(int signum);
+void	signals_process_nothing(int signum);
 int		signals_handler(void);
+
+//get_env_path.c
+void	free_array(char **array);
+char	*find_pgr(char *pgr_name, char **envp);
+char	**get_env(char **envp, char *key);
 
 //free.c
 void	free_array(char **array);
+void	free_token(t_token *head);
 
 //error.c
 void	exit_wi_perr(char *message, char **array, char *str);

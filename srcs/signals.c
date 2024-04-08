@@ -6,24 +6,26 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:38:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/03 19:37:43 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:12:52 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signals_process_exit(int signum)
+void	signals_process_np(int signum)
 {
 	if (signum == SIGINT)
 	{
-		rl_done = 1;
-		rl_event_hook = 0;
+		rl_on_new_line();
+		printf("\n"); //TODO: this is ugly. Fix it.
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 }
 
 int		signals_handler(void)
 {
-	signal(SIGINT, signals_process_exit);
-	// signal(SIGQUIT, signal_handler_exit);
+	signal(SIGINT, signals_process_np);
+	signal(SIGQUIT, NULL);
 	return (SUCCESS);
 }

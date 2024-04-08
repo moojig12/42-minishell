@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/03 20:36:16 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:26:12 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,22 @@ int	lexical_analysis(t_token **tokens, char *input)
 			skip_space(input, &i);
 		word++;
 	}
+	ft_printf("--------\n");
 	return (word);
+}
+
+void	print_tokens(t_token *token)
+{
+	t_token	*temp;
+	int		i;
+
+	i = 0;
+	temp = token;
+	while (temp != NULL)
+	{
+		i++;
+		printf("*Token %i*\nvalue: %s\ntype: %i\n", i, temp->value, temp->type);
+		temp = temp->next;
+	}
+	printf("----\n");
 }
