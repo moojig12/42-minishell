@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/03/29 18:52:16 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:49:17 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	main(void) // TODO: add env
 {
 	// int		token_count;
 	char	*input;
-	// t_token	*tokens;
+	int		token_count;
+	t_token	*tokens;
 
 	rl_outstream = stderr;
 	while (1)
@@ -26,9 +27,12 @@ int	main(void) // TODO: add env
 			break ;
 		if (*input)
 			add_history(input);
-		//	pass input into lexer
-		// token_count = lexical_analysis(&tokens, input);
-		free (input);
+		tokens = NULL;
+		token_count = lexical_analysis(&tokens, input);
+		print_tokens(tokens);
+		execute(tokens, env);
+		free_token(tokens);
+		free(input);
 	}
 	// free hist
 	// free token
