@@ -22,6 +22,7 @@ LIBFT_DIR =			libs/libft
 INCL	=	$(wildcard $(INCL_DIR)/*.h) # FIX: change this before submit
 # INCL	=	$(INCL_DIR)/minishell.h
 SRCS	=	$(wildcard $(SRCS_DIR)/*.c) # FIX: change this before submit
+SRCS	+=	$(wildcard $(SRCS_DIR)/builtin/*.c) # FIX: change this before submit
 # SRCS	=	$(SRCS_DIR)/main.c \
 # 			$(SRCS_DIR)/tokenization.c \
 # 			...
@@ -67,6 +68,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(UI_FLAGS) -c $< -o $@
 $(OBJS_DIR):
 	mkdir $(OBJS_DIR)
+	mkdir $(OBJS_DIR)/builtin
 
 # make libft
 libft: $(LIBFT)
@@ -78,7 +80,7 @@ $(LIBFT):
 
 clean:
 	rm -rf $(OBJS)
-	rm -df $(OBJS_DIR)
+	rm -rfd $(OBJS_DIR)
 	make -C $(LIBFT_DIR) clean
 
 fclean:		clean
