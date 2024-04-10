@@ -23,6 +23,8 @@ void	signals_process_np(int signum)
 	}
 }
 
+	//	TO DO: Add tokens as param in signal handler for SIGQUIT and free tokens before exit
+
 int	signals_handler(void)
 {
 	signal(SIGINT, signals_process_np);

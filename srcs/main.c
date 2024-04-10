@@ -34,7 +34,6 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		if (*input)
 			add_history(input);
-		//	pass input into lexer
 		tokens = NULL;
 		token_count = lexical_analysis(&tokens, input);
 		print_tokens(tokens);

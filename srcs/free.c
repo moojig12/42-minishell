@@ -22,9 +22,12 @@ void	free_array(char **array)
 	free(array);
 }
 
+	// while loop adjusted to fix memory leak, needs testing
+
 void	free_token(t_token *head)
 {
 	int		i;
+	int		size;
 	t_token	*temp;
 	t_token	*next;
 
@@ -32,13 +35,15 @@ void	free_token(t_token *head)
 		return ;
 	temp = head;
 	i = 0;
-	while (temp != NULL)
+	size = count_token(temp);
+	while (i < size)
 	{
 		next = temp->next;
 		free(temp->value);
-		free(temp);
 		temp = next;
+		i++;
 	}
+	free(temp);
 	return ;
 }
 
