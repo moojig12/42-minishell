@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/08 19:01:03 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:37:46 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,23 @@ char	**tokens_to_args(t_token *tokens)
 
 int	execute(t_token	*tokens, char **env)
 {
-//	pid_t pid;
-//	int status;
 	char	**argv;
 	char	*pgr_path;
 
+	pgr_path = NULL;
 	argv = tokens_to_args(tokens);
 	printf("argv[0]: %s\n", argv[0]);
-//	if (is_builtin(argv[0]) == FALSE) // TODO: is_builtin
-//	{
-	pgr_path = find_pgr(argv[0], env);
-	printf("pgr_path: %s\n\n", pgr_path);
-//	}
-//	else
-//		execute_builtin(argv, env);
+	if (is_builtin(argv[0]) == FALSE)
+	{
+		pgr_path = find_pgr(argv[0], env);
+		printf("pgr_path: %s\n\n", pgr_path);
+	}
+	else
+	{
+		pgr_path = "-";
+		execute_builtin(argv, env);
+		return (SUCCESS);
+	}
 	if (pgr_path == NULL)
 	{
 		printf("minishell: %s: command not found\n", argv[0]);
