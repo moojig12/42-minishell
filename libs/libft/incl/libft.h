@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 21:27:21 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/01/27 21:05:50 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:52:55 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		ft_printf_ptr_len(void *ptr);
 int		ft_printf_int(int nb);
 int		ft_printf_unsigned(unsigned long nb, int base, char *digits);
 
-// // for ft_printf bonus list 
+// // for ft_printf bonus list
 // typedef struct s_flags
 // {
 // 	int	spec;
@@ -118,5 +118,9 @@ char	*get_next_line(long fd);
 // 	char			*str_buf;
 // 	struct s_list	*next;
 // }	t_list;
+
+// ----------------------------------------------------------------
+// my_func
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif
