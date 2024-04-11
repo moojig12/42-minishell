@@ -14,7 +14,7 @@
 
 int	is_whitespace(char c)
 {
-	if (c == '\t' | c == '\n' | c == ' ')
+	if (c == '\t' || c == '\n' || c == ' ')
 		return (1);
 	else
 		return (0);
@@ -59,9 +59,6 @@ void	skip_letters(char *input, int *i)
 
 void	skip_operator(char *input, int *i)
 {
-	int	j;
-
-	j = 0;
 	while (is_operator(input, *i) && input[*i])
 	{
 		(*i)++;

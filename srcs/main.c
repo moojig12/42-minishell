@@ -36,6 +36,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(input);
 		tokens = NULL;
 		token_count = lexical_analysis(&tokens, input);
+		printf("Tokens = %i\n", token_count);
 		print_tokens(tokens);
 		execute(tokens, env);
 		free_token(tokens);

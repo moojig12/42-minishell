@@ -31,9 +31,6 @@ t_token	*init(char *mode)
 	return (new);
 }
 
-// int		???
-//	Add is_operator function
-
 void	convert_to_token(t_token **tokens, char *input, int word)
 {
 	t_token	*new_token;
@@ -63,7 +60,7 @@ void	operator_to_token(t_token **tokens, char *input, int index)
 	i = 0;
 	new_token = init("operator");
 	new_token->value = \
-		(char *) malloc((is_operator(input, index) + 1) * sizeof(char));
+		(char *)malloc((is_operator(input, index) + 1) * sizeof(char));
 	while (is_operator(input, index))
 	{
 		new_token->value[i] = input[index];
@@ -73,6 +70,8 @@ void	operator_to_token(t_token **tokens, char *input, int index)
 	new_token->value[i] = '\0';
 	add_to_back(tokens, new_token);
 }
+
+	// Does not work properly with spaces atm!
 
 int	lexical_analysis(t_token **tokens, char *input)
 {
@@ -87,9 +86,12 @@ int	lexical_analysis(t_token **tokens, char *input)
 	skip_space(input, &i);
 	while (input[i])
 	{
-		printf("pre_in: %s\n", &input[i]);
-		convert_to_token(tokens, &input[i], word);
-		skip_letters(input, &i);
+		printf("pre_in: %s\n\n", &input[i]);
+		if (!is_operator(input, i))
+		{
+			convert_to_token(tokens, &input[i], word);
+			skip_letters(input, &i);
+		}
 		if (is_operator(input, i))
 		{
 			operator_to_token(tokens, input, i);
@@ -98,6 +100,7 @@ int	lexical_analysis(t_token **tokens, char *input)
 		if (input[i])
 			skip_space(input, &i);
 		word++;
+		// print_tokens(*tokens);
 	}
 	ft_printf("--------\n");
 	return (word);
