@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/08 19:03:26 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:48:37 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	lexical_analysis(t_token **tokens, char *input)
 		{
 			convert_to_token(tokens, &input[i], word);
 			skip_letters(input, &i);
-			word++;
 		}
 		if (is_operator(input, i))
 		{
@@ -98,6 +97,7 @@ int	lexical_analysis(t_token **tokens, char *input)
 		}
 		if (input[i])
 			skip_space(input, &i);
+		word++;
 		// print_tokens(*tokens);
 	}
 	ft_printf("--------\n");

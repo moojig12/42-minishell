@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/16 19:42:12 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:42:32 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
-	// int		token_count;
+	int		token_count;
 	t_token	*tokens;
 
 	if (argc != 1 || argv[1] != NULL)
@@ -35,8 +35,8 @@ int	main(int argc, char **argv, char **env)
 		if (*input)
 			add_history(input);
 		tokens = NULL;
-		// token_count =
-		lexical_analysis(&tokens, input);
+		token_count = lexical_analysis(&tokens, input);
+		printf("Tokens = %i\n", token_count);
 		print_tokens(tokens);
 		execute(tokens, env);
 		free_token(tokens);
