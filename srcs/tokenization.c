@@ -88,6 +88,7 @@ int	lexical_analysis(t_token **tokens, char *input)
 		{
 			convert_to_token(tokens, &input[i], word);
 			skip_letters(input, &i);
+			word++;
 		}
 		if (is_operator(input, i))
 		{
@@ -97,7 +98,6 @@ int	lexical_analysis(t_token **tokens, char *input)
 		}
 		if (input[i])
 			skip_space(input, &i);
-		word++;
 		// print_tokens(*tokens);
 	}
 	ft_printf("--------\n");
