@@ -78,11 +78,8 @@ int	lexical_analysis(t_token **tokens, char *input)
 	int	word;
 	int	i;
 
-	/* word = count_words(input);
-	if (word == 0)
-		error("No arguments found"); */
-	i = 0;
 	word = 1;
+	i = 0;
 	skip_space(input, &i);
 	while (input[i])
 	{
@@ -91,19 +88,20 @@ int	lexical_analysis(t_token **tokens, char *input)
 		{
 			convert_to_token(tokens, &input[i], word);
 			skip_letters(input, &i);
+			word++;
 		}
 		if (is_operator(input, i))
 		{
 			operator_to_token(tokens, input, i);
 			skip_operator(input, &i);
+			word = 1;
 		}
 		if (input[i])
 			skip_space(input, &i);
-		word++;
 		// print_tokens(*tokens);
 	}
 	ft_printf("--------\n");
-	return (word);
+	return (SUCCESS);
 }
 
 void	print_tokens(t_token *token)
