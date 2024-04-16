@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/09 20:01:21 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:24:03 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char	*find_pgr(char *pgr_name, char **envp);
 // free.c
 void	free_array(char **array);
 void	free_token(t_token *head);
+void	free_args(char	**args);
 
 // error.c
 void	exit_wi_perr(char *message, char **array, char *str);

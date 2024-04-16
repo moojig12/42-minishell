@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/09 16:37:46 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:20:33 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,20 @@ int	execute(t_token	*tokens, char **env)
 	{
 		pgr_path = "-";
 		execute_builtin(argv, env);
+		free_args(argv);
 		return (SUCCESS);
 	}
 	if (pgr_path == NULL)
 	{
 		printf("minishell: %s: command not found\n", argv[0]);
+		free_args(argv);
 		return (FAILURE);
 	}
 	if (fork_program(pgr_path, argv, env) == FAILURE)
+	{
+		free_args(argv);
 		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 

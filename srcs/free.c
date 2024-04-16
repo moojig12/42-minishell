@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:44:06 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/16 19:40:27 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:41:57 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,12 @@ void	free_token(t_token *head)
 	return ;
 }
 
-//TODO: free history?
+void free_args(char	**args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i] != NULL)
+		free(args[i++]);
+	free(args);
+}
