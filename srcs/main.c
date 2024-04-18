@@ -14,9 +14,7 @@
 
 int	main(void) // TODO: add env
 {
-	// int		token_count;
 	char	*input;
-	// int		token_count;
 	t_token	*tokens;
 
 	rl_outstream = stderr;
@@ -28,7 +26,6 @@ int	main(void) // TODO: add env
 		if (*input)
 			add_history(input);
 		tokens = NULL;
-		// token_count = 
 		lexical_analysis(&tokens, input);
 		print_tokens(tokens);
 		execute(tokens, env);
