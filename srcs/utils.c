@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:25:17 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/16 19:50:54 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/18 10:02:54 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,15 @@ int	check_operator(char *input, int index, int mode)
 {
 	if (mode == 1)
 	{
-		if (ft_strncmp(&input[index], "<<", 2) == 0)
-			return (2);
 		if (ft_strncmp(&input[index], ">>", 2) == 0)
-			return (2);
+			return (5);
+		if (ft_strncmp(&input[index], "<<", 2) == 0)
+			return (4);
 	}
 	if (ft_strncmp(&input[index], ">", 1) == 0)
-		return (1);
+		return (3);
 	if (ft_strncmp(&input[index], "<", 1) == 0)
-		return (1);
+		return (2);
 	if (ft_strncmp(&input[index], "|", 1) == 0)
 		return (1);
 	return (0);

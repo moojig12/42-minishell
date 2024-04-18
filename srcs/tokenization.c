@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/16 19:48:37 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/18 09:51:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,14 @@ void	operator_to_token(t_token **tokens, char *input, int index)
 	add_to_back(tokens, new_token);
 }
 
-	// Does not work properly with spaces atm!
+char	*quotes_to_string(t_token **tokens, char *input, int *i)
+{
+	// look for closing quote while counting bytes
+	
+	// malloc and assign to token->value
+	
+	// skip until end of quote string
+}
 
 int	lexical_analysis(t_token **tokens, char *input)
 {
@@ -86,8 +93,15 @@ int	lexical_analysis(t_token **tokens, char *input)
 		printf("pre_in: %s\n\n", &input[i]);
 		if (!is_operator(input, i))
 		{
-			convert_to_token(tokens, &input[i], word);
-			skip_letters(input, &i);
+			if (is_quote(input[i]))
+			{
+				quotes_to_string(tokens, input, &i);
+			}
+			else
+			{
+				convert_to_token(tokens, &input[i], word);
+				skip_letters(input, &i);
+			}
 			word++;
 		}
 		if (is_operator(input, i))
