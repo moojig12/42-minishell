@@ -14,9 +14,7 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	// int		token_count;
 	char	*input;
-	// int		token_count;
 	t_token	*tokens;
 
 	if (argc != 1 || argv[1] != NULL)
@@ -36,7 +34,6 @@ int	main(int argc, char **argv, char **env)
 		if (*input)
 			add_history(input);
 		tokens = NULL;
-		// token_count = 
 		lexical_analysis(&tokens, input);
 		print_tokens(tokens);
 		execute(tokens, env);
