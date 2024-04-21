@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/20 12:00:36 by root             ###   ########.fr       */
+/*   Updated: 2024/04/21 13:38:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		execute(t_token	*tokens, char **env);
 int		fork_program(char *pgr_path, char **argv, char **env);
 
 // utils.c
+bool	is_quote(char c);
 int		is_whitespace(char c);
 t_token	*last_node(t_token *node);
 void	add_to_back(t_token **tokens, t_token *new); //FIX: new is a reserved keyword
