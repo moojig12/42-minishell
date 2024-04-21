@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/20 12:00:36 by root             ###   ########.fr       */
+/*   Updated: 2024/04/21 13:38:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,55 @@ int		main(void); // TODO: add env
 void	convert_to_token(t_token **tokens, char *input, int word);
 int	lexical_analysis(t_token **tokens, char *input);
 
-//free.c
+// exec.c
+int		exec_wrapper(char **cmd, char **env);
+int		count_token(t_token *tokens);
+char	**tokens_to_args(t_token *tokens);
+int		execute(t_token	*tokens, char **env);
+int		fork_program(char *pgr_path, char **argv, char **env);
+
+// utils.c
+bool	is_quote(char c);
+int		is_whitespace(char c);
+t_token	*last_node(t_token *node);
+void	add_to_back(t_token **tokens, t_token *new); //FIX: new is a reserved keyword
+void	skip_letters(char *input, int *i);
+void	skip_operator(char *input, int *i);
+void	skip_space(char *input, int *i);
+int		count_letters(char *input);
+
+// parse.c
+int		check_operator(char *input, int index, int mode);
+int		is_operator(char *input, int index);
+
+// signal.c
+void	signals_process_np(int signum);
+void	signals_process_nothing(int signum);
+int		signals_handler(void);
+
+// builtin/builtin1.c
+int		builtin_echo(char **argv);
+int		builtin_cd(char **argv, char **env);
+int		builtin_pwd(char **env);
+int		builtin_export(char **argv, char **env);
+
+// builtin/builtin2.c
+int		builtin_unset(char **argv, char **env);
+int		builtin_env(char **env);
+int		builtin_exit(char **argv);
+
+// builtin/builtin_util.c
+int		is_builtin(char *cmd);
+int		execute_builtin(char** argv, char **env);
+
+// env.c
+char	**get_env_elements(char **envp, char *key);
+char	*get_env_str(char **env, char *key);
+
+// find_pgr_path.c
+char	*find_pgr(char *pgr_name, char **envp);
+
+// free.c
 void	free_array(char **array);
 
 //error.c

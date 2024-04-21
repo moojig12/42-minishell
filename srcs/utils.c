@@ -6,13 +6,19 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:25:17 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/18 10:02:54 by root             ###   ########.fr       */
+/*   Updated: 2024/04/21 13:37:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/minishell.h"
+#include "minishell.h"
 
-// TODO: fix compile error
+bool	is_quote(char c)
+{
+	if (c == '"')
+		return (TRUE);
+	else
+		return (FALSE);
+}
 
 void	*is_whitespace(char c)
 {

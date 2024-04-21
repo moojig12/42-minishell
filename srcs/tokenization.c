@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/21 13:16:00 by root             ###   ########.fr       */
+/*   Updated: 2024/04/21 14:00:10 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,20 @@ char	*quotes_to_string(char *input, int *i)
 	int		len;
 	// look for closing quote while counting bytes
 	j = 1;
+	(*i)++;
 	len = ft_strlen(input);
+	found = FALSE;
 	while (input[j])
 	{
 		if (input[j] == '"')
 		{
+			(*i)++;
+			j++;
 			found = TRUE;
-			break ;
+			printf("found? %i, %c\n", j, input[j]);
+			if (input[j] && (is_whitespace(input[j]) || is_operator(input, j)))
+				break ;
+			printf("didn't break\n");
 		}
 		else
 		{
@@ -109,16 +116,32 @@ char	*quotes_to_string(char *input, int *i)
 		}
 	}
 	// "test"
-	if (len == j)
+	if (!found)
 		exit_wi_perr("Unclosed quote!\n", NULL, NULL);
 	// malloc and assign to token->value
 	result = (char *)malloc((j - 1) * sizeof(char));
+	len = j - 1;
 	j = 1;
-	while (j < len - 2)
+	while (j < len)
 	{
 		result[j - 1] = input[j];
+		j++;
 	}
+	result[j - 1] = 0;
+	printf("%s\n", result);
 	// skip until end of quote string?
+	return (result);
+}
+
+void	string_to_token(t_token **tokens, char *string, int word)
+{
+	t_token	*new_token;
+
+	new_token = init("argument");
+	if (word == 1)
+		new_token->type = 0;
+	new_token->value = string;
+	add_to_back(tokens, new_token);
 }
 
 int	lexical_analysis(t_token **tokens, char *input)
@@ -139,7 +162,7 @@ int	lexical_analysis(t_token **tokens, char *input)
 		{
 			if (is_quote(input[i]))
 			{
-				convert_to_token(tokens, quotes_to_string(&input[i], &i), word);
+				string_to_token(tokens, quotes_to_string(&input[i], &i), word);
 			}
 			else
 			{
