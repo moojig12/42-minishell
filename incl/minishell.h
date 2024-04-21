@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/16 19:28:11 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/20 12:00:36 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,26 @@
 # define STDOUT 1
 # define STDERR 2
 
-# include <unistd.h>
+#define _POSIX_SOURCE 1
+
+# include <stdbool.h>			// boolean
+# include <stdio.h>				// printf
+# include <readline/readline.h>	// readline
+# include <readline/history.h>	// rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay, add_history
+# include <stdlib.h>			// malloc, free, exit
+# include <unistd.h>			// access, fork, execve, getcwd, chdir, close, read, write, pipe, dup, dup2, wait, waitpid
+# include <fcntl.h>				// open
+# include <signal.h>			// signal, sigaction, sigemptyset, sigaddset, kill
+# include <sys/types.h>			// wait, waitpid, fork, access, open, stat, lstat, fstat, dup, dup2, pipe, opendir, readdir, closedir
+# include <sys/wait.h>			// wait, waitpid, wait3, wait4
+# include <sys/stat.h>			// stat, lstat, fstat, unlink
+# include <dirent.h>			// opendir, readdir, closedir
+# include <string.h>			// strerror
+# include <errno.h>				// perror
+# include <termios.h>			// tcsetattr, tcgetattr
+# include <unistd.h>			// isatty, ttyname, ttyslot, ioctl
+# include <curses.h>			// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+# include <stdlib.h>			// getenv
 # include <limits.h>
 # include <stdlib.h>
 # include <stdio.h>

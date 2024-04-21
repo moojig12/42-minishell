@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/18 09:51:56 by root             ###   ########.fr       */
+/*   Updated: 2024/04/21 13:16:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,39 @@ void	operator_to_token(t_token **tokens, char *input, int index, int word)
 	init(new_token, "operator");
 }
 
-char	*quotes_to_string(t_token **tokens, char *input, int *i)
+char	*quotes_to_string(char *input, int *i)
 {
+	char	*result;
+	bool	found;
+	int		j;
+	int		len;
 	// look for closing quote while counting bytes
-	
+	j = 1;
+	len = ft_strlen(input);
+	while (input[j])
+	{
+		if (input[j] == '"')
+		{
+			found = TRUE;
+			break ;
+		}
+		else
+		{
+			(*i)++;
+			j++;
+		}
+	}
+	// "test"
+	if (len == j)
+		exit_wi_perr("Unclosed quote!\n", NULL, NULL);
 	// malloc and assign to token->value
-	
-	// skip until end of quote string
+	result = (char *)malloc((j - 1) * sizeof(char));
+	j = 1;
+	while (j < len - 2)
+	{
+		result[j - 1] = input[j];
+	}
+	// skip until end of quote string?
 }
 
 int	lexical_analysis(t_token **tokens, char *input)
@@ -113,7 +139,7 @@ int	lexical_analysis(t_token **tokens, char *input)
 		{
 			if (is_quote(input[i]))
 			{
-				quotes_to_string(tokens, input, &i);
+				convert_to_token(tokens, quotes_to_string(&input[i], &i), word);
 			}
 			else
 			{
