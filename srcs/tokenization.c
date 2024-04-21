@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/21 14:00:10 by root             ###   ########.fr       */
+/*   Updated: 2024/04/21 14:06:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ char	*quotes_to_string(char *input, int *i)
 		{
 			(*i)++;
 			j++;
+			if (found && (is_whitespace(input[j]) || is_operator(input, j)))
+				break ;
 		}
 	}
 	// "test"
