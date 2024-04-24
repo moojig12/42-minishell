@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/21 14:06:52 by root             ###   ########.fr       */
+/*   Updated: 2024/04/23 17:42:23 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	convert_to_token(t_token **tokens, char *input, int word)
 	i = 0;
 	new_token->value = \
 		(char *)malloc((count_letters(input) + 1) * sizeof(char));
-	while (!is_whitespace(*input) && !is_operator(input, 0) && *input)
+	while (*input && !ft_isspace(*input) && !is_operator(input, 0) && !is_quote(*input))
 	{
 		new_token->value[i] = *input;
 		input++;
@@ -76,6 +76,7 @@ char	*quotes_to_string(char *input, int *i)
 	char	*result;
 	bool	found;
 	int		j;
+	int		k;
 	int		len;
 	// look for closing quote while counting bytes
 	j = 1;
@@ -90,31 +91,44 @@ char	*quotes_to_string(char *input, int *i)
 			j++;
 			found = TRUE;
 			printf("found? %i, %c\n", j, input[j]);
-			if (input[j] && (is_whitespace(input[j]) || is_operator(input, j)))
+			if (input[j] && (ft_isspace(input[j]) || is_operator(input, j)))
+			{
+				len = j - 1;
 				break ;
+			}
 			printf("didn't break\n");
 		}
 		else
 		{
 			(*i)++;
 			j++;
-			if (found && (is_whitespace(input[j]) || is_operator(input, j)))
+			if (found && (ft_isspace(input[j]) || is_operator(input, j)))
+			{
+				len = j;
 				break ;
+			}
 		}
 	}
 	// "test"
 	if (!found)
 		exit_with_perror("Unclosed quote!\n", NULL, NULL);
 	// malloc and assign to token->value
-	result = (char *)malloc((j - 1) * sizeof(char));
-	len = j - 1;
-	j = 1;
+	result = (char *)malloc((len + 1) * sizeof(char));
+	j = 0;
+	k = 1;
+	printf("size: %i\n", len);
 	while (j < len)
 	{
-		result[j - 1] = input[j];
-		j++;
+		if (input[k] != '"')
+		{
+			result[j] = input[k];
+			j++;
+			k++;
+		}
+		else
+			k++;
 	}
-	result[j - 1] = 0;
+	result[j] = 0;
 	printf("%s\n", result);
 	// skip until end of quote string?
 	return (result);

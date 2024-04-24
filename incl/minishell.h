@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/23 12:15:17 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:42:23 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		set_pipe_io(int command_count, int **pipe_fds_array, int total_commands);
 
 // utils.c
 bool	is_quote(char c);
-int		is_whitespace(char c);
+int		ft_isspace(char c);
 t_token	*last_node(t_token *node);
 void	add_to_back(t_token **tokens, t_token *new); //FIX: new is a reserved keyword
 void	skip_letters(char *input, int *i);

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:25:17 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/21 13:37:49 by root             ###   ########.fr       */
+/*   Updated: 2024/04/23 17:43:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	is_quote(char c)
 		return (FALSE);
 }
 
-int	is_whitespace(char c)
+int	ft_isspace(char c)
 {
 	if (c == '\t' || c == '\n' || c == ' ')
 		return (1);
@@ -59,7 +59,8 @@ void	add_to_back(t_token **tokens, t_token *new)
 
 void	skip_letters(char *input, int *i)
 {
-	while (!is_whitespace(input[*i]) && !is_operator(input, *i) && input[*i])
+	while (input[*i] && !is_quote(input[*i]) && \
+	!ft_isspace(input[*i]) && !is_operator(input, *i))
 	{
 		(*i)++;
 	}
@@ -75,7 +76,7 @@ void	skip_operator(char *input, int *i)
 
 void	skip_space(char *input, int *i)
 {
-	while (is_whitespace(input[(*i)]) && input[(*i)])
+	while (ft_isspace(input[(*i)]) && input[(*i)])
 	{
 		(*i)++;
 	}
@@ -86,7 +87,8 @@ int	count_letters(char *input)
 	int	i;
 
 	i = 0;
-	while (!is_whitespace((input[i])) && is_operator(input, i) == 0 && input[i])
+	while (input[i] && !is_quote(input[i]) \
+	&& !ft_isspace((input[i])) && !is_operator(input, i) == 0)
 	{
 		i++;
 	}
@@ -132,7 +134,7 @@ int	is_operator(char *input, int index)
 	skip_space(input, &i);
 	while (input[i])
 	{
-		while (!is_whitespace(input[i]))
+		while (!ft_isspace(input[i]))
 		{
 			i++;
 		}
