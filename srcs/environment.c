@@ -12,9 +12,7 @@
 
 #include "minishell.h"
 
-/*
-Functionfor get env value and return as array.
-*/
+// Function for get env value and return as array.
 char	**get_env_elements(char **env, char *key)
 {
 	int		i;

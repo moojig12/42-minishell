@@ -104,7 +104,7 @@ char	*quotes_to_string(char *input, int *i)
 	}
 	// "test"
 	if (!found)
-		exit_wi_perr("Unclosed quote!\n", NULL, NULL);
+		exit_with_perror("Unclosed quote!\n", NULL, NULL);
 	// malloc and assign to token->value
 	result = (char *)malloc((j - 1) * sizeof(char));
 	len = j - 1;

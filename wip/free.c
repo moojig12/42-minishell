@@ -54,35 +54,3 @@ void free_args(char	**args)
 		free(args[i++]);
 	free(args);
 }
-
-int **calloc_int_array(int row, int column)
-{
-	int	**array;
-	int	i;
-
-	array = (int **)malloc(sizeof(int *) * row);
-	if (array == NULL)
-		return (NULL);
-	i = 0;
-	while (i < row)
-	{
-		array[i] = (int *)ft_calloc(column, sizeof(int));
-		if (array[i] == NULL)
-		{
-			free_int_array(array, i);
-			return (NULL);
-		}
-		i++;
-	}
-	return (array);
-}
-
-void free_int_array(int **array, int row)
-{
-	int	i;
-
-	i = 0;
-	while (i < row)
-		free(array[i++]);
-	free(array);
-}

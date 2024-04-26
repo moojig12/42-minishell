@@ -24,6 +24,8 @@ char	*find_pgr(char *pgr_name, char **envp)
 
 	if (access(pgr_name, F_OK | X_OK) == 0)
 		return (pgr_name);
+	if (is_builtin(pgr_name))
+		return (pgr_name);
 	env_path_list = get_env_elements(envp, "PATH=");
 	if (env_path_list == NULL)
 		return (NULL);
@@ -43,4 +45,3 @@ char	*find_pgr(char *pgr_name, char **envp)
 	free_array(env_path_list);
 	return (NULL);
 }
-
