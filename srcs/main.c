@@ -10,18 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/minishell.h"
+#include "minishell.h"
 
-int	main(void) // TODO: add env
+int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	t_token	*tokens;
 
+	if (argc != 1 || argv[1] != NULL)
+	{
+		printf("Error: minishell does not take any arguments\n");
+		return (FAILURE);
+	}
+	using_history();
+	read_history(".minishell_history");
 	rl_outstream = stderr;
-	while (1)
+	rl_event_hook = signals_handler;
+	while (rl_event_hook != NULL)
 	{
 		input = readline("minishell$ ");
-		if (input == NULL)
+		if (input == NULL) //FIX: will make error with *input == 0
 			break ;
 		if (*input)
 			add_history(input);
@@ -32,7 +40,7 @@ int	main(void) // TODO: add env
 		free_token(tokens);
 		free(input);
 	}
-	// free hist
-	// free token
+	write_history(".minishell_history");
+	printf("exit\n");
 	return (SUCCESS);
 }

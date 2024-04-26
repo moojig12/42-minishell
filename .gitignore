@@ -9,3 +9,10 @@
 
 # on mac
 .DS_Store
+.vscode
+.github
+.devcontainer
+
+#project based
+minishell
+.minishell_history

@@ -54,15 +54,6 @@
 # include <curses.h>
 # include <stdlib.h>			// getenv
 # include <limits.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <dirent.h>
-# include <termios.h>
-# include <errno.h>
 # include "libft.h"
 
 //	Type -> 0 == Command, 1 == Argument, 2 == Operator
@@ -74,9 +65,9 @@ typedef struct s_token {
 }	t_token;
 
 // main.c
-int		main(void); // TODO: add env
+int		main(int argc, char** argv, char **env);
 
-//tokenization.c
+// tokenization.c
 // int	count_words(char *input);
 void	convert_to_token(t_token **tokens, char *input, int word);
 int		lexical_analysis(t_token **tokens, char *input);

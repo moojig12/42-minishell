@@ -20,9 +20,9 @@ bool	is_quote(char c)
 		return (FALSE);
 }
 
-void	*is_whitespace(char c)
+int	is_whitespace(char c)
 {
-	if (c == '\t' | c == '\n' | c == ' ')
+	if (c == '\t' || c == '\n' || c == ' ')
 		return (1);
 	else
 		return (0);
@@ -35,7 +35,7 @@ t_token	*last_node(t_token *node)
 	if (!node)
 		return (NULL);
 	temp = node;
-	while(temp->next)
+	while (temp->next)
 	{
 		temp = temp->next;
 	}

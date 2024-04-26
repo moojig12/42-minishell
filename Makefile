@@ -22,10 +22,11 @@ LIBFT_DIR =			libs/libft
 INCL	=	$(wildcard $(INCL_DIR)/*.h) # FIX: change this before submit
 # INCL	=	$(INCL_DIR)/minishell.h
 SRCS	=	$(wildcard $(SRCS_DIR)/*.c) # FIX: change this before submit
+SRCS	+=	$(wildcard $(SRCS_DIR)/builtin/*.c) # FIX: change this before submit
 # SRCS	=	$(SRCS_DIR)/main.c \
 # 			$(SRCS_DIR)/tokenization.c \
 # 			...
-OBJS 	=	$(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
+OBJS 	=	$(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
 
 #libft
 LIBFT_DIR =			libs/libft
@@ -38,6 +39,16 @@ CFLAGS	=	-Wall -Werror -Wextra -g
 UI_FLAGS :=	-I$(INCL_DIR) -I$(LIBFT_INCL_DIR)
 UL_FLAGS := -L$(LIBFT_DIR)
 LL_FLAGS := $(LIBFT_LL_FLAGS) -lreadline
+
+# use gnu readline library in mac
+ifeq ($(shell uname -s),Darwin)
+    ifeq ($(shell uname -m),arm64)
+        # Additional flags for M1 Mac
+        RLDIR := /opt/homebrew/opt/readline
+        UI_FLAGS += -I$(RLDIR)/include
+        UL_FLAGS += -L$(RLDIR)/lib
+    endif
+endif
 
 # Link Targets
 all:	$(NAME)
@@ -57,6 +68,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(UI_FLAGS) -c $< -o $@
 $(OBJS_DIR):
 	mkdir $(OBJS_DIR)
+	mkdir $(OBJS_DIR)/builtin
 
 # make libft
 libft: $(LIBFT)
@@ -67,20 +79,20 @@ $(LIBFT):
 	@echo "make libft done.\n"
 
 clean:
-		rm -rf $(OBJS)
-		rm -df $(OBJS_DIR)
-		make -C $(LIBFT_DIR) clean
+	rm -rf $(OBJS)
+	rm -rfd $(OBJS_DIR)
+	make -C $(LIBFT_DIR) clean
 
 fclean:		clean
-		rm -rf $(NAME)
-		make fclean -C $(LIBFT_DIR)
+	rm -rf $(NAME)
+	make fclean -C $(LIBFT_DIR)
 
 re:		fclean all
 
 update:	fclean
-		make
+	make
 
 norm:
-		norminette $(SRCS) $(INCL)
+	norminette $(SRCS) $(INCL)
 
 .PHONY = all clean fclean re update norm
