@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/21 13:38:17 by root             ###   ########.fr       */
+/*   Updated: 2024/04/23 12:15:17 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,26 @@
 # define STDOUT 1
 # define STDERR 2
 
+# define PIPE_READ_FROM 0
+# define PIPE_WRITE_IN 1
+
 #define _POSIX_SOURCE 1
 
 # include <stdbool.h>			// boolean
 # include <stdio.h>				// printf
 # include <readline/readline.h>	// readline
-# include <readline/history.h>	// rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay, add_history
+// rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay, add_history
+# include <readline/history.h>
 # include <stdlib.h>			// malloc, free, exit
-# include <unistd.h>			// access, fork, execve, getcwd, chdir, close, read, write, pipe, dup, dup2, wait, waitpid
+// access, fork, execve, getcwd, chdir, close, read,
+// write, pipe, dup, dup2, wait, waitpid
+# include <unistd.h>
 # include <fcntl.h>				// open
-# include <signal.h>			// signal, sigaction, sigemptyset, sigaddset, kill
-# include <sys/types.h>			// wait, waitpid, fork, access, open, stat, lstat, fstat, dup, dup2, pipe, opendir, readdir, closedir
+// signal, sigaction, sigemptyset, sigaddset, kill
+# include <signal.h>
+// wait, waitpid, fork, access, open, stat, lstat, fstat,
+// dup, dup2, pipe, opendir, readdir, closedir
+# include <sys/types.h>
 # include <sys/wait.h>			// wait, waitpid, wait3, wait4
 # include <sys/stat.h>			// stat, lstat, fstat, unlink
 # include <dirent.h>			// opendir, readdir, closedir
@@ -41,7 +50,8 @@
 # include <errno.h>				// perror
 # include <termios.h>			// tcsetattr, tcgetattr
 # include <unistd.h>			// isatty, ttyname, ttyslot, ioctl
-# include <curses.h>			// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+# include <curses.h>
 # include <stdlib.h>			// getenv
 # include <limits.h>
 # include <stdlib.h>
@@ -63,29 +73,30 @@ typedef struct s_token {
 	struct	s_token *prev;
 }	t_token;
 
-typedef struct s_hist {
-	char			*value;
-	struct s_hist	*prev;
-	struct s_hist	*next;
-}	t_hist;
-
-// histry.c
-// t_hist 	*add_history(char *input, t_hist *head);
-
 // main.c
 int		main(void); // TODO: add env
 
 //tokenization.c
 // int	count_words(char *input);
 void	convert_to_token(t_token **tokens, char *input, int word);
-int	lexical_analysis(t_token **tokens, char *input);
+int		lexical_analysis(t_token **tokens, char *input);
+void	print_tokens(t_token *token);
 
-// exec.c
-int		exec_wrapper(char **cmd, char **env);
-int		count_token(t_token *tokens);
-char	**tokens_to_args(t_token *tokens);
-int		execute(t_token	*tokens, char **env);
-int		fork_program(char *pgr_path, char **argv, char **env);
+// execute.c
+int		execute_commands(t_token *tokens, int index_command, \
+			int **pipe_fds_array, char **env);
+int		fork_process(t_token *tokens, int **pipe_fds_array, char **env);
+int		execute_wrapper(t_token *tokens, char **env);
+
+// util_execute.c
+int		count_all_tokens(t_token *tokens);
+int		count_token_argc(t_token *tokens, int num_command);
+int		count_commands(t_token *tokens);
+char	**tokens_to_argv(t_token *tokens, int num_command);
+int		is_last_command(t_token *tokens, int num_command);
+
+// redirect.c
+int		set_pipe_io(int command_count, int **pipe_fds_array, int total_commands);
 
 // utils.c
 bool	is_quote(char c);
@@ -130,10 +141,14 @@ char	*find_pgr(char *pgr_name, char **envp);
 
 // free.c
 void	free_array(char **array);
+void	free_token(t_token *head);
+void	free_args(char	**args);
+int		**calloc_int_array(int row, int column);
+void	free_int_array(int **array, int row);
 
-//error.c
-void	exit_wi_perr(char *message, char **array, char *str);
-void	exit_wo_perr(char *message1, char *file_or_cmd, \
+// error.c
+void	exit_with_perror(char *message, char **array, char *str);
+void	exit_without_perror(char *message, char *file_or_cmd, \
 			char **array, char *str);
 
 #endif

@@ -6,106 +6,71 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/16 19:28:18 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:14:24 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_token(t_token *tokens)
+int execute_commands(t_token *tokens, int index_command, int **pipe_fds_array, char **env)
 {
-	int		count;
-	t_token	*temp;
+	int total_commands;
+	char **argv;
 
-	count = 0;
-	temp = tokens;
-	while (temp != NULL)
-	{
-		count++;
-		temp = temp->next;
-	}
-	return (count);
-}
-
-char	**tokens_to_args(t_token *tokens)
-{
-	char	**args;
-	t_token *temp;
-	int		i;
-
-	args = malloc(sizeof(char *) * (count_token(tokens) + 1));
-	if (args == NULL)
-		exit_wi_perr("malloc", NULL, NULL);
-	temp = tokens;
-	i = 0;
-	while (temp != NULL)
-	{
-		args[i] = ft_strdup(temp->value);
-		if (args[i] == NULL)
-			exit_wi_perr("malloc", NULL, NULL);
-		temp = temp->next;
-		i++;
-	}
-	args[i] = NULL;
-	return (args);
-}
-
-int	execute(t_token	*tokens, char **env)
-{
-	char	**argv;
-	char	*pgr_path;
-
-	pgr_path = NULL;
-	argv = tokens_to_args(tokens);
-	printf("argv[0]: %s\n", argv[0]);
-	if (is_builtin(argv[0]) == FALSE)
-	{
-		pgr_path = find_pgr(argv[0], env);
-		printf("pgr_path: %s\n\n", pgr_path);
-	}
-	else
-	{
-		pgr_path = "-";
+	total_commands = count_commands(tokens);
+	set_pipe_io(index_command, pipe_fds_array, total_commands);
+	// set_redirect()
+	argv = tokens_to_argv(tokens, index_command);
+	argv[0] = find_pgr(argv[0], env);
+	fprintf(stderr,"argv[0]: %s\n", argv[0]); // delete later
+	if (is_builtin(argv[0]))
 		execute_builtin(argv, env);
-		free_args(argv);
-		return (SUCCESS);
+	else
+		execve(argv[0], argv, env);
+	free(argv);
+	exit(EXIT_SUCCESS);
+}
+
+int fork_process(t_token *tokens, int **pipe_fds_array, char **env)
+{
+	int total_commands;
+	pid_t pid;
+	int status;
+	int count;
+
+	total_commands = count_commands(tokens);
+	count = 0;
+	while (count < total_commands) {
+		if (count < total_commands - 1)
+			pipe(pipe_fds_array[count]);
+		pid = fork();
+		if (pid == 0)
+			execute_commands(tokens, count, pipe_fds_array, env);
+		else if (pid < 0)
+			exit(EXIT_FAILURE); // TODO: fix error handling
+		else if (0 < count)
+		{
+			close(pipe_fds_array[count - 1][PIPE_WRITE_IN]);
+			close(pipe_fds_array[count - 1][PIPE_READ_FROM]);
+		}
+		count++;
 	}
-	if (pgr_path == NULL)
-	{
-		printf("minishell: %s: command not found\n", argv[0]);
-		free_args(argv);
-		return (FAILURE);
-	}
-	if (fork_program(pgr_path, argv, env) == FAILURE)
-	{
-		free_args(argv);
-		return (FAILURE);
-	}
+	waitpid(pid, &status, 0);
+	if (status == -1)
+		exit_with_perror("waitpid()", NULL, NULL);
 	return (SUCCESS);
 }
 
-int	fork_program(char *pgr_path, char **argv, char **env)
+int execute_wrapper(t_token *tokens, char **env)
 {
-	pid_t	pid;
-	int		status;
+	int **pipe_fds_array;
+	int total_commands;
 
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execve(pgr_path, argv, env) == -1)
-		{
-			perror("execve");
-			exit(1);
-		}
-		else
-			return (SUCCESS);
-	}
-	else if (pid < 0)
-	{
-		perror("fork");
-		exit(1);
-	}
-	else
-		waitpid(pid, &status, 0);
-	return (SUCCESS);
+	total_commands = count_commands(tokens);
+	pipe_fds_array = calloc_int_array(total_commands, 2);
+	if (pipe_fds_array == NULL)
+		exit_with_perror("calloc_int_array()", NULL, NULL);
+	fork_process(tokens, pipe_fds_array, env);
+	free_int_array(pipe_fds_array, total_commands);
+	return(SUCCESS);
 }

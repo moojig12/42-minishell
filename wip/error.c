@@ -14,7 +14,7 @@
 
 /*exit process with perror*/
 /*just copy from jini's pipex*/
-void	exit_wi_perr(char *message, char **array, char *str)
+void	exit_with_perror(char *message, char **array, char *str)
 {
 	ft_putstr_fd("minishell: ", 2);
 	perror(message);
@@ -30,7 +30,7 @@ void	exit_wi_perr(char *message, char **array, char *str)
 
 /*exit process without perror*/
 /*just copy from jini's pipex*/
-void	exit_wo_perr(char *message1, char *file_or_cmd, \
+void	exit_without_perror(char *message1, char *file_or_cmd, \
 			char **array, char *str)
 {
 	ft_putstr_fd("minishell: ", 2);

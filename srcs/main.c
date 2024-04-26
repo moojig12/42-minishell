@@ -15,7 +15,7 @@
 int	main(void) // TODO: add env
 {
 	char	*input;
-	// t_token	*tokens;
+	t_token	*tokens;
 
 	rl_outstream = stderr;
 	while (1)
@@ -28,7 +28,7 @@ int	main(void) // TODO: add env
 		tokens = NULL;
 		lexical_analysis(&tokens, input);
 		print_tokens(tokens);
-		execute(tokens, env);
+		execute_wrapper(tokens, env);
 		free_token(tokens);
 		free(input);
 	}
