@@ -13,7 +13,6 @@
 #include "minishell.h"
 
 // Checks whether the function is still reading within an enclosed quote
-
 static bool	switch_off(char *input, int *i, bool i_q)
 {
 	if (input[*i] && is_quote(input[*i]))
@@ -113,9 +112,8 @@ void	lexical_analysis(t_token **tokens, char *input)
 			word++;
 		}
 		else
-		{
 			skip_space(input, &i);
-		}
 		i++;
 	}
 }
+

@@ -64,6 +64,15 @@ typedef struct s_token {
 	struct	s_token *prev;
 }	t_token;
 
+typedef struct s_values {
+	struct	s_token	*head;
+	int 			total_tokens;
+	int 			total_commands;
+	char 			**env;
+	int 			syntax_error;
+	int 			last_error_code;
+}	t_values;
+
 // main.c
 int		main(int argc, char** argv, char **env);
 

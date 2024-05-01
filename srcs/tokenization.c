@@ -152,7 +152,6 @@ int	lexical_analysis(t_token **tokens, char *input)
 
 	word = 1;
 	i = 0;
-	skip_space(input, &i);
 	while (input[i])
 	{
 		printf("pre_in: %s\n\n", &input[i]);
