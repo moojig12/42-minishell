@@ -12,108 +12,49 @@
 
 #include "minishell.h"
 
-// Checks whether the function is still reading within an enclosed quote
-static bool	switch_off(char *input, int *i, bool i_q)
+// return next value from input
+char	*get_next_value(char **input) // ex.first_pass
 {
-	if (input[*i] && is_quote(input[*i]))
-	{
-		(*i)++;
-		return (FALSE);
-	}
-	return (TRUE);
-}
-
-static void	count_quoted(char *input, int *i, int *count, bool *i_q)
-{
-	(*count)++;
-	(*i)++;
-	*i_q = switch_off(input, i);
-
-}
-
-static void	count_unquoted(char *input, int *i, int *count)
-{
-	(*count)++;
-	(*i)++;
-	if (input[i] && ft_isspace(input[i]))
-		break ;
-}
-
-static void check_if_quote(char *input, int *i, bool *i_q)
-{
-	if (is_quote(input[*i]))
-	{
-		*i_q = TRUE;
-		(*i)++;
-	}
-}
-
-int	count_size(char *input, int i)
-{
-	bool	inside_quote;
+	char	*ptr;
 	int		count;
+	int 	value_size;
 
-	inside_quote = FALSE;
-	count = 0;
-	while (input[i])
-	{
-		check_if_quote();
-		if (inside_quote)
-			count_quoted(input, &i, &count, &inside_quote);
-		else
-			count_unquoted(input, &i, &count, &inside_quote);
-	}
-}
-
-char	*first_pass(t_token **tokens, char *input, int word, int *i)
-{
-	char	*res;
-	char	*temp;
-	char	*q_str;
-
-	res = (char *)malloc(count_size(&input[*i], &i) * sizeof(char));
-	if (!res)
+	value_size = count_value_size(*input);
+	if (value_size == 0)
+		return (NULL); // empty string
+	else if (value_size == -1)
+		return (NULL); // quote syntax error
+	ptr = (char *) malloc((value_size + 1) * sizeof(char));
+	if (!ptr)
 		return (NULL);
-	while (input[*i])
+	count = 0;
+	while (count < value_size)
 	{
-		if (!is_quote(input[*i]))
-		{
-			
-		}
-		/* if (is_quote(input[*i]))
-		{
-			q_str = quote_to_str(input, i);
-			temp = ft_strjoin(res, q_str);
-			free(res);
-			res = ft_strdup(temp);
-		}
-		else
-		{
-			// convert to str normally
-			
-			(i*)++;
-		} */
+		ptr[count] = (**input);
+		count ++;
+		(*input)++;
 	}
-	return (res);
+	ptr[count] = '\0';
+	return (ptr);
 }
 
-void	lexical_analysis(t_token **tokens, char *input)
+// convert input to tokens
+int	lexical_analysis(t_token **tokens, char *input)
 {
-	int		i;
 	int		word;
+	char 	*value;
 
-	i = 0;
 	word = 1;
-	while (input[i])
+	while (*input)
 	{
-		if (!ft_isspace(input[i]))
+		if (!ft_isspace(*input) && word < 10)
 		{
-			convert_to_token(tokens, first_pass(tokens, input, word, &i), word);
+			value = get_next_value(&input);
+			convert_to_token(tokens, value, word);
 			word++;
 		}
-		else
-			skip_space(input, &i);
-		i++;
+		while (ft_isspace(*input))
+			(*input)++;
 	}
+	return (SUCCESS);
 }
-

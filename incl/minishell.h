@@ -82,6 +82,10 @@ void	convert_to_token(t_token **tokens, char *input, int word);
 int		lexical_analysis(t_token **tokens, char *input);
 void	print_tokens(t_token *token);
 
+// token_utils.c
+void	check_if_quote(char *input, int *i, bool *quoted);
+// int		count_size(char *input, int i);
+int		count_value_size(char *input);
 // execute.c
 int		execute_commands(t_token *tokens, int index_command, \
 			int **pipe_fds_array, char **env);
@@ -100,17 +104,17 @@ int		set_pipe_io(int command_count, int **pipe_fds_array, int total_commands);
 
 // utils.c
 bool	is_quote(char c);
-int		ft_isspace(char c);
 t_token	*last_node(t_token *node);
 void	add_to_back(t_token **tokens, t_token *new); //FIX: new is a reserved keyword
 void	skip_letters(char *input, int *i);
 void	skip_operator(char *input, int *i);
-void	skip_space(char *input, int *i);
+void	skip_space(char **input); //int *i
 int		count_letters(char *input);
 
 // parse.c
-int		check_operator(char *input, int index, int mode);
-int		is_operator(char *input, int index);
+int		check_operator(char *input);
+int		is_operator(char *input);
+int		count_operator_letters(char *input);
 
 // signal.c
 void	signals_process_np(int signum);
@@ -150,5 +154,9 @@ void	free_int_array(int **array, int row);
 void	exit_with_perror(char *message, char **array, char *str);
 void	exit_without_perror(char *message, char *file_or_cmd, \
 			char **array, char *str);
+
+// utils/ft_myutils.c
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_isspace(char c);
 
 #endif

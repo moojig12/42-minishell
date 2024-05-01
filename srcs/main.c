@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **env)
 		input = readline("minishell$ ");
 		if (input == NULL) //FIX: will make error with *input == 0
 			break ;
-		if (*input)
+		if (*input) //TODO: want to add only non-empty or nin-exist commands
 			add_history(input);
 		tokens = NULL;
 		lexical_analysis(&tokens, input);
