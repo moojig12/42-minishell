@@ -54,7 +54,7 @@ int	lexical_analysis(t_token **tokens, char *input)
 			word++;
 		}
 		while (ft_isspace(*input))
-			(*input)++;
+			input++;
 	}
 	return (SUCCESS);
 }
