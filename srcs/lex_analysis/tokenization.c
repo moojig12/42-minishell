@@ -12,23 +12,45 @@
 
 #include "minishell.h"
 
-t_token	*token_init(char *mode)
+t_token	*token_init(void)
 {
 	t_token	*new;
 
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (NULL);
-	if (!ft_strncmp(mode, "operator", ft_strlen(mode)))
-		new->type = 2;
-	else if (!ft_strncmp(mode, "argument", ft_strlen(mode)))
-		new->type = 1;
-	else
-		new->type = INT_MIN;
-	new->value = NULL;
+	// if (!ft_strncmp(mode, "operator", ft_strlen(mode)))
+	// 	new->type = 2;
+	// else if (!ft_strncmp(mode, "argument", ft_strlen(mode)))
+	// 	new->type = 1;
+	// else
+	new->type = 0;
+	new->value = 0;
+	new->redirect_type = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
+}
+
+void	add_token_types(t_token *token)
+{
+	int len_value;
+	int type_value;
+
+	len_value = (int) ft_strlen(token->value);
+	type_value = check_operator(token->value);
+	if (len_value == 1 && type_value == 1)
+		token->type = 2;
+	else if (len_value == 1 && (type_value == 2 || type_value == 3))
+	{
+		token->type = 1;
+		token->redirect_type = type_value;
+	}
+	else if (len_value == 2 && (type_value == 4 || type_value == 5))
+	{
+		token->type = 1;
+		token->redirect_type = type_value;
+	}
 }
 
 // remove unneeded quotes from value
@@ -59,14 +81,15 @@ void	remove_quote(char *value)
 }
 
 // add input as a token to the end of the list
-void	convert_to_token(t_token **tokens, char *input, int word)
+void	convert_to_token(t_token **tokens, char *input)
 {
 	t_token	*new_token;
 
-	new_token = token_init("argument");
-	if (word == 1)
-		new_token->type = 0;
-	// add_types()
+	new_token = token_init();
+	new_token->value = input;
+	// if (word == 1)
+	// 	new_token->type = 0;
+	add_token_types(new_token);
 	// replace environment variables()
 	remove_quote(input);
 	new_token->value = input;

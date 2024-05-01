@@ -17,16 +17,16 @@ int set_pipe_io(int command_count, int **pipe_fds_array, int total_commands)
 	int *current_pipe;
 	int *last_pipe;
 
-	current_pipe = pipe_fds_array[command_count];
-	last_pipe = pipe_fds_array[command_count - 1];
 	if (0 < command_count)
 	{
+		last_pipe = pipe_fds_array[command_count - 1];
 		dup2(last_pipe[PIPE_READ_FROM], STDIN_FILENO);
 		close(last_pipe[PIPE_WRITE_IN]);
 		close(last_pipe[PIPE_READ_FROM]);
 	}
 	if (command_count < total_commands - 1)
 	{
+		current_pipe = pipe_fds_array[command_count];
 		dup2(current_pipe[PIPE_WRITE_IN], STDOUT_FILENO);
 		close(current_pipe[PIPE_WRITE_IN]);
 		close(current_pipe[PIPE_READ_FROM]);

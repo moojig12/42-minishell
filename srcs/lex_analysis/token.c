@@ -41,20 +41,19 @@ char	*get_next_value(char **input) // ex.first_pass
 // convert input to tokens
 int	lexical_analysis(t_token **tokens, char *input)
 {
-	int		word;
 	char 	*value;
 
-	word = 1;
 	while (*input)
 	{
-		if (!ft_isspace(*input) && word < 10)
+		if (!ft_isspace(*input))
 		{
 			value = get_next_value(&input);
-			convert_to_token(tokens, value, word);
-			word++;
+			convert_to_token(tokens, value);
 		}
 		while (ft_isspace(*input))
 			input++;
 	}
+	// if (check_grammer(tokens) == FAILURE);
+		// return (FAILURE);
 	return (SUCCESS);
 }

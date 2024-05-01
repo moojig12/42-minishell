@@ -48,7 +48,7 @@ int	count_operator_letters(char *input)
 }
 
 // count the size of the value incl quotes
-// or return error if quote is not closed
+//   or return error(FAILURE = -1) if quote is not closed
 int	count_value_size(char *input)
 {
     int     count;

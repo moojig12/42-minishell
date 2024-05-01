@@ -29,25 +29,23 @@ int	count_all_tokens(t_token *tokens)
 
 int	count_token_argc(t_token *tokens, int num_command)
 {
-	int		count;
 	t_token	*temp;
-	int		count_command;
+	int		argc;
 
-	count_command = 0;
 	temp = tokens;
-	while (temp != NULL && num_command < count_command)
+	while (temp != NULL && 0 < num_command - 1)
 	{
 		if (temp->type == 2)
-			count++;
+			num_command--;
 		temp = temp->next;
 	}
-	count = 0;
-	while (temp != NULL && temp->type < 2)
+	argc = 0;
+	while (temp != NULL && temp->type == 0)
 	{
-		count++;
+		argc++;
 		temp = temp->next;
 	}
-	return (count);
+	return (argc);
 }
 
 /* count commands by count number of '|' */
@@ -77,14 +75,14 @@ char	**tokens_to_argv(t_token *tokens, int num_command)
 	if (argv == NULL)
 		exit_with_perror("malloc", NULL, NULL);
 	temp = tokens;
-	while (temp != NULL && 0 < num_command)
+	while (temp != NULL && 0 < num_command - 1)
 	{
 		if (temp->type == 2)
 			num_command--;
 		temp = temp->next;
 	}
 	i = 0;
-	while (temp != NULL && temp->type < 2)
+	while (temp != NULL && temp->type == 0)
 	{
 		argv[i] = ft_strdup(temp->value);
 		if (argv[i] == NULL)

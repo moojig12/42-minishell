@@ -56,13 +56,22 @@
 # include <limits.h>
 # include "libft.h"
 
-//	Type -> 0 == Command, 1 == Argument, 2 == Operator
+/*
+	type:
+		0 = words
+		1 = pipe
+		2 = redirection
+*/
+
 typedef struct s_token {
 	char			*value;
 	int				type;
+	int				redirect_type;
 	struct 	s_token *next;
 	struct	s_token *prev;
 }	t_token;
+
+//need io?
 
 typedef struct s_values {
 	struct	s_token	*head;
@@ -78,7 +87,7 @@ int		main(int argc, char** argv, char **env);
 
 // tokenization.c
 // int	count_words(char *input);
-void	convert_to_token(t_token **tokens, char *input, int word);
+void	convert_to_token(t_token **tokens, char *input);
 int		lexical_analysis(t_token **tokens, char *input);
 void	print_tokens(t_token *token);
 
