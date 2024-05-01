@@ -119,8 +119,4 @@ char	*get_next_line(long fd);
 // 	struct s_list	*next;
 // }	t_list;
 
-// ----------------------------------------------------------------
-// my_func
-int		ft_strcmp(const char *s1, const char *s2);
-
 #endif
