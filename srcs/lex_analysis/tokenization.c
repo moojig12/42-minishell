@@ -34,8 +34,8 @@ t_token	*token_init(void)
 
 void	add_token_types(t_token *token)
 {
-	int len_value;
-	int type_value;
+	int	len_value;
+	int	type_value;
 
 	len_value = (int) ft_strlen(token->value);
 	type_value = check_operator(token->value);
@@ -57,15 +57,15 @@ void	add_token_types(t_token *token)
 void	remove_quote(char *value)
 {
 	char	*copy;
-	char 	*ptr_copy;
-    bool    single_quoted;
-    bool    double_quoted;
+	char	*ptr_copy;
+	bool	single_quoted;
+	bool	double_quoted;
 
-    single_quoted = FALSE;
-    double_quoted = FALSE;
+	single_quoted = FALSE;
+	double_quoted = FALSE;
 	copy = ft_strdup(value);
 	ptr_copy = copy;
-	while(*ptr_copy)
+	while (*ptr_copy)
 	{
 		if (*ptr_copy == '\'' && !double_quoted)
 			single_quoted = !single_quoted;

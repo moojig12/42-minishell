@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-int set_pipe_io(int command_count, int **pipe_fds_array, int total_commands)
+int	set_pipe_io(int command_count, int **pipe_fds_array, int total_commands)
 {
-	int *current_pipe;
-	int *last_pipe;
+	int	*current_pipe;
+	int	*last_pipe;
 
 	if (0 < command_count)
 	{

@@ -23,7 +23,7 @@ Your shell must implement the following builtins:
 - exit with no options
 */
 
-int is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
 	// if (ft_strcmp(cmd, "echo") == 0)
 	// 	return (TRUE);
@@ -42,7 +42,7 @@ int is_builtin(char *cmd)
 	return (FALSE);
 }
 
-int execute_builtin(char** argv, char **env)
+int	execute_builtin(char **argv, char **env)
 {
 	// if (ft_strcmp(argv[0], "echo") == 0)
 	// 	return (builtin_echo(argv));

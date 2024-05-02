@@ -12,32 +12,47 @@
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+int	check_minishell_args(int argc, char **argv)
 {
-	char	*input;
-	t_token	*tokens;
-
 	if (argc != 1 || argv[1] != NULL)
 	{
 		printf("Error: minishell does not take any arguments\n");
 		return (FAILURE);
 	}
+	return (SUCCESS);
+}
+
+void	preparation_process(void)
+{
 	using_history();
 	read_history(".minishell_history");
 	rl_outstream = stderr;
 	rl_event_hook = signals_handler;
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	char		*input;
+	t_values	*vals;
+
+	if (check_minishell_args(argc, argv) == FAILURE)
+		return (FAILURE);
+	preparation_process();
 	while (rl_event_hook != NULL)
 	{
 		input = readline("minishell$ ");
-		if (input == NULL) //FIX: will make error with *input == 0
+		if (!input)
 			break ;
-		if (*input) //TODO: want to add only non-empty or nin-exist commands
+		if (*input && input[0] != '\t')
 			add_history(input);
-		tokens = NULL;
-		lexical_analysis(&tokens, input);
-		print_tokens(tokens);
-		execute_wrapper(tokens, env);
-		free_token(tokens);
+		vals = NULL;
+		vals = init_values(vals, env);
+		if (vals == NULL)
+			return (FAILURE);
+		lexical_analysis(&vals->head_token, input, vals);
+		print_tokens(vals->head_token); // TODO: delete later
+		execute_wrapper(vals->head_token, vals);
+		free_vals(vals);
 		free(input);
 	}
 	write_history(".minishell_history");

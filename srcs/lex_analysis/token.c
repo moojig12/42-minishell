@@ -17,7 +17,7 @@ char	*get_next_value(char **input) // ex.first_pass
 {
 	char	*ptr;
 	int		count;
-	int 	value_size;
+	int		value_size;
 
 	value_size = count_value_size(*input);
 	if (value_size == 0)
@@ -39,10 +39,11 @@ char	*get_next_value(char **input) // ex.first_pass
 }
 
 // convert input to tokens
-int	lexical_analysis(t_token **tokens, char *input)
+int	lexical_analysis(t_token **tokens, char *input, t_values *val)
 {
-	char 	*value;
+	char	*value;
 
+	val->head_token = *tokens;
 	while (*input)
 	{
 		if (!ft_isspace(*input))

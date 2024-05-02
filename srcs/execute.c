@@ -12,17 +12,18 @@
 
 #include "minishell.h"
 
-int execute_commands(t_token *tokens, int index_command, int **pipe_fds_array, char **env)
+int	execute_commands(t_token *tokens, int index_command, \
+	int **pipe_fds_array, char **env)
 {
-	int total_commands;
-	char **argv;
+	int		total_commands;
+	char	**argv;
 
 	total_commands = count_commands(tokens);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
 	// set_redirect()
 	argv = tokens_to_argv(tokens, index_command);
 	argv[0] = find_pgr(argv[0], env);
-	fprintf(stderr,"argv[0]: %s\n", argv[0]); // delete later
+	fprintf(stderr, "argv[0] of command %i: %s\n", index_command, argv[0]); // TODO: delete later
 	if (is_builtin(argv[0]))
 		execute_builtin(argv, env);
 	else
@@ -31,16 +32,17 @@ int execute_commands(t_token *tokens, int index_command, int **pipe_fds_array, c
 	exit(EXIT_SUCCESS);
 }
 
-int fork_process(t_token *tokens, int **pipe_fds_array, char **env)
+int	fork_process(t_token *tokens, int **pipe_fds_array, char **env)
 {
-	int total_commands;
-	pid_t pid;
-	int status;
-	int count;
+	int		total_commands;
+	pid_t	pid;
+	int		status;
+	int		count;
 
 	total_commands = count_commands(tokens);
 	count = 0;
-	while (count < total_commands) {
+	while (count < total_commands)
+	{
 		if (count < total_commands - 1)
 			pipe(pipe_fds_array[count]);
 		pid = fork();
@@ -61,16 +63,16 @@ int fork_process(t_token *tokens, int **pipe_fds_array, char **env)
 	return (SUCCESS);
 }
 
-int execute_wrapper(t_token *tokens, char **env)
+int	execute_wrapper(t_token *tokens, t_values *vals)
 {
-	int **pipe_fds_array;
-	int total_commands;
+	int	**pipe_fds_array;
+	int	total_commands;
 
 	total_commands = count_commands(tokens);
 	pipe_fds_array = calloc_int_array(total_commands, 2);
 	if (pipe_fds_array == NULL)
 		exit_with_perror("calloc_int_array()", NULL, NULL);
-	fork_process(tokens, pipe_fds_array, env);
+	fork_process(tokens, pipe_fds_array, vals->env);
 	free_int_array(pipe_fds_array, total_commands);
-	return(SUCCESS);
+	return (SUCCESS);
 }

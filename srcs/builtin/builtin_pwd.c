@@ -29,7 +29,7 @@ pwd: pwd [-LP]
 
 int	builtin_pwd(char **env) //char **args, char **env
 {
-	char *pwd;
+	char	*pwd;
 
 	pwd = get_env_str(env, "PWD");
 	printf("%s\n", pwd);

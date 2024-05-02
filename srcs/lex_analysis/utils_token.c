@@ -15,7 +15,6 @@
 // input length should be more than 1 (1 + '\0')
 int	check_operator(char *input)
 {
-
 	if (ft_strncmp(input, ">>", 2) == 0)
 		return (5);
 	if (ft_strncmp(input, "<<", 2) == 0)
@@ -51,28 +50,28 @@ int	count_operator_letters(char *input)
 //   or return error(FAILURE = -1) if quote is not closed
 int	count_value_size(char *input)
 {
-    int     count;
-    bool    single_quoted;
-    bool    double_quoted;
+	int		count;
+	bool	single_quoted;
+	bool	double_quoted;
 
-    single_quoted = FALSE;
-    double_quoted = FALSE;
-    if (is_operator(input))
-        return (count_operator_letters(input));
-    count = 0;
-    while(input[count])
-    {
-        if (!single_quoted && !double_quoted && ft_isspace(input[count]))
-            return (count);
-        if (!single_quoted && !double_quoted && check_operator(&input[count]))
-            return (count);
-        if (input[count] == '\'' && !double_quoted)
-            single_quoted = !single_quoted;
-        if (input[count] == '"' && !single_quoted)
-            double_quoted = !double_quoted;
-        count++;
-    }
-    if (single_quoted || double_quoted)
-        return (FAILURE);
-    return (count);
+	single_quoted = FALSE;
+	double_quoted = FALSE;
+	if (is_operator(input))
+		return (count_operator_letters(input));
+	count = 0;
+	while (input[count])
+	{
+		if (!single_quoted && !double_quoted && ft_isspace(input[count]))
+			return (count);
+		if (!single_quoted && !double_quoted && check_operator(&input[count]))
+			return (count);
+		if (input[count] == '\'' && !double_quoted)
+			single_quoted = !single_quoted;
+		if (input[count] == '"' && !single_quoted)
+			double_quoted = !double_quoted;
+		count++;
+	}
+	if (single_quoted || double_quoted)
+		return (FAILURE);
+	return (count);
 }

@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_myutils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 13:38:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/08 19:02:45 by yjinnouc         ###   ########.fr       */
+/*   Created: 2024/04/09 15:17:53 by yjinnouc          #+#    #+#             */
+/*   Updated: 2024/04/09 15:51:27 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signals_process_np(int signum)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	if (signum == SIGINT)
+	while (*s1 && *s2 && *s1 == *s2)
 	{
-		rl_on_new_line();
-		printf("\n"); //TODO: this is ugly. Fix it.
-		rl_replace_line("", 0);
-		rl_redisplay();
+		s1++;
+		s2++;
 	}
+	return (*s1 - *s2);
 }
 
-//	TODO: Add tokens as param in signal handler for SIGQUIT and free tokens before exit
-
-int	signals_handler(void)
+int	ft_isspace(char c)
 {
-	signal(SIGINT, signals_process_np);
-	signal(SIGQUIT, NULL);
-	return (SUCCESS);
+	if (c == '\t' || c == '\n' || c == ' ')
+		return (TRUE);
+	else
+		return (FALSE);
 }

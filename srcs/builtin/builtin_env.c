@@ -16,9 +16,9 @@
 env with no options or arguments
 TODO: no help?
 */
-int builtin_env(char **env)
+int	builtin_env(char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i] != NULL)

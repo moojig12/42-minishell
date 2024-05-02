@@ -1,31 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_myutils.c                                       :+:      :+:    :+:   */
+/*   calloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 15:17:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/09 15:51:27 by yjinnouc         ###   ########.fr       */
+/*   Created: 2024/03/25 14:44:06 by yjinnouc          #+#    #+#             */
+/*   Updated: 2024/04/16 19:49:52 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_strcmp(const char *s1, const char *s2)
+int	**calloc_int_array(int row, int column)
 {
-	while (*s1 && *s2 && *s1 == *s2)
+	int	**array;
+	int	i;
+
+	array = (int **)malloc(sizeof(int *) * row);
+	if (array == NULL)
+		return (NULL);
+	i = 0;
+	while (i < row)
 	{
-		s1++;
-		s2++;
+		array[i] = (int *)ft_calloc(column, sizeof(int));
+		if (array[i] == NULL)
+		{
+			free_int_array(array, i);
+			return (NULL);
+		}
+		i++;
 	}
-	return (*s1 - *s2);
+	return (array);
 }
 
-int	ft_isspace(char c)
+void	free_int_array(int **array, int row)
 {
-	if (c == '\t' || c == '\n' || c == ' ')
-		return (TRUE);
-	else
-		return (FALSE);
+	int	i;
+
+	i = 0;
+	while (i < row)
+		free(array[i++]);
+	free(array);
 }

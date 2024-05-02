@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 13:38:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/08 19:02:45 by yjinnouc         ###   ########.fr       */
+/*   Created: 2024/03/25 14:44:06 by yjinnouc          #+#    #+#             */
+/*   Updated: 2024/04/16 19:49:52 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signals_process_np(int signum)
+t_values	*init_values(t_values *vals, char **env)
 {
-	if (signum == SIGINT)
+	if (vals)
 	{
-		rl_on_new_line();
-		printf("\n"); //TODO: this is ugly. Fix it.
-		rl_replace_line("", 0);
-		rl_redisplay();
+		free_vals(vals);
+		return (NULL);
 	}
-}
-
-//	TODO: Add tokens as param in signal handler for SIGQUIT and free tokens before exit
-
-int	signals_handler(void)
-{
-	signal(SIGINT, signals_process_np);
-	signal(SIGQUIT, NULL);
-	return (SUCCESS);
+	vals = malloc(sizeof(t_values));
+	if (!vals)
+		return (NULL);
+	vals->head_token = NULL;
+	vals->total_commands = 0;
+	vals->total_tokens = 0;
+	vals->env = env;
+	vals->syntax_error = 0;
+	vals->last_error_code = 0;
+	return (vals);
 }

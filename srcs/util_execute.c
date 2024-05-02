@@ -65,20 +65,20 @@ int	count_commands(t_token *tokens)
 	return (count);
 }
 
-char	**tokens_to_argv(t_token *tokens, int num_command)
+char	**tokens_to_argv(t_token *tokens, int index_command)
 {
 	char	**argv;
-	t_token *temp;
+	t_token	*temp;
 	int		i;
 
-	argv = malloc(sizeof(char *) * (count_token_argc(tokens, num_command) + 1));
+	argv = malloc(sizeof(char *) * (count_token_argc(tokens, index_command) + 1));
 	if (argv == NULL)
 		exit_with_perror("malloc", NULL, NULL);
 	temp = tokens;
-	while (temp != NULL && 0 < num_command - 1)
+	while (temp != NULL && 0 < index_command)
 	{
 		if (temp->type == 2)
-			num_command--;
+			index_command--;
 		temp = temp->next;
 	}
 	i = 0;
@@ -94,9 +94,9 @@ char	**tokens_to_argv(t_token *tokens, int num_command)
 	return (argv);
 }
 
-int is_last_command(t_token *tokens, int num_command)
+int	is_last_command(t_token *tokens, int num_command)
 {
-	t_token *temp;
+	t_token	*temp;
 	int		i;
 
 	temp = tokens;
@@ -106,7 +106,7 @@ int is_last_command(t_token *tokens, int num_command)
 		if (temp->type == 2)
 			i++;
 		if (i == num_command)
-			break;
+			break ;
 		temp = temp->next;
 	}
 	if (temp->next == NULL)

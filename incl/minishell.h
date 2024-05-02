@@ -26,7 +26,7 @@
 # define PIPE_READ_FROM 0
 # define PIPE_WRITE_IN 1
 
-#define _POSIX_SOURCE 1
+# define _POSIX_SOURCE 1
 
 # include <stdbool.h>			// boolean
 # include <stdio.h>				// printf
@@ -67,105 +67,114 @@ typedef struct s_token {
 	char			*value;
 	int				type;
 	int				redirect_type;
-	struct 	s_token *next;
-	struct	s_token *prev;
+	struct s_token	*next;
+	struct s_token	*prev;
 }	t_token;
 
-//need io?
+//need io struct?
 
 typedef struct s_values {
-	struct	s_token	*head;
-	int 			total_tokens;
-	int 			total_commands;
-	char 			**env;
-	int 			syntax_error;
-	int 			last_error_code;
+	struct s_token	*head_token;
+	int				total_tokens;
+	int				total_commands;
+	char			**env;
+	int				syntax_error;
+	int				last_error_code;
 }	t_values;
 
+/**************** prototypes ****************/
 // main.c
-int		main(int argc, char** argv, char **env);
+int			main(int argc, char **argv, char **env);
 
-// tokenization.c
-// int	count_words(char *input);
-void	convert_to_token(t_token **tokens, char *input);
-int		lexical_analysis(t_token **tokens, char *input);
-void	print_tokens(t_token *token);
-
-// token_utils.c
-void	check_if_quote(char *input, int *i, bool *quoted);
-// int		count_size(char *input, int i);
-int		count_value_size(char *input);
 // execute.c
-int		execute_commands(t_token *tokens, int index_command, \
+int			execute_commands(t_token *tokens, int index_command, \
 			int **pipe_fds_array, char **env);
-int		fork_process(t_token *tokens, int **pipe_fds_array, char **env);
-int		execute_wrapper(t_token *tokens, char **env);
-
-// util_execute.c
-int		count_all_tokens(t_token *tokens);
-int		count_token_argc(t_token *tokens, int num_command);
-int		count_commands(t_token *tokens);
-char	**tokens_to_argv(t_token *tokens, int num_command);
-int		is_last_command(t_token *tokens, int num_command);
+int			fork_process(t_token *tokens, int **pipe_fds_array, char **env);
+int			execute_wrapper(t_token *tokens, t_values *vals);
 
 // redirect.c
-int		set_pipe_io(int command_count, int **pipe_fds_array, int total_commands);
-
-// utils.c
-bool	is_quote(char c);
-t_token	*last_node(t_token *node);
-void	add_to_back(t_token **tokens, t_token *new); //FIX: new is a reserved keyword
-void	skip_letters(char *input, int *i);
-void	skip_operator(char *input, int *i);
-void	skip_space(char **input); //int *i
-int		count_letters(char *input);
-
-// parse.c
-int		check_operator(char *input);
-int		is_operator(char *input);
-int		count_operator_letters(char *input);
+int			set_pipe_io(int command_count, int **pipe_fds_array, \
+				int total_commands);
 
 // signal.c
-void	signals_process_np(int signum);
-void	signals_process_nothing(int signum);
-int		signals_handler(void);
+void		signals_process_np(int signum);
+void		signals_process_nothing(int signum);
+int			signals_handler(void);
 
+// initialize.c
+t_values	*init_values(t_values *vals, char **env);
+
+// util_execute.c
+int			count_all_tokens(t_token *tokens);
+int			count_token_argc(t_token *tokens, int num_command);
+int			count_commands(t_token *tokens);
+char		**tokens_to_argv(t_token *tokens, int num_command);
+int			is_last_command(t_token *tokens, int num_command);
+
+/**************** lex_analysis ****************/
+// lex_analysis/token.c
+char		*get_next_value(char **input); // ex.first_pass
+int			lexical_analysis(t_token **tokens, char *input, t_values *val);
+
+// lex_analysis/tokenization.c
+t_token		*token_init(void);
+void		add_token_types(t_token *token);
+void		remove_quote(char *value);
+void		convert_to_token(t_token **tokens, char *input);
+
+void		print_tokens(t_token *token);
+
+// lex_analysis/util_token.c
+int			check_operator(char *input);
+int			is_operator(char *input);
+int			count_operator_letters(char *input);
+int			count_value_size(char *input);
+
+/**************** builtin ****************/
 // builtin/builtin1.c
-int		builtin_echo(char **argv);
-int		builtin_cd(char **argv, char **env);
-int		builtin_pwd(char **env);
-int		builtin_export(char **argv, char **env);
+int			builtin_echo(char **argv);
+int			builtin_cd(char **argv, char **env);
+int			builtin_pwd(char **env);
+int			builtin_export(char **argv, char **env);
 
 // builtin/builtin2.c
-int		builtin_unset(char **argv, char **env);
-int		builtin_env(char **env);
-int		builtin_exit(char **argv);
+int			builtin_unset(char **argv, char **env);
+int			builtin_env(char **env);
+int			builtin_exit(char **argv);
 
 // builtin/builtin_util.c
-int		is_builtin(char *cmd);
-int		execute_builtin(char** argv, char **env);
+int			is_builtin(char *cmd);
+int			execute_builtin(char **argv, char **env);
 
-// env.c
-char	**get_env_elements(char **envp, char *key);
-char	*get_env_str(char **env, char *key);
+/**************** utils ****************/
+// utils/env.c
+char		**get_env_elements(char **envp, char *key);
+char		*get_env_str(char **env, char *key);
 
-// find_pgr_path.c
-char	*find_pgr(char *pgr_name, char **envp);
+// utils/error.c
+void		exit_with_perror(char *message, char **array, char *str);
+void		exit_without_perror(char *message, char *file_or_cmd, \
+				char **array, char *str);
 
-// free.c
-void	free_array(char **array);
-void	free_token(t_token *head);
-void	free_args(char	**args);
-int		**calloc_int_array(int row, int column);
-void	free_int_array(int **array, int row);
+// utils/find_pgr_path.c
+char		*find_pgr(char *pgr_name, char **envp);
 
-// error.c
-void	exit_with_perror(char *message, char **array, char *str);
-void	exit_without_perror(char *message, char *file_or_cmd, \
-			char **array, char *str);
+// utils/free.c
+void		free_array(char **array);
+void		free_token(t_token *head);
+void		free_args(char	**args);
+void		free_vals(t_values *vals);
 
 // utils/ft_myutils.c
-int		ft_strcmp(const char *s1, const char *s2);
-int		ft_isspace(char c);
+int			ft_strcmp(const char *s1, const char *s2);
+int			ft_isspace(char c);
+
+// utils/int_array.c
+int			**calloc_int_array(int row, int column);
+void		free_int_array(int **array, int row);
+
+// utils/node.c
+t_token		*last_node(t_token *node);
+void		add_to_back(t_token **tokens, t_token *new);
 
 #endif

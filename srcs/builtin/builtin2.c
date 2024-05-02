@@ -34,7 +34,6 @@ unset: unset [-f] [-v] [-n] [name ...]
 	Returns success unless an invalid option is given or a NAME is read-only.
 */
 
-
 /*
 exit with no options
 exit: exit [n]

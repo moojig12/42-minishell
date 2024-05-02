@@ -88,8 +88,6 @@ cd: cd [-L|[-P [-e]] [-@]] [dir]
 	-P is used; non-zero otherwise.
 */
 
-
-
 /*
 export with no options
 export: export [-fn] [name[=value] ...] or export -p
