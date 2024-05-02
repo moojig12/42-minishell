@@ -6,7 +6,7 @@ OUTPUT_DIR = .
 INCL_DIR = incl
 SRCS_ROOT_DIR = srcs
 OBJS_ROOT_DIR = objs
-MODULES	= libft_Libc libft_nonLibc libft_bonus ft_printf get_next_line my_func
+MODULES	= libft_Libc libft_nonLibc libft_bonus ft_printf get_next_line
 SRCS_DIR = $(addprefix $(SRCS_ROOT_DIR)/,$(MODULES))
 OBJS_DIR = $(addprefix $(OBJS_ROOT_DIR)/,$(MODULES))
 
