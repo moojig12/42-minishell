@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/02 19:24:09 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/04 11:20:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		if (*input && input[0] != '\t')
 			add_history(input);
-		main_process(input, vals);
+		if (input[0])
+			main_process(input, vals);
 	}
 	free(vals);
 	write_history(".minishell_history");
