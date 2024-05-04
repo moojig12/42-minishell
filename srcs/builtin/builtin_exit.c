@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 16:00:18 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/09 16:00:23 by yjinnouc         ###   ########.fr       */
+/*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
+/*   Updated: 2024/04/09 16:01:35 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-env with no options or arguments
+exit with no options
 
-TODO: no help?
+exit: exit [n]
+	Exit the shell.
+
+	Exits the shell with a status of N.  If N is omitted, the exit status
+	is that of the last command executed.
 */
-int	builtin_env(char **env)
+
+int builtin_exit(char ** argv)
 {
-	int	i;
-
-	i = 0;
-	// getenv()
-	while (env[i] != NULL)
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-	return (SUCCESS);
+	rl_event_hook = NULL;
+	if (argv[1] != NULL)
+		exit (ft_atoi(argv[1]));
+	else
+		exit (0);
 }
-
-// TODO: use getenv() ??

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,6 +14,7 @@
 
 /*
 pwd with no options
+
 pwd: pwd [-LP]
     Print the name of the current working directory.
 
@@ -27,11 +28,17 @@ pwd: pwd [-LP]
     cannot be read.
 */
 
-int	builtin_pwd(char **env) //char **args, char **env
+int	builtin_pwd(void) //char **env
 {
 	char	*pwd;
 
-	pwd = get_env_str(env, "PWD");
+	pwd = getcwd(NULL, 0);
+  if (pwd == NULL)
+  {
+    printf("error: %s\n", strerror(errno));
+    return (FAILURE);
+  }
+  // TODO: need renew env pwd ???
 	printf("%s\n", pwd);
-	return (0);
+	return (SUCCESS);
 }
