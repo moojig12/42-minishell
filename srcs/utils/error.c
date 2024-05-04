@@ -12,6 +12,9 @@
 
 #include "minishell.h"
 
+
+
+
 /*exit process with perror*/
 /*just copy from jini's pipex*/
 void	exit_with_perror(char *message, char **array, char *str)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   util_execute.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/23 18:14:24 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/02 13:43:29 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int	count_token_argc(t_token *tokens, int num_command)
 	temp = tokens;
 	while (temp != NULL && 0 < num_command - 1)
 	{
-		if (temp->type == 2)
+		if (temp->type == PIPE)
 			num_command--;
 		temp = temp->next;
 	}
 	argc = 0;
-	while (temp != NULL && temp->type == 0)
+	while (temp != NULL && temp->type == WORDS)
 	{
 		argc++;
 		temp = temp->next;
@@ -58,7 +58,7 @@ int	count_commands(t_token *tokens)
 	count = 1;
 	while (temp != NULL)
 	{
-		if (temp->type == 2)
+		if (temp->type == PIPE)
 			count++;
 		temp = temp->next;
 	}
@@ -77,12 +77,12 @@ char	**tokens_to_argv(t_token *tokens, int index_command)
 	temp = tokens;
 	while (temp != NULL && 0 < index_command)
 	{
-		if (temp->type == 2)
+		if (temp->type == PIPE)
 			index_command--;
 		temp = temp->next;
 	}
 	i = 0;
-	while (temp != NULL && temp->type == 0)
+	while (temp != NULL && temp->type == WORDS)
 	{
 		argv[i] = ft_strdup(temp->value);
 		if (argv[i] == NULL)
@@ -103,7 +103,7 @@ int	is_last_command(t_token *tokens, int num_command)
 	i = 0;
 	while (temp != NULL)
 	{
-		if (temp->type == 2)
+		if (temp->type == PIPE)
 			i++;
 		if (i == num_command)
 			break ;
@@ -112,4 +112,14 @@ int	is_last_command(t_token *tokens, int num_command)
 	if (temp->next == NULL)
 		return (TRUE);
 	return (FALSE);
+}
+
+int count_args(char **args)
+{
+	int i;
+
+	i = 0;
+	while (args[i] != NULL)
+		i++;
+	return (i);
 }

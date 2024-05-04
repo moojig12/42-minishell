@@ -6,11 +6,18 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/23 18:14:24 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:54:25 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void print_commands(char **argv, int index_command, int total_commands)
+{
+	fprintf(stderr, "argv[0] of command %i: %s\n", index_command + 1, argv[0]); // TODO: delete later
+	if (total_commands - 1 == index_command)
+		fprintf(stderr, "--------\n");
+}
 
 int	execute_commands(t_token *tokens, int index_command, \
 	int **pipe_fds_array, char **env)
@@ -23,7 +30,7 @@ int	execute_commands(t_token *tokens, int index_command, \
 	// set_redirect()
 	argv = tokens_to_argv(tokens, index_command);
 	argv[0] = find_pgr(argv[0], env);
-	fprintf(stderr, "argv[0] of command %i: %s\n", index_command, argv[0]); // TODO: delete later
+	print_commands(argv, index_command, total_commands);
 	if (is_builtin(argv[0]))
 		execute_builtin(argv, env);
 	else
@@ -32,7 +39,7 @@ int	execute_commands(t_token *tokens, int index_command, \
 	exit(EXIT_SUCCESS);
 }
 
-int	fork_process(t_token *tokens, int **pipe_fds_array, char **env)
+int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 {
 	int		total_commands;
 	pid_t	pid;
@@ -47,7 +54,7 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, char **env)
 			pipe(pipe_fds_array[count]);
 		pid = fork();
 		if (pid == 0)
-			execute_commands(tokens, count, pipe_fds_array, env);
+			execute_commands(tokens, count, pipe_fds_array, vals->env);
 		else if (pid < 0)
 			exit(EXIT_FAILURE); // TODO: fix error handling
 		else if (0 < count)
@@ -69,10 +76,18 @@ int	execute_wrapper(t_token *tokens, t_values *vals)
 	int	total_commands;
 
 	total_commands = count_commands(tokens);
-	pipe_fds_array = calloc_int_array(total_commands, 2);
-	if (pipe_fds_array == NULL)
-		exit_with_perror("calloc_int_array()", NULL, NULL);
-	fork_process(tokens, pipe_fds_array, vals->env);
-	free_int_array(pipe_fds_array, total_commands);
+	if (total_commands == 1 && is_builtin(tokens->value))
+	{
+		// set_redirect()
+		execute_builtin(tokens_to_argv(tokens, 0), vals->env);
+	}
+	else
+	{
+		pipe_fds_array = calloc_int_array(total_commands, 2);
+		if (pipe_fds_array == NULL)
+			exit_with_perror("calloc_int_array()", NULL, NULL);
+		fork_process(tokens, pipe_fds_array, vals);
+		free_int_array(pipe_fds_array, total_commands);
+	}
 	return (SUCCESS);
 }

@@ -12,21 +12,30 @@
 
 #include "minishell.h"
 
-t_values	*init_values(t_values *vals, char **env)
+t_values	*init_values(char **env)
 {
-	if (vals)
-	{
-		free_vals(vals);
+	t_values	*ptr;
+
+	ptr = malloc(sizeof(t_values));
+	if (!ptr)
 		return (NULL);
-	}
-	vals = malloc(sizeof(t_values));
-	if (!vals)
-		return (NULL);
+	ptr->head_token = NULL;
+	ptr->total_commands = 0;
+	ptr->total_tokens = 0;
+	ptr->env = env;
+	ptr->syntax_error = 0;
+	ptr->last_error_code = 0;
+	return (ptr);
+}
+
+void reset_vals_elements(t_values *vals)
+{
+	if (vals->head_token != NULL)
+		free_token(vals->head_token);
 	vals->head_token = NULL;
 	vals->total_commands = 0;
 	vals->total_tokens = 0;
-	vals->env = env;
 	vals->syntax_error = 0;
-	vals->last_error_code = 0;
-	return (vals);
+	// ptr->last_error_code = 0;
+	return ;
 }

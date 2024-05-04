@@ -36,12 +36,12 @@ void	free_token(t_token *head)
 	{
 		next = temp->next;
 		free(temp->value);
+		free(temp);
 		temp = next;
 	}
-	free(temp);
 }
 
-void	free_vals(t_values *vals)
+void	free_vals_elements(t_values *vals)
 {
 	free_token(vals->head_token);
 	free(vals);

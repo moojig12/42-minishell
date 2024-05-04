@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/04/23 17:42:23 by root             ###   ########.fr       */
+/*   Updated: 2024/05/02 13:46:46 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,29 @@
 # include <stdlib.h>			// getenv
 # include <limits.h>
 # include "libft.h"
+# include <stdbool.h>
 
 /*
-	type:
-		0 = words
-		1 = pipe
-		2 = redirection
+type:
+	0 = words (NULL)
+	1 = pipe
+	2 = redirection
+redirect_type:
+	0 = NULL
+	1 = pipe
+	2 = redirect input
+	3 = redirect output
+	4 = redirect input heredoc
+	5 = redirect output append
 */
+# define WORDS 0
+# define PIPE 1
+# define REDIRECTION 2
+
+# define REDIRECT_IN 2
+# define REDIRECT_OUT 3
+# define REDIRECT_HEREDOC 4
+# define REDIRECT_APPEND 5
 
 typedef struct s_token {
 	char			*value;
@@ -89,7 +105,7 @@ int			main(int argc, char **argv, char **env);
 // execute.c
 int			execute_commands(t_token *tokens, int index_command, \
 			int **pipe_fds_array, char **env);
-int			fork_process(t_token *tokens, int **pipe_fds_array, char **env);
+int			fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals);
 int			execute_wrapper(t_token *tokens, t_values *vals);
 
 // redirect.c
@@ -102,7 +118,8 @@ void		signals_process_nothing(int signum);
 int			signals_handler(void);
 
 // initialize.c
-t_values	*init_values(t_values *vals, char **env);
+t_values	*init_values(char **env);
+void		reset_vals_elements(t_values *vals);
 
 // util_execute.c
 int			count_all_tokens(t_token *tokens);
@@ -110,34 +127,32 @@ int			count_token_argc(t_token *tokens, int num_command);
 int			count_commands(t_token *tokens);
 char		**tokens_to_argv(t_token *tokens, int num_command);
 int			is_last_command(t_token *tokens, int num_command);
+int			count_args(char **args);
 
 /**************** lex_analysis ****************/
-// lex_analysis/token.c
-char		*get_next_value(char **input); // ex.first_pass
+// lex_analysis/lex_analysis.c
+char		*get_next_value(char **input);
 int			lexical_analysis(t_token **tokens, char *input, t_values *val);
 
-// lex_analysis/tokenization.c
+// lex_analysis/convert.c
 t_token		*token_init(void);
 void		add_token_types(t_token *token);
 void		remove_quote(char *value);
-void		convert_to_token(t_token **tokens, char *input);
+int			process_env_vars(t_token *token);
+void		convert_to_token(t_token **tokens, char *value);
 
-void		print_tokens(t_token *token);
-
-// lex_analysis/util_token.c
+// lex_analysis/utils_token.c
 int			check_operator(char *input);
 int			is_operator(char *input);
 int			count_operator_letters(char *input);
 int			count_value_size(char *input);
 
 /**************** builtin ****************/
-// builtin/builtin1.c
+// builtin/
 int			builtin_echo(char **argv);
-int			builtin_cd(char **argv, char **env);
-int			builtin_pwd(char **env);
+int			builtin_cd(char **argv);
+int			builtin_pwd(void);
 int			builtin_export(char **argv, char **env);
-
-// builtin/builtin2.c
 int			builtin_unset(char **argv, char **env);
 int			builtin_env(char **env);
 int			builtin_exit(char **argv);
@@ -149,7 +164,9 @@ int			execute_builtin(char **argv, char **env);
 /**************** utils ****************/
 // utils/env.c
 char		**get_env_elements(char **envp, char *key);
+char		*get_env_value(char *key);
 char		*get_env_str(char **env, char *key);
+char		*replace_env_var(char *str, int start);
 
 // utils/error.c
 void		exit_with_perror(char *message, char **array, char *str);
