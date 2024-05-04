@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/02 13:46:46 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/04 11:00:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ void		exit_without_perror(char *message, char *file_or_cmd, \
 char		*find_pgr(char *pgr_name, char **envp);
 
 // utils/free.c
+void		free_array_err(char **argv);
 void		free_array(char **array);
 void		free_token(t_token *head);
 void		free_args(char	**args);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_pgr_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:28:21 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/09 15:10:29 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/04 10:58:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ char	*find_pgr(char *pgr_name, char **envp)
 		free(pgr_path);
 	}
 	free_array(env_path_list);
+	free(pgr_name);
 	return (NULL);
 }

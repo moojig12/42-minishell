@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:44:06 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/16 19:49:52 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/04 10:59:53 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_array_err(char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (argv[i] != NULL)
+		free(argv[i++]);
+	free(argv);
+	argv = NULL;
+}
 
 void	free_array(char **array)
 {

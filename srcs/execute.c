@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/03 17:54:25 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/04 10:59:36 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ int	execute_commands(t_token *tokens, int index_command, \
 	argv = tokens_to_argv(tokens, index_command);
 	argv[0] = find_pgr(argv[0], env);
 	print_commands(argv, index_command, total_commands);
+	if (!argv[0])
+	{
+		free_array_err(argv);
+		return (0);
+	}
 	if (is_builtin(argv[0]))
 		execute_builtin(argv, env);
 	else
@@ -48,6 +53,7 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 
 	total_commands = count_commands(tokens);
 	count = 0;
+	status = 0;
 	while (count < total_commands)
 	{
 		if (count < total_commands - 1)
