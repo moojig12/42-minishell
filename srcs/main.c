@@ -54,15 +54,12 @@ void	main_process(char *input, t_values *vals)
 	print_tokens(vals->head_token); // TODO: delete later
 	if (vals->syntax_error == 1)
 	{
-		free_token(vals->head_token);
 		printf("error: syntax error\n");
 		return ;
 	}
 	execute_wrapper(vals->head_token, vals);
 	if (vals->last_error_code != 0)
 		printf("error: %s\n", strerror(vals->last_error_code));
-	reset_vals_elements(vals);
-	free(input);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -85,6 +82,8 @@ int	main(int argc, char **argv, char **env)
 			add_history(input);
 		if (input[0])
 			main_process(input, vals);
+		reset_vals_elements(vals);
+		free(input);
 	}
 	free(vals);
 	write_history(".minishell_history");
