@@ -33,15 +33,15 @@ int	execute_commands(t_token *tokens, int index_command, \
 	print_commands(argv, index_command, total_commands);
 	if (!argv[0])
 	{
-		free_array_err(argv);
-		return (0);
+		free_array(argv);
+		return (FAILURE);
 	}
 	if (is_builtin(argv[0]))
 		execute_builtin(argv, env);
 	else
 		execve(argv[0], argv, env);
 	free(argv);
-	exit(EXIT_SUCCESS);
+	return (SUCCESS);
 }
 
 int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)

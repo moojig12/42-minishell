@@ -177,7 +177,6 @@ void		exit_without_perror(char *message, char *file_or_cmd, \
 char		*find_pgr(char *pgr_name, char **envp);
 
 // utils/free.c
-void		free_array_err(char **argv);
 void		free_array(char **array);
 void		free_token(t_token *head);
 void		free_args(char	**args);
