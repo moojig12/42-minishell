@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/06 14:20:31 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:59:48 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	execute_commands(t_token *tokens, int index_command, \
 	print_commands(path, argv, index_command, total_commands);
 	if (!path)
 	{
-		free_array_err(argv);
-		return (0);
+		free_array(argv);
+		return (FAILURE);
 	}
 	free(argv[0]);
 	argv[0] = path;

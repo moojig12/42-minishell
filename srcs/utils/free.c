@@ -12,17 +12,6 @@
 
 #include "minishell.h"
 
-void	free_array_err(char **argv)
-{
-	int	i;
-
-	i = 1;
-	while (argv[i] != NULL)
-		free(argv[i++]);
-	free(argv);
-	argv = NULL;
-}
-
 void	free_array(char **array)
 {
 	int	i;
