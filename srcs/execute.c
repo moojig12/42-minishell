@@ -33,7 +33,7 @@ int	execute_commands(t_token *tokens, int index_command, \
 	path = find_pgr(argv[0], vals->env);
 	// if (path == NULL)
 		// error
-	// print_commands(path, argv, index_command, total_commands);
+	print_commands(path, argv, index_command, total_commands);
 	if (!path)
 	{
 		free_array(argv);

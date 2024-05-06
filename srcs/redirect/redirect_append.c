@@ -26,8 +26,8 @@ int	redirect_append(t_token *token, t_values *val)
 		// handle_error
 		return (FAILURE);
 	}
-	save_fd(fd, STDOUT, val);
-	dup2(fd, STDOUT);
+	save_fd(fd, STDIN, val);
+	dup2(fd, STDIN);
 	close(fd);
 	return (SUCCESS);
 }
