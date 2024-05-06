@@ -3,45 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/04 10:59:36 by root             ###   ########.fr       */
+/*   Updated: 2024/05/06 14:20:31 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void print_commands(char **argv, int index_command, int total_commands)
+void print_commands(char *path, char **argv, int index_command, int total_commands)
 {
-	fprintf(stderr, "argv[0] of command %i: %s\n", index_command + 1, argv[0]); // TODO: delete later
+	fprintf(stderr, "command %i: %s -> %s\n", index_command + 1, argv[0], path); // TODO: delete later
 	if (total_commands - 1 == index_command)
 		fprintf(stderr, "--------\n");
 }
 
 int	execute_commands(t_token *tokens, int index_command, \
-	int **pipe_fds_array, char **env)
+	int **pipe_fds_array, t_values *vals)
 {
 	int		total_commands;
 	char	**argv;
+	char 	*path;
 
 	total_commands = count_commands(tokens);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
-	// set_redirect()
+	set_redirect(tokens, index_command, vals);
 	argv = tokens_to_argv(tokens, index_command);
-	argv[0] = find_pgr(argv[0], env);
-	print_commands(argv, index_command, total_commands);
-	if (!argv[0])
+	path = find_pgr(argv[0], vals->env);
+	// if (path == NULL)
+		// error
+	print_commands(path, argv, index_command, total_commands);
+	if (!path)
 	{
 		free_array_err(argv);
 		return (0);
 	}
+	free(argv[0]);
+	argv[0] = path;
 	if (is_builtin(argv[0]))
-		execute_builtin(argv, env);
+		execute_builtin(argv, vals->env);
 	else
-		execve(argv[0], argv, env);
-	free(argv);
-	exit(EXIT_SUCCESS);
+		execve(argv[0], argv, vals->env);
+	free_array(argv);
+	reset_redirect(vals);
+	return (SUCCESS);
 }
 
 int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
@@ -60,7 +66,7 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 			pipe(pipe_fds_array[count]);
 		pid = fork();
 		if (pid == 0)
-			execute_commands(tokens, count, pipe_fds_array, vals->env);
+			execute_commands(tokens, count, pipe_fds_array, vals);
 		else if (pid < 0)
 			exit(EXIT_FAILURE); // TODO: fix error handling
 		else if (0 < count)
@@ -78,14 +84,16 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 
 int	execute_wrapper(t_token *tokens, t_values *vals)
 {
-	int	**pipe_fds_array;
-	int	total_commands;
+	int		total_commands;
+	char	**argv;
+	int		**pipe_fds_array;
 
 	total_commands = count_commands(tokens);
 	if (total_commands == 1 && is_builtin(tokens->value))
 	{
-		// set_redirect()
-		execute_builtin(tokens_to_argv(tokens, 0), vals->env);
+		argv = tokens_to_argv(tokens, 0);
+		execute_builtin(argv, vals->env);
+		free_array(argv);
 	}
 	else
 	{

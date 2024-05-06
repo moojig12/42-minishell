@@ -23,6 +23,7 @@ INCL	=	$(wildcard $(INCL_DIR)/*.h) # FIX: change this before submit
 # INCL	=	$(INCL_DIR)/minishell.h
 SRCS	=	$(wildcard $(SRCS_DIR)/*.c) # FIX: change this before submit
 SRCS	+=	$(wildcard $(SRCS_DIR)/lex_analysis/*.c) # FIX: change this before submit
+SRCS	+=	$(wildcard $(SRCS_DIR)/redirect/*.c) # FIX: change this before submit
 SRCS	+=	$(wildcard $(SRCS_DIR)/builtin/*.c) # FIX: change this before submit
 SRCS	+=	$(wildcard $(SRCS_DIR)/utils/*.c) # FIX: change this before submit
 # SRCS	=	$(SRCS_DIR)/main.c \
@@ -71,6 +72,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 $(OBJS_DIR):
 	mkdir $(OBJS_DIR)
 	mkdir $(OBJS_DIR)/lex_analysis
+	mkdir $(OBJS_DIR)/redirect
 	mkdir $(OBJS_DIR)/builtin
 	mkdir $(OBJS_DIR)/utils
 

@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_io.c                                           :+:      :+:    :+:   */
+/*   redirect_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/23 16:13:15 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:52:36 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	set_pipe_io(int command_count, int **pipe_fds_array, int total_commands)
+// take redirect in operator as token then set fd and save it
+int	redirect_input(t_token *token, t_values *val)
 {
-	int	*current_pipe;
-	int	*last_pipe;
+	t_token	*temp;
+	int		fd;
 
-	if (0 < command_count)
+	temp = token->next;
+	fd = open(temp->value, O_RDONLY);
+	// printf("fd: %d\n", fd); // TODO: remove later
+	if (fd < 0)
 	{
-		last_pipe = pipe_fds_array[command_count - 1];
-		dup2(last_pipe[PIPE_READ_FROM], STDIN_FILENO);
-		close(last_pipe[PIPE_WRITE_IN]);
-		close(last_pipe[PIPE_READ_FROM]);
+		// handle_error
+		return (FAILURE);
 	}
-	if (command_count < total_commands - 1)
-	{
-		current_pipe = pipe_fds_array[command_count];
-		dup2(current_pipe[PIPE_WRITE_IN], STDOUT_FILENO);
-		close(current_pipe[PIPE_WRITE_IN]);
-		close(current_pipe[PIPE_READ_FROM]);
-	}
+	save_fd(fd, STDIN, val);
+	dup2(fd, STDIN);
+	close(fd);
 	return (SUCCESS);
 }

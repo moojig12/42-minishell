@@ -58,14 +58,3 @@ void	free_vals_elements(t_values *vals)
 	free(vals);
 	vals = NULL;
 }
-
-void	free_args(char	**args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i] != NULL)
-		free(args[i++]);
-	free(args);
-	args = NULL;
-}

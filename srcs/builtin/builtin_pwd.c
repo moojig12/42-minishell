@@ -40,5 +40,6 @@ int	builtin_pwd(void) //char **env
   }
   // TODO: need renew env pwd ???
 	printf("%s\n", pwd);
+  free(pwd);
 	return (SUCCESS);
 }
