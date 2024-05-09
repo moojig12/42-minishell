@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/04 11:20:31 by root             ###   ########.fr       */
+/*   Updated: 2024/05/06 18:56:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	main_process(char *input, t_values *vals)
 {
 	lexical_analysis(&vals->head_token, input, vals);
 	print_tokens(vals->head_token); // TODO: delete later
+	grammar_check(vals->head_token, vals);
 	if (vals->syntax_error == 1)
 	{
 		printf("error: syntax error\n");
