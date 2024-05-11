@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:27:20 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/02 13:49:39 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:50:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ cd: cd [-L|[-P [-e]] [-@]] [dir]
 	-P is used; non-zero otherwise.
 */
 
-int	builtin_cd(char **args)
+int	builtin_cd(char **args, char ***env)
 {
     int	ret;
 	int argc;
@@ -68,5 +68,6 @@ int	builtin_cd(char **args)
         perror("cd");
 		return (FAILURE);
     }
+	change_env(env, NULL, "CD_UPDATE");
     return (SUCCESS);
 }
