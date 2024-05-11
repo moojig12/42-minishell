@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/02 13:46:58 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:40:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ Your shell must implement the following builtins:
 
 int	is_builtin(char *cmd)
 {
-	// if (ft_strcmp(cmd, "echo") == 0)
-	// 	return (TRUE);
+	if (ft_strcmp(cmd, "echo") == 0)
+		return (TRUE);
 	if (ft_strcmp(cmd, "cd") == 0)
 		return (TRUE);
 	if (ft_strcmp(cmd, "pwd") == 0)
@@ -44,10 +44,13 @@ int	is_builtin(char *cmd)
 
 int	execute_builtin(char **argv, char **env)
 {
-	// if (ft_strcmp(argv[0], "echo") == 0)
-	// 	return (builtin_echo(argv));
+	bool	new_line;
+
+	new_line = TRUE;
+	if (ft_strcmp(argv[0], "echo") == 0)
+		return (builtin_echo(argv, new_line));
 	if (ft_strcmp(argv[0], "cd") == 0)
-		return (builtin_cd(argv));
+		return (builtin_cd(argv, &env));
 	if (ft_strcmp(argv[0], "pwd") == 0)
 		return (builtin_pwd());
 	// if (ft_strcmp(argv[0], "export") == 0)

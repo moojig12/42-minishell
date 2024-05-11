@@ -172,8 +172,8 @@ int			save_fd(int fd, int old_fd, t_values *s);
 
 /**************** builtin ****************/
 // builtin/*.c
-int			builtin_echo(char **argv);
-int			builtin_cd(char **argv);
+int			builtin_echo(char **argv, bool new_line);
+int			builtin_cd(char **argv, char ***env);
 int			builtin_pwd(void);
 int			builtin_export(char **argv, char **env);
 int			builtin_unset(char **argv, char **env);
@@ -186,10 +186,11 @@ int			execute_builtin(char **argv, char **env);
 
 /**************** utils ****************/
 // utils/env.c
-char		**get_env_elements_array(char *key);
-// char		*get_env_value(char *key);
-// char		*get_env_str(char **env, char *key);
+void		change_env(char ***env, char *target, char *operation);
+char		**get_env_elements_array(char **env, char *key);
 char		*replace_env_var(char *str, int start, t_values *vals);
+// char		*get_env_value(char *key);
+char		*get_env_str(char **env, char *key);
 
 // utils/error.c
 void		exit_with_perror(char *message, t_values *vals);
