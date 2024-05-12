@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/12 16:46:04 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:18:16 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,10 @@ int			count_value_size(char *input);
 // builtin/
 int			builtin_echo(char **argv);
 int			builtin_cd(char **argv, t_values *vals);
-int			builtin_pwd(char **args);
+int			builtin_pwd(void);
 int			builtin_export(char **argv, t_values *vals);
 int			builtin_unset(char **argv, t_values *vals);
-int			builtin_env(t_values *vals, char **argv);
+int			builtin_env(t_values *vals);
 int			builtin_exit(char **argv);
 
 // builtin/builtin_util.c

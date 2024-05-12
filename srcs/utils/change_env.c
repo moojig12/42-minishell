@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 22:10:13 by root              #+#    #+#             */
-/*   Updated: 2024/05/12 16:14:20 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:19:49 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	remove_env(t_values *vals, char *target)
 	while (ft_strncmp(vals->env[i], target, ft_strlen(target)))
 		i++;
 }
-
+// Target must be mallocated in this case
 void	add_env(t_values *vals, char *target)
 {
 	char	**new;
@@ -49,7 +49,6 @@ void	add_env(t_values *vals, char *target)
 	int	j;
 
 	i = 0;
-	printf("%s\n", target);
 	while (vals->env[i])
 	{
 		i++;
@@ -61,6 +60,7 @@ void	add_env(t_values *vals, char *target)
 		new[j] = vals->env[j];
 		j++;
 	}
+	new[j] = target;
 }
 
 void	change_env(t_values *vals, char *target, char *operation)

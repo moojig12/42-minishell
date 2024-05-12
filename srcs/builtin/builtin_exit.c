@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 16:26:51 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:55:22 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ exit: exit [n]
 int builtin_exit(char **argv)
 {
 	rl_event_hook = NULL;
-	free_args(argv);
-	// free_args(vals->env);
 	if (argv[1] != NULL)
 		exit (ft_atoi(argv[1]));
 	else

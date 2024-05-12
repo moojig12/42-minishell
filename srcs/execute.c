@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 16:12:51 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:58:15 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,17 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 
 int	execute_wrapper(t_token *tokens, t_values *vals)
 {
-	int	**pipe_fds_array;
-	int	total_commands;
+	int		**pipe_fds_array;
+	int		total_commands;
+	char	**temp;
 
 	total_commands = count_commands(tokens);
 	if (total_commands == 1 && is_builtin(tokens->value))
 	{
 		// set_redirect()
-		execute_builtin(tokens_to_argv(tokens, 0), vals);
+		temp = tokens_to_argv(tokens, 0);
+		execute_builtin(temp, vals);
+		free_array(temp);
 	}
 	else
 	{

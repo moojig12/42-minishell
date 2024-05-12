@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/12 16:50:37 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:53:23 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		input = readline("minishell$ ");
 		if (!input)
-		{
-			
-		}
+			break ;
 		if (*input && input[0] != '\t')
 			add_history(input);
 		if (input[0])
@@ -87,6 +85,7 @@ int	main(int argc, char **argv, char **env)
 		reset_vals_elements(vals);
 		free(input);
 	}
+	free_array(vals->env);
 	if (vals)
 		free(vals);
 	write_history(".minishell_history");
