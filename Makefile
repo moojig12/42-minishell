@@ -26,6 +26,7 @@ SRCS	+=	$(wildcard $(SRCS_DIR)/lex_analysis/*.c) # FIX: change this before submi
 SRCS	+=	$(wildcard $(SRCS_DIR)/redirect/*.c) # FIX: change this before submit
 SRCS	+=	$(wildcard $(SRCS_DIR)/builtin/*.c) # FIX: change this before submit
 SRCS	+=	$(wildcard $(SRCS_DIR)/utils/*.c) # FIX: change this before submit
+SRCS	+=	$(wildcard $(SRCS_DIR)/test/*.c) # FIX: change this before submit
 # SRCS	=	$(SRCS_DIR)/main.c \
 # 			$(SRCS_DIR)/tokenization.c \
 # 			...
@@ -75,6 +76,7 @@ $(OBJS_DIR):
 	mkdir $(OBJS_DIR)/redirect
 	mkdir $(OBJS_DIR)/builtin
 	mkdir $(OBJS_DIR)/utils
+	mkdir $(OBJS_DIR)/test
 
 # make libft
 libft: $(LIBFT)

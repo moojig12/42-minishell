@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:27:20 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/02 13:49:39 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/07 07:31:21 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	builtin_cd(char **args)
 	argc = count_args(args);
 	if (argc != 2)
 	{
-        fprintf(stderr, "cd: too many arguments\n");
+        printf("cd: too many arguments\n"); // TODO: fix
         return (FAILURE);
     }
 	ret = chdir(args[1]);

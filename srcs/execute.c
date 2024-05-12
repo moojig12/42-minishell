@@ -6,10 +6,9 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/06 22:00:36 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/07 07:29:10 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -28,13 +27,13 @@ int	execute_commands(t_token *tokens, int index_command, \
 	char 	*path;
 
 	total_commands = count_commands(tokens);
-	set_pipe_io(index_command, pipe_fds_array, total_commands);
 	set_redirect(tokens, index_command, vals);
+	set_pipe_io(index_command, pipe_fds_array, total_commands);
 	argv = tokens_to_argv(tokens, index_command);
 	path = find_pgr(argv[0], vals->env);
 	// if (path == NULL)
 		// error
-	print_commands(path, argv, index_command, total_commands);
+	// print_commands(path, argv, index_command, total_commands);
 	if (!path)
 	{
 		free_array(argv);

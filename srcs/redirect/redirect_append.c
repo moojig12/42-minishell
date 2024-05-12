@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/06 21:52:41 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/07 07:13:14 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	redirect_append(t_token *token, t_values *val)
 		// handle_error
 		return (FAILURE);
 	}
-	save_fd(fd, STDIN, val);
-	dup2(fd, STDIN);
+	save_fd(fd, STDOUT, val);
+	dup2(fd, STDOUT);
 	close(fd);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/06 21:47:53 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/07 10:15:06 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int set_redirect(t_token *head, int index_command, t_values *vals)
 			redirect_input(temp, vals);
 		else if (temp->redirect_type == REDIRECT_OUT)
 			redirect_output(temp, vals);
-		// else if (temp->redirect_type == REDIRECT_HEREDOC)
-		// 	redirect_heredoc(temp, vals);
+		else if (temp->redirect_type == REDIRECT_HEREDOC)
+			redirect_heredoc(temp, vals);
 		else if (temp->redirect_type == REDIRECT_APPEND)
 			redirect_append(temp, vals);
 		temp = get_next_redirection(temp);
@@ -63,9 +63,8 @@ int reset_redirect(t_values *vals)
 	temp = vals->head_io;
 	while (temp != NULL)
 	{
-		dup2(temp->old_fd, temp->fd);
-		close(temp->fd);
-		close(temp->old_fd);
+		dup2(temp->fd, temp->old_fd);
+		// close(temp->old_fd);
 		next = temp->next;
 		free(temp);
 		temp = next;

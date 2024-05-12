@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenization.c                                     :+:      :+:    :+:   */
+/*   convert.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/23 17:42:23 by root             ###   ########.fr       */
+/*   Updated: 2024/05/06 22:16:32 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_token	*token_init(void)
 	new->type = 0;
 	new->value = 0;
 	new->redirect_type = 0;
+	// new->command_index = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

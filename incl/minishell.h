@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/06 21:51:26 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/07 10:03:32 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int			reset_redirect(t_values *vals);
 // redirect/redirect_*.c
 int			redirect_input(t_token *temp, t_values *val);
 int			redirect_output(t_token *temp, t_values *val);
-// int			redirect_heredoc(t_token *temp, t_values *val);
+int			redirect_heredoc(t_token *temp, t_values *val);
 int			redirect_append(t_token *token, t_values *val);
 
 // redirect/redirect_util.c
@@ -214,5 +214,9 @@ t_token		*last_node(t_token *node);
 void		add_to_back(t_token **tokens, t_token *new);
 t_token		*get_command_head(t_token *head, int index_command);
 t_token		*get_next_redirection(t_token *command_head);
+
+/**************** test ****************/
+// test/test_fd.c
+int			test_fds(void);
 
 #endif

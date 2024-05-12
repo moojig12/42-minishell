@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/04 11:20:31 by root             ###   ########.fr       */
+/*   Updated: 2024/05/07 10:33:36 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	preparation_process(void)
 void	main_process(char *input, t_values *vals)
 {
 	lexical_analysis(&vals->head_token, input, vals);
-	print_tokens(vals->head_token); // TODO: delete later
+	// print_tokens(vals->head_token); // TODO: delete later
 	if (vals->syntax_error == 1)
 	{
 		printf("error: syntax error\n");
@@ -82,6 +82,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(input);
 		if (input[0])
 			main_process(input, vals);
+		// test_fds();
 		reset_vals_elements(vals);
 		free(input);
 	}
