@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/04 10:59:36 by root             ###   ########.fr       */
+/*   Updated: 2024/05/12 16:12:51 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void print_commands(char **argv, int index_command, int total_commands)
 }
 
 int	execute_commands(t_token *tokens, int index_command, \
-	int **pipe_fds_array, char **env)
+	int **pipe_fds_array, t_values *vals)
 {
 	int		total_commands;
 	char	**argv;
@@ -29,7 +29,7 @@ int	execute_commands(t_token *tokens, int index_command, \
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
 	// set_redirect()
 	argv = tokens_to_argv(tokens, index_command);
-	argv[0] = find_pgr(argv[0], env);
+	argv[0] = find_pgr(argv[0], vals->env);
 	print_commands(argv, index_command, total_commands);
 	if (!argv[0])
 	{
@@ -37,9 +37,9 @@ int	execute_commands(t_token *tokens, int index_command, \
 		return (FAILURE);
 	}
 	if (is_builtin(argv[0]))
-		execute_builtin(argv, env);
+		execute_builtin(argv, vals);
 	else
-		execve(argv[0], argv, env);
+		execve(argv[0], argv, vals->env);
 	free(argv);
 	return (SUCCESS);
 }
@@ -60,7 +60,7 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 			pipe(pipe_fds_array[count]);
 		pid = fork();
 		if (pid == 0)
-			execute_commands(tokens, count, pipe_fds_array, vals->env);
+			execute_commands(tokens, count, pipe_fds_array, vals);
 		else if (pid < 0)
 			exit(EXIT_FAILURE); // TODO: fix error handling
 		else if (0 < count)
@@ -85,7 +85,7 @@ int	execute_wrapper(t_token *tokens, t_values *vals)
 	if (total_commands == 1 && is_builtin(tokens->value))
 	{
 		// set_redirect()
-		execute_builtin(tokens_to_argv(tokens, 0), vals->env);
+		execute_builtin(tokens_to_argv(tokens, 0), vals);
 	}
 	else
 	{

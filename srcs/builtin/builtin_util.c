@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 09:33:35 by root             ###   ########.fr       */
+/*   Updated: 2024/05/12 16:27:02 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,20 @@ int	is_builtin(char *cmd)
 	return (FALSE);
 }
 
-int	execute_builtin(char **argv, char **env)
+int	execute_builtin(char **argv, t_values *vals)
 {
-	bool	new_line;
-
-	new_line = TRUE;
 	if (ft_strcmp(argv[0], "echo") == 0)
-		return (builtin_echo(argv, new_line));
+		return (builtin_echo(argv));
 	if (ft_strcmp(argv[0], "cd") == 0)
-		return (builtin_cd(argv, env));
+		return (builtin_cd(argv, vals));
 	if (ft_strcmp(argv[0], "pwd") == 0)
-		return (builtin_pwd());
+		return (builtin_pwd(argv));
 	// if (ft_strcmp(argv[0], "export") == 0)
 	// 	return (builtin_export(argv, env));
 	// if (ft_strcmp(argv[0], "unset") == 0)
 	// 	return (builtin_unset(argv, env));
 	if (ft_strcmp(argv[0], "env") == 0)
-		return (builtin_env(env));
+		return (builtin_env(vals, argv));
 	if (ft_strcmp(argv[0], "exit") == 0)
 		return (builtin_exit(argv));
 	return (FAILURE);

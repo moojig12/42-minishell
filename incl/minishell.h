@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/12 09:32:10 by root             ###   ########.fr       */
+/*   Updated: 2024/05/12 16:46:04 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int			main(int argc, char **argv, char **env);
 
 // execute.c
 int			execute_commands(t_token *tokens, int index_command, \
-			int **pipe_fds_array, char **env);
+			int **pipe_fds_array, t_values *vals);
 int			fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals);
 int			execute_wrapper(t_token *tokens, t_values *vals);
 
@@ -149,21 +149,21 @@ int			count_value_size(char *input);
 
 /**************** builtin ****************/
 // builtin/
-int			builtin_echo(char **argv, bool new_line);
-int			builtin_cd(char **argv, char **env);
-int			builtin_pwd(void);
-int			builtin_export(char **argv, char **env);
-int			builtin_unset(char **argv, char **env);
-int			builtin_env(char **env);
+int			builtin_echo(char **argv);
+int			builtin_cd(char **argv, t_values *vals);
+int			builtin_pwd(char **args);
+int			builtin_export(char **argv, t_values *vals);
+int			builtin_unset(char **argv, t_values *vals);
+int			builtin_env(t_values *vals, char **argv);
 int			builtin_exit(char **argv);
 
 // builtin/builtin_util.c
 int			is_builtin(char *cmd);
-int			execute_builtin(char **argv, char **env);
+int			execute_builtin(char **argv, t_values *vals);
 
 /**************** utils ****************/
 // utils/env.c
-void		change_env(char **env, char *target, char *operation);
+void		change_env(t_values *vals, char *target, char *operation);
 char		**get_env_elements(char **envp, char *key);
 char		*get_env_value(char *key);
 char		*get_env_str(char **env, char *key);
@@ -178,6 +178,7 @@ void		exit_without_perror(char *message, char *file_or_cmd, \
 char		*find_pgr(char *pgr_name, char **envp);
 
 // utils/free.c
+void		free_vals_elements(t_values *vals);
 void		free_array(char **array);
 void		free_token(t_token *head);
 void		free_args(char	**args);
