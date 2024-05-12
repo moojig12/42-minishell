@@ -93,7 +93,7 @@ int	execute_wrapper(t_token *tokens, t_values *vals)
 	if (total_commands == 1 && is_builtin(tokens->value))
 	{
 		argv = tokens_to_argv(tokens, 0);
-		execute_builtin(argv, vals->env);
+		execute_builtin(argv, vals);
 		free_array(argv);
 	}
 	else

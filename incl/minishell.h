@@ -6,11 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2024/05/13 01:26:32 by yjinnouc         ###   ########.fr       */
-=======
-/*   Updated: 2024/05/12 09:32:10 by root             ###   ########.fr       */
->>>>>>> 0f12847 (Update env pwd functional now)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,30 +172,24 @@ int			save_fd(int fd, int old_fd, t_values *s);
 
 /**************** builtin ****************/
 // builtin/*.c
-int			builtin_echo(char **argv, bool new_line);
-int			builtin_cd(char **argv, char **env);
-int			builtin_pwd(void);
-int			builtin_export(char **argv, char **env);
-int			builtin_unset(char **argv, char **env);
-int			builtin_env(char **env);
+int			builtin_echo(char **argv);
+int			builtin_cd(char **argv, t_values *vals);
+int			builtin_pwd(char **args);
+int			builtin_export(char **argv, t_values *vals);
+int			builtin_unset(char **argv, t_values *vals);
+int			builtin_env(t_values *vals, char **argv);
 int			builtin_exit(char **argv);
 
 // builtin/builtin_util.c
 int			is_builtin(char *cmd);
-int			execute_builtin(char **argv, char **env);
+int			execute_builtin(char **argv, t_values *vals);
 
 /**************** utils ****************/
 // utils/env.c
-<<<<<<< HEAD
-void		change_env(char ***env, char *target, char *operation);
 char		**get_env_elements_array(char **env, char *key);
 char		*replace_env_var(char *str, int start, t_values *vals);
 // char		*get_env_value(char *key);
-=======
-void		change_env(char **env, char *target, char *operation);
-char		**get_env_elements(char **envp, char *key);
-char		*get_env_value(char *key);
->>>>>>> 0f12847 (Update env pwd functional now)
+void		change_env(t_values *vals, char *target, char *operation);
 char		*get_env_str(char **env, char *key);
 
 // utils/error.c
@@ -216,6 +206,7 @@ void		error_io(char *message, t_values *vals);
 char		*find_pgr(char *pgr_name);
 
 // utils/free.c
+void		free_vals_elements(t_values *vals);
 void		free_array(char **array);
 void		free_token(t_token *head);
 void		free_vals(t_values *vals);

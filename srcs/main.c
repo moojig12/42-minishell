@@ -86,7 +86,8 @@ int	main(int argc, char **argv, char **env)
 		reset_vals_elements(vals);
 		free(input);
 	}
-	free(vals);
+	if (vals)
+		free(vals);
 	write_history(".minishell_history");
 	printf("exit\n");
 	return (SUCCESS);

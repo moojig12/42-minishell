@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:59:37 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 09:42:27 by root             ###   ########.fr       */
+/*   Updated: 2024/05/12 16:18:45 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ pwd: pwd [-LP]
 	cannot be read.
 */
 
-int	builtin_pwd(void) //char **env
+int	builtin_pwd(char **args) //char **env
 {
 	char	*pwd;
 
@@ -40,10 +40,7 @@ int	builtin_pwd(void) //char **env
 	}
 	// TODO: need renew env pwd ???
 	printf("%s\n", pwd);
-<<<<<<< HEAD
 	free(pwd);
-=======
-  free(pwd);
->>>>>>> 0f12847 (Update env pwd functional now)
+	free_array(args);
 	return (SUCCESS);
 }
