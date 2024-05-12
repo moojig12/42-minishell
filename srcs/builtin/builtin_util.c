@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 16:27:02 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:16:06 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ int	execute_builtin(char **argv, t_values *vals)
 	if (ft_strcmp(argv[0], "cd") == 0)
 		return (builtin_cd(argv, vals));
 	if (ft_strcmp(argv[0], "pwd") == 0)
-		return (builtin_pwd(argv));
-	// if (ft_strcmp(argv[0], "export") == 0)
-	// 	return (builtin_export(argv, env));
-	// if (ft_strcmp(argv[0], "unset") == 0)
-	// 	return (builtin_unset(argv, env));
+		return (builtin_pwd());
+	if (ft_strcmp(argv[0], "export") == 0)
+		return (builtin_export(argv, vals));
+	if (ft_strcmp(argv[0], "unset") == 0)
+		return (builtin_unset(argv, vals));
 	if (ft_strcmp(argv[0], "env") == 0)
-		return (builtin_env(vals, argv));
+		return (builtin_env(vals));
 	if (ft_strcmp(argv[0], "exit") == 0)
 		return (builtin_exit(argv));
 	return (FAILURE);

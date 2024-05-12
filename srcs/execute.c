@@ -6,7 +6,11 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/05/13 00:09:47 by yjinnouc         ###   ########.fr       */
+=======
+/*   Updated: 2024/05/12 16:58:15 by nmandakh         ###   ########.fr       */
+>>>>>>> 01c86e8 (ADD_ENV and REMOVE_ENV currently dysfunctional, update of pwd in ENV after cd is functional. Several memory leaks fixed)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +89,29 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 
 int	execute_wrapper(t_token *tokens, t_values *vals)
 {
+<<<<<<< HEAD
 	int		total_commands;
 	char	**argv;
 	int		**pipe_fds_array;
+=======
+	int		**pipe_fds_array;
+	int		total_commands;
+	char	**temp;
+>>>>>>> 01c86e8 (ADD_ENV and REMOVE_ENV currently dysfunctional, update of pwd in ENV after cd is functional. Several memory leaks fixed)
 
 	total_commands = count_commands(tokens);
 	if (total_commands == 1 && is_builtin(tokens->value))
 	{
+<<<<<<< HEAD
 		argv = tokens_to_argv(tokens, 0);
 		execute_builtin(argv, vals);
 		free_array(argv);
+=======
+		// set_redirect()
+		temp = tokens_to_argv(tokens, 0);
+		execute_builtin(temp, vals);
+		free_array(temp);
+>>>>>>> 01c86e8 (ADD_ENV and REMOVE_ENV currently dysfunctional, update of pwd in ENV after cd is functional. Several memory leaks fixed)
 	}
 	else
 	{

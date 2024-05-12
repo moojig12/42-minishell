@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:27:20 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 16:17:36 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:21:49 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ int	builtin_cd(char **args, t_values *vals)
 		return (FAILURE);
     }
 	change_env(vals, NULL, "CD_UPDATE");
-	free_args(args);
     return (SUCCESS);
 }

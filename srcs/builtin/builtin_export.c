@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/09 16:01:30 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:23:52 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,26 @@ export: export [-fn] [name[=value] ...] or export -p
 	Exit Status:
 	Returns success unless an invalid option is given or NAME is invalid.
 */
+<<<<<<< HEAD
+=======
+int	check_syntax(char *var)
+{
+	if (!var)
+		return (FAILURE);
+	return (SUCCESS);
+}
+	// Adds variable from export arg to env
+	// Multiple variable exporting *TO BE ADDED!*
+int	builtin_export(char **argv, t_values *vals)
+{
+	char	*variable;
+	int	i;
+
+	i = 1;
+	variable = ft_strdup(argv[i]);
+	if (!check_syntax(variable))
+		return (FAILURE);
+	change_env(vals, variable, "ADD_ENV");
+	return (SUCCESS);
+}
+>>>>>>> 01c86e8 (ADD_ENV and REMOVE_ENV currently dysfunctional, update of pwd in ENV after cd is functional. Several memory leaks fixed)

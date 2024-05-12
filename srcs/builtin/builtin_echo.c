@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 16:19:29 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:55:10 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,5 @@ int	builtin_echo(char **argv)
 	}
 	if (new_l)
 		printf("\n");
-	free_args(argv);
 	return (SUCCESS);
 }

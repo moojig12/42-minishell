@@ -6,7 +6,11 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/05/13 01:26:32 by yjinnouc         ###   ########.fr       */
+=======
+/*   Updated: 2024/05/12 17:18:16 by nmandakh         ###   ########.fr       */
+>>>>>>> 01c86e8 (ADD_ENV and REMOVE_ENV currently dysfunctional, update of pwd in ENV after cd is functional. Several memory leaks fixed)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,10 +178,10 @@ int			save_fd(int fd, int old_fd, t_values *s);
 // builtin/*.c
 int			builtin_echo(char **argv);
 int			builtin_cd(char **argv, t_values *vals);
-int			builtin_pwd(char **args);
+int			builtin_pwd(void);
 int			builtin_export(char **argv, t_values *vals);
 int			builtin_unset(char **argv, t_values *vals);
-int			builtin_env(t_values *vals, char **argv);
+int			builtin_env(t_values *vals);
 int			builtin_exit(char **argv);
 
 // builtin/builtin_util.c
