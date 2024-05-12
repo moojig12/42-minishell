@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/11 22:50:19 by root             ###   ########.fr       */
+/*   Updated: 2024/05/12 09:32:10 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int			count_value_size(char *input);
 /**************** builtin ****************/
 // builtin/
 int			builtin_echo(char **argv, bool new_line);
-int			builtin_cd(char **argv, char ***env);
+int			builtin_cd(char **argv, char **env);
 int			builtin_pwd(void);
 int			builtin_export(char **argv, char **env);
 int			builtin_unset(char **argv, char **env);
@@ -163,7 +163,7 @@ int			execute_builtin(char **argv, char **env);
 
 /**************** utils ****************/
 // utils/env.c
-void		change_env(char ***env, char *target, char *operation);
+void		change_env(char **env, char *target, char *operation);
 char		**get_env_elements(char **envp, char *key);
 char		*get_env_value(char *key);
 char		*get_env_str(char **env, char *key);

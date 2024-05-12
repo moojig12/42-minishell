@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:59:37 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/09 16:02:32 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/12 09:42:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	builtin_pwd(void) //char **env
   }
   // TODO: need renew env pwd ???
 	printf("%s\n", pwd);
+  free(pwd);
 	return (SUCCESS);
 }
