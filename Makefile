@@ -102,5 +102,7 @@ update:	fclean
 
 norm:
 	norminette $(SRCS) $(INCL)
-
+memcheck:
+	make
+	valgrind --leak-check=full ./minishell
 .PHONY = all clean fclean re update norm

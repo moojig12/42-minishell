@@ -6,35 +6,40 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 22:10:13 by root              #+#    #+#             */
-/*   Updated: 2024/05/11 22:54:46 by root             ###   ########.fr       */
+/*   Updated: 2024/05/12 09:41:14 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	update_pwd(char ***env)
+void	update_pwd(char **env)
 {
 	char	*new_pwd;
 	char	*temp;
+	int		i;
 
+	i = 0;
 	temp = getcwd(NULL, 0);
 	new_pwd = ft_strjoin("PWD=", temp);
-	while (!ft_strncmp(**env, "PWD", 3))
-		env++;
-	free(**env);
-	**env = ft_strdup(new_pwd);
+	while (ft_strncmp(env[i], "PWD", 3))
+	{
+		i++;
+	}
+	printf("*env: %s\n", env[i]);
+	// free(env[i]);
+	env[i] = ft_strdup(new_pwd);
 	free(new_pwd);
 	free(temp);
 }
 
 //	removes variable by free'ing and decrementing each index
-void	remove_env(char ***env, char *target)
+void	remove_env(char **env, char *target)
 {
-	while (!ft_strncmp(**env, target, ft_strlen(target)))
+	while (ft_strncmp(*env, target, ft_strlen(target)))
 		env++;
 }
 
-void	add_env(char ***env, char *target)
+void	add_env(char **env, char *target)
 {
 	char	**new;
 	int	i;
@@ -50,12 +55,12 @@ void	add_env(char ***env, char *target)
 	j = 0;
 	while (j < i)
 	{
-		new[j] = *env[j];
+		new[j] = env[j];
 		j++;
 	}
 }
 
-void	change_env(char ***env, char *target, char *operation)
+void	change_env(char **env, char *target, char *operation)
 {
 	// selection of operation
 	if (!ft_strcmp("CD_UPDATE", operation)) 

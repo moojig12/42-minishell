@@ -6,7 +6,11 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/05/13 01:26:32 by yjinnouc         ###   ########.fr       */
+=======
+/*   Updated: 2024/05/12 09:32:10 by root             ###   ########.fr       */
+>>>>>>> 0f12847 (Update env pwd functional now)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +177,7 @@ int			save_fd(int fd, int old_fd, t_values *s);
 /**************** builtin ****************/
 // builtin/*.c
 int			builtin_echo(char **argv, bool new_line);
-int			builtin_cd(char **argv, char ***env);
+int			builtin_cd(char **argv, char **env);
 int			builtin_pwd(void);
 int			builtin_export(char **argv, char **env);
 int			builtin_unset(char **argv, char **env);
@@ -186,10 +190,16 @@ int			execute_builtin(char **argv, char **env);
 
 /**************** utils ****************/
 // utils/env.c
+<<<<<<< HEAD
 void		change_env(char ***env, char *target, char *operation);
 char		**get_env_elements_array(char **env, char *key);
 char		*replace_env_var(char *str, int start, t_values *vals);
 // char		*get_env_value(char *key);
+=======
+void		change_env(char **env, char *target, char *operation);
+char		**get_env_elements(char **envp, char *key);
+char		*get_env_value(char *key);
+>>>>>>> 0f12847 (Update env pwd functional now)
 char		*get_env_str(char **env, char *key);
 
 // utils/error.c
