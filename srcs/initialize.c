@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:44:06 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/16 19:49:52 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:18:53 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ t_values	*init_values(char **env)
 	if (!ptr)
 		return (NULL);
 	ptr->head_token = NULL;
-	ptr->total_commands = 0;
 	ptr->total_tokens = 0;
+	ptr->total_commands = 0;
+	ptr->head_io = NULL;
 	ptr->env = env;
 	ptr->syntax_error = 0;
 	ptr->last_error_code = 0;
@@ -36,6 +37,6 @@ void reset_vals_elements(t_values *vals)
 	vals->total_commands = 0;
 	vals->total_tokens = 0;
 	vals->syntax_error = 0;
-	// ptr->last_error_code = 0;
+	// vals->last_error_code = 0;
 	return ;
 }

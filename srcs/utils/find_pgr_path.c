@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_pgr_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:28:21 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/04 10:58:26 by root             ###   ########.fr       */
+/*   Updated: 2024/05/06 14:03:48 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,16 @@ char	*find_pgr(char *pgr_name, char **envp)
 	free(pgr_name);
 	return (NULL);
 }
+
+// char	*find_pgr(char *pgr_name, char **envp)
+// {
+	// check if built-in
+		// if so, return pgr_name
+	// check if pgr_name is a pwd path
+		// check if accessible
+		// if so, return pgr_name
+	// get path
+	// check if pgr_name is in PATH
+		// check if accessible
+		// if so, return pgr_name
+// }

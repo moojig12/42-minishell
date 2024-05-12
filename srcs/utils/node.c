@@ -38,3 +38,33 @@ void	add_to_back(t_token **tokens, t_token *new)
 		new->prev = last;
 	}
 }
+
+t_token	*get_command_head(t_token *head, int index_command)
+{
+	t_token	*temp;
+	int		count;
+
+	count = 0;
+	temp = head;
+	while (temp != NULL && count < index_command)
+	{
+		if (temp->type == PIPE)
+			count++;
+		temp = temp->next;
+	}
+	return (temp);
+}
+
+t_token	*get_next_redirection(t_token *command_head)
+{
+	t_token	*temp;
+
+	temp = command_head->next;
+	while (temp != NULL && temp->type != PIPE)
+	{
+		if (temp->type == REDIRECTION)
+			return (temp);
+		temp = temp->next;
+	}
+	return (NULL);
+}

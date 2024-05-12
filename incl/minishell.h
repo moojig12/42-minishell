@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/04 11:00:15 by root             ###   ########.fr       */
+/*   Updated: 2024/05/07 10:03:32 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,23 @@ typedef struct s_token {
 	char			*value;
 	int				type;
 	int				redirect_type;
+	// int 			command_index;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
 
 //need io struct?
+typedef struct s_io {
+	int				fd;
+	int				old_fd;
+	struct s_io		*next;
+}	t_ios;
 
 typedef struct s_values {
 	struct s_token	*head_token;
 	int				total_tokens;
 	int				total_commands;
+	struct s_io		*head_io;
 	char			**env;
 	int				syntax_error;
 	int				last_error_code;
@@ -104,13 +111,9 @@ int			main(int argc, char **argv, char **env);
 
 // execute.c
 int			execute_commands(t_token *tokens, int index_command, \
-			int **pipe_fds_array, char **env);
+			int **pipe_fds_array, t_values *vals);
 int			fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals);
 int			execute_wrapper(t_token *tokens, t_values *vals);
-
-// redirect.c
-int			set_pipe_io(int command_count, int **pipe_fds_array, \
-				int total_commands);
 
 // signal.c
 void		signals_process_np(int signum);
@@ -147,8 +150,25 @@ int			is_operator(char *input);
 int			count_operator_letters(char *input);
 int			count_value_size(char *input);
 
+/**************** redirect ****************/
+// redirect/redirect.c
+int			set_pipe_io(int command_count, int **pipe_fds_array, \
+				int total_commands);
+int 		set_redirect(t_token *head, int index_command, t_values *vals);
+int			reset_redirect(t_values *vals);
+
+// redirect/redirect_*.c
+int			redirect_input(t_token *temp, t_values *val);
+int			redirect_output(t_token *temp, t_values *val);
+int			redirect_heredoc(t_token *temp, t_values *val);
+int			redirect_append(t_token *token, t_values *val);
+
+// redirect/redirect_util.c
+t_ios		*init_ios(int fd, int old_fd);
+int			save_fd(int fd, int old_fd, t_values *val);
+
 /**************** builtin ****************/
-// builtin/
+// builtin/*.c
 int			builtin_echo(char **argv);
 int			builtin_cd(char **argv);
 int			builtin_pwd(void);
@@ -179,7 +199,6 @@ char		*find_pgr(char *pgr_name, char **envp);
 // utils/free.c
 void		free_array(char **array);
 void		free_token(t_token *head);
-void		free_args(char	**args);
 void		free_vals(t_values *vals);
 
 // utils/ft_myutils.c
@@ -193,5 +212,11 @@ void		free_int_array(int **array, int row);
 // utils/node.c
 t_token		*last_node(t_token *node);
 void		add_to_back(t_token **tokens, t_token *new);
+t_token		*get_command_head(t_token *head, int index_command);
+t_token		*get_next_redirection(t_token *command_head);
+
+/**************** test ****************/
+// test/test_fd.c
+int			test_fds(void);
 
 #endif
