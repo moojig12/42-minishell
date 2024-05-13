@@ -56,7 +56,7 @@ int	builtin_cd(char **args, t_values *vals)
     int	ret;
 	int argc;
 
-	argc = count_args(args);
+	argc = count_str_array(args);
 	if (argc != 2)
 	{
         fprintf(stderr, "cd: too many arguments\n");
@@ -68,6 +68,6 @@ int	builtin_cd(char **args, t_values *vals)
         perror("cd");
 		return (FAILURE);
     }
-	change_env(vals, NULL, "CD_UPDATE");
+	change_env("PWD", NULL, "PWD_UPDATE", vals);
     return (SUCCESS);
 }

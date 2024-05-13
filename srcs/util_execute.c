@@ -114,7 +114,7 @@ int	is_last_command(t_token *tokens, int num_command)
 	return (FALSE);
 }
 
-int count_args(char **args)
+int count_str_array(char **args)
 {
 	int i;
 

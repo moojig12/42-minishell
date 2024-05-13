@@ -31,10 +31,10 @@ int	is_builtin(char *cmd)
 		return (TRUE);
 	if (ft_strcmp(cmd, "pwd") == 0)
 		return (TRUE);
-	// if (ft_strcmp(cmd, "export") == 0)
-	// 	return (TRUE);
-	// if (ft_strcmp(cmd, "unset") == 0)
-	// 	return (TRUE);
+	if (ft_strcmp(cmd, "export") == 0)
+		return (TRUE);
+	if (ft_strcmp(cmd, "unset") == 0)
+		return (TRUE);
 	if (ft_strcmp(cmd, "env") == 0)
 		return (TRUE);
 	if (ft_strcmp(cmd, "exit") == 0)

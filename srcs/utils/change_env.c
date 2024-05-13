@@ -12,66 +12,110 @@
 
 #include "minishell.h"
 
-void	update_pwd(t_values *vals)
+void	update_pwd(t_values *vals) // TODO: update past OLDPWD?
 {
 	char	*new_pwd;
 	char	*temp;
 	int		i;
 
+	printf("UPDATE_PWD\n"); // TODO: remove later
 	i = 0;
 	temp = getcwd(NULL, 0);
 	new_pwd = ft_strjoin("PWD=", temp);
-	while (ft_strncmp(vals->env[i], "PWD", 3))
-	{
+	while (ft_strncmp(vals->env[i], "PWD=", 4))
 		i++;
-	}
-	printf("*vals->env: %s\n", vals->env[i]);
+	printf("*vals->env: %s\n", vals->env[i]); // TODO: remove later
 	free(vals->env[i]);
 	vals->env[i] = ft_strdup(new_pwd);
+	printf("*vals->env: %s\n", vals->env[i]); // TODO: remove later
 	free(new_pwd);
 	free(temp);
 }
 
-//	removes variable by free'ing and decrementing each index
-void	remove_env(t_values *vals, char *target)
+int	update_env(char *key, char *value, t_values *vals)
 {
-	int	i;
+	int	count;
 
-	i = 0;
-	while (ft_strncmp(vals->env[i], target, ft_strlen(target)))
-		i++;
+	printf("UPDATE_ENV\n");// TODO: remove later
+	count = 0;
+	while (vals->env[count])
+	{
+		if (ft_strncmp(vals->env[count], key, ft_strlen(key)) == 0 &&
+			vals->env[count][ft_strlen(key)] == '=')
+		{
+			printf("*vals->env: %s\n", vals->env[count]); // TODO: remove later
+			free(vals->env[count]);
+			vals->env[count] = ft_strdup(value);
+			printf("*vals->env: %s\n", vals->env[count]); // TODO: remove later
+			return (SUCCESS);
+		}
+		count++;
+	}
+	return (FAILURE);
 }
-// Target must be mallocated in this case
-void	add_env(t_values *vals, char *target)
+
+//	removes variable by free'ing and decrementing each index
+void	remove_env(char *key, t_values *vals)
+{
+	int		count;
+
+	printf("REMOVE_ENV\n"); // TODO: remove later
+	count = 0;
+	while (ft_strncmp(vals->env[count], key, ft_strlen(key)) != 0 || \
+			vals->env[count][ft_strlen(key)] != '=')
+		count++;
+	printf("*vals->env: %s\n", vals->env[count]); // TODO: remove later
+	free(vals->env[count]);
+	vals->env[count] = vals->env[count + 1];
+	count++;
+	while (vals->env[count])
+	{
+		vals->env[count] = vals->env[count + 1];
+		count++;
+	}
+	vals->env[count] = NULL;
+}
+
+// value must be mallocated in this case
+void	add_env(char *value, t_values *vals)
 {
 	char	**new;
-	int	i;
-	int	j;
+	int		size_env;
+	int		count;
 
-	i = 0;
-	while (vals->env[i])
+	printf("ADD_ENV\n"); // TODO: remove later
+	size_env = count_str_array(vals->env);
+	new = (char **)malloc((size_env + 2) * sizeof(char *));
+	count = 0;
+	while (count < size_env)
 	{
-		i++;
+		new[count] = vals->env[count];
+		count++;
 	}
-	new = (char **)malloc((i + 2) * sizeof(char *));
-	j = 0;
-	while (j < i)
-	{
-		new[j] = vals->env[j];
-		j++;
-	}
-	new[j] = target;
+	new[count] = ft_strdup(value);
+	count++;
+	new[count] = NULL;
+	free(vals->env);
+	vals->env = new;
+	printf("*vals->env: %s\n", vals->env[count-1]); // TODO: remove later
 }
 
-void	change_env(t_values *vals, char *target, char *operation)
+int	change_env(char *key, char *value, char *operation, t_values *vals)
 {
 	// selection of operation
-	if (!ft_strcmp("CD_UPDATE", operation)) 
+	if (!ft_strcmp("PWD_UPDATE", operation) && \
+		!ft_strcmp(key, "PWD"))
 		update_pwd(vals);
-	else if (!ft_strcmp("REMOVE_ENV", operation))
-		remove_env(vals, target);
-	else if (!ft_strcmp("ADD_ENV", operation))
-		add_env(vals, target);
+	else if (!ft_strcmp("SET_ENV", operation) && \
+		get_env_str(vals->env, key) == NULL)
+		add_env(value, vals);
+	else if (!ft_strcmp("SET_ENV", operation) && \
+		get_env_str(vals->env, key) != NULL)
+		update_env(key, value, vals);
+	else if (!ft_strcmp("UNSET_ENV", operation) && \
+		get_env_str(vals->env, key) != NULL)
+		remove_env(key, vals);
 	else
-		return ;
+		return (FAILURE);
+	return (SUCCESS);
 }

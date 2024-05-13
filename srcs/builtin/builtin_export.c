@@ -14,6 +14,7 @@
 
 /*
 export with no options
+
 export: export [-fn] [name[=value] ...] or export -p
 	Set export attribute for shell variables.
 
@@ -30,23 +31,25 @@ export: export [-fn] [name[=value] ...] or export -p
 	Exit Status:
 	Returns success unless an invalid option is given or NAME is invalid.
 */
-int	check_syntax(char *var)
-{
-	if (!var)
-		return (FAILURE);
-	return (SUCCESS);
-}
-	// Adds variable from export arg to env
-	// Multiple variable exporting *TO BE ADDED!*
+
+// Adds variable from export arg to env
+// Multiple variable exporting *TO BE ADDED!*
 int	builtin_export(char **argv, t_values *vals)
 {
 	char	*variable;
-	int	i;
+	char	*key;
+	int		status;
 
-	i = 1;
-	variable = ft_strdup(argv[i]);
-	if (!check_syntax(variable))
+	variable = argv[1];
+	if (variable == NULL || ft_strchr(variable, '=') == NULL)
 		return (FAILURE);
-	change_env(vals, variable, "ADD_ENV");
-	return (SUCCESS);
+	key = ft_strndup(variable, ft_strchr(variable, '=') - variable);
+	if (ft_ispathkey(key) == FALSE)
+	{
+		free(key);
+		return (FAILURE);
+	}
+	status = change_env(key, variable, "SET_ENV", vals);
+	free(key);
+	return (status);
 }

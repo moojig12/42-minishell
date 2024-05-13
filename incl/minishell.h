@@ -127,7 +127,7 @@ int			count_token_argc(t_token *tokens, int num_command);
 int			count_commands(t_token *tokens);
 char		**tokens_to_argv(t_token *tokens, int num_command);
 int			is_last_command(t_token *tokens, int num_command);
-int			count_args(char **args);
+int			count_str_array(char **args);
 
 /**************** lex_analysis ****************/
 // lex_analysis/lex_analysis.c
@@ -163,7 +163,7 @@ int			execute_builtin(char **argv, t_values *vals);
 
 /**************** utils ****************/
 // utils/env.c
-void		change_env(t_values *vals, char *target, char *operation);
+int			change_env(char *key, char *value, char *operation, t_values *vals);
 char		**get_env_elements(char **envp, char *key);
 char		*get_env_value(char *key);
 char		*get_env_str(char **env, char *key);
@@ -187,6 +187,8 @@ void		free_vals(t_values *vals);
 // utils/ft_myutils.c
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_isspace(char c);
+char		*ft_strndup(const char *s, size_t n);
+int			ft_ispathkey(char *key);
 
 // utils/int_array.c
 int			**calloc_int_array(int row, int column);
