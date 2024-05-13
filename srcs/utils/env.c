@@ -21,9 +21,28 @@ char	**get_env_elements_array(char *key)
 	value_str = getenv(key);
 	if (key == NULL)
 		return (NULL);
-	else
-		element_list = ft_split(value_str, ':');
-	return (element_list);
+	return (value_str);
+}
+
+char	*get_env_str(char **env, char *key)
+{
+	int		i;
+	int		len_key;
+	char	*value_str;
+
+	len_key = ft_strlen(key);
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strncmp(env[i], key, len_key) == 0 && \
+			env[i][len_key] == '=')
+		{
+			value_str = &env[i][len_key + 1];
+			return (value_str);
+		}
+		i++;
+	}
+	return (NULL);
 }
 
 int	count_env_key(char *str)

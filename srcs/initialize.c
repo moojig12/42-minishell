@@ -15,13 +15,11 @@
 char	**malloc_env(char **env)
 {
 	char	**dup_env;
-	int	i;
+	int		i;
 
 	i = 0;
 	while (env[i])
-	{
 		i++;
-	}
 	dup_env = (char **)malloc((i + 1) * sizeof(char *));
 	i = 0;
 	while (env[i])

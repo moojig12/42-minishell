@@ -22,7 +22,6 @@ int	builtin_env(t_values *vals)
 	int	i;
 
 	i = 0;
-	// getenv()
 	while (vals->env[i])
 	{
 		printf("%s\n", vals->env[i]);
@@ -31,4 +30,3 @@ int	builtin_env(t_values *vals)
 	return (SUCCESS);
 }
 
-// TODO: use getenv() ??
