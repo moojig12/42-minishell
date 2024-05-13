@@ -13,21 +13,13 @@
 #include "minishell.h"
 
 // Function for get env value and return as array.
-<<<<<<< HEAD
-char	**get_env_elements_array(char *key)
-=======
 char	**get_env_elements_array(char **env, char *key)
->>>>>>> 84e2675 (improve these)
 {
+	int 	len_key;
+	int		i;
 	char	*value_str;
 	char	**element_list;
 
-<<<<<<< HEAD
-	value_str = getenv(key);
-	if (key == NULL)
-		return (NULL);
-	return (value_str);
-=======
 	len_key = ft_strlen(key);
 	i = 0;
 	while (env[i] != NULL)
@@ -41,7 +33,6 @@ char	**get_env_elements_array(char **env, char *key)
 		i++;
 	}
 	return (NULL);
->>>>>>> 84e2675 (improve these)
 }
 
 char	*get_env_str(char **env, char *key)

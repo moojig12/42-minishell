@@ -34,11 +34,7 @@ char	*find_pgr_in_path_list(char *pgr_name, char **env_path_list)
 	return (NULL);
 }
 
-<<<<<<< HEAD
-char	*find_pgr(char *pgr_name)
-=======
 char	*find_pgr(char *pgr_name, t_values *vals)
->>>>>>> 84e2675 (improve these)
 {
 	char	**env_path_list;
 	char 	*pgr_path;
@@ -47,11 +43,7 @@ char	*find_pgr(char *pgr_name, t_values *vals)
 		return (pgr_name);
 	if (is_builtin(pgr_name))
 		return (pgr_name);
-<<<<<<< HEAD
-	env_path_list = get_env_elements_array("PATH");
-=======
 	env_path_list = get_env_elements_array(vals->env, "PATH");
->>>>>>> 84e2675 (improve these)
 	if (env_path_list == NULL)
 		return (NULL);
 	pgr_path = find_pgr_in_path_list(pgr_name, env_path_list);

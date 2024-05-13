@@ -6,11 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2024/05/13 01:09:22 by yjinnouc         ###   ########.fr       */
-=======
-/*   Updated: 2024/05/12 16:53:23 by nmandakh         ###   ########.fr       */
->>>>>>> 01c86e8 (ADD_ENV and REMOVE_ENV currently dysfunctional, update of pwd in ENV after cd is functional. Several memory leaks fixed)
 /*                                                                            */
 /* ************************************************************************** */
 
