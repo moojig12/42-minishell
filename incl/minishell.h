@@ -155,7 +155,7 @@ int			builtin_pwd(void);
 int			builtin_export(char **argv, t_values *vals);
 int			builtin_unset(char **argv, t_values *vals);
 int			builtin_env(t_values *vals);
-int			builtin_exit(char **argv);
+int			builtin_exit(char **argv, t_values *vals);
 
 // builtin/builtin_util.c
 int			is_builtin(char *cmd);

@@ -78,18 +78,18 @@ $(OBJS_DIR):
 libft: $(LIBFT)
 $(LIBFT):
 	@echo "Compiling libft library..."
-	make -C $(LIBFT_DIR)
+	make -s -C $(LIBFT_DIR)
 	@echo "----------------"
 	@echo "make libft done.\n"
 
 clean:
 	rm -rf $(OBJS)
 	rm -rfd $(OBJS_DIR)
-	make -C $(LIBFT_DIR) clean
+	make -s -C $(LIBFT_DIR) clean
 
 fclean:		clean
 	rm -rf $(NAME)
-	make fclean -C $(LIBFT_DIR)
+	make fclean -s -C $(LIBFT_DIR)
 
 re:		fclean all
 
@@ -98,7 +98,9 @@ update:	fclean
 
 norm:
 	norminette $(SRCS) $(INCL)
+
 memcheck:
 	make
-	valgrind --leak-check=full ./minishell
+	valgrind --suppressions=valgrind_pref.txt --leak-check=full ./minishell
+
 .PHONY = all clean fclean re update norm

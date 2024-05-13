@@ -22,11 +22,10 @@ exit: exit [n]
 	is that of the last command executed.
 */
 
-int builtin_exit(char **argv)
+int builtin_exit(char **argv, t_values *vals)
 {
 	rl_event_hook = NULL;
 	if (argv[1] != NULL)
-		exit (ft_atoi(argv[1]));
-	else
-		exit (0);
+		vals->last_error_code = ft_atoi(argv[1]);
+	return (SUCCESS);
 }

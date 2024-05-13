@@ -57,6 +57,6 @@ int	execute_builtin(char **argv, t_values *vals)
 	if (ft_strcmp(argv[0], "env") == 0)
 		return (builtin_env(vals));
 	if (ft_strcmp(argv[0], "exit") == 0)
-		return (builtin_exit(argv));
+		return (builtin_exit(argv, vals));
 	return (FAILURE);
 }
