@@ -44,7 +44,21 @@ void	free_token(t_token *head)
 void	free_vals_elements(t_values *vals)
 {
 	free_token(vals->head_token);
-	free_args(vals->env);
+	free_array(vals->env);
 	free(vals);
 	vals = NULL;
 }
+<<<<<<< HEAD
+=======
+
+// void	free_args(char **args)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (args[i])
+// 		free(args[i++]);
+// 	free(args);
+// 	args = NULL;
+// }
+>>>>>>> 84e2675 (improve these)

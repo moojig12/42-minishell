@@ -187,9 +187,13 @@ int			execute_builtin(char **argv, t_values *vals);
 /**************** utils ****************/
 // utils/env.c
 int			change_env(char *key, char *value, char *operation, t_values *vals);
-char		**get_env_elements(char **envp, char *key);
-char		*get_env_value(char *key);
+char		**get_env_elements_array(char **env, char *key);
+// char		*get_env_value(char *key);
 char		*get_env_str(char **env, char *key);
+<<<<<<< HEAD
+=======
+char		*replace_env_var(char *str, int start, t_values *vals);
+>>>>>>> 84e2675 (improve these)
 
 // utils/error.c
 void		exit_with_perror(char *message, t_values *vals);
@@ -202,7 +206,11 @@ void		error_grammar(char *message, t_values *vals);
 void		error_io(char *message, t_values *vals);
 
 // utils/find_pgr_path.c
+<<<<<<< HEAD
 char		*find_pgr(char *pgr_name);
+=======
+char		*find_pgr(char *pgr_name, t_values *vals);
+>>>>>>> 84e2675 (improve these)
 
 // utils/free.c
 void		free_vals_elements(t_values *vals);
@@ -216,6 +224,7 @@ int			ft_isspace(char c);
 char		*ft_3strjoin(char *str, char *str2, char *str3);
 char		*ft_strndup(const char *s, size_t n);
 int			ft_ispathkey(char *key);
+char		*ft_3strjoin(char *str, char *str2, char *str3);
 
 // utils/int_array.c
 int			**calloc_int_array(int row, int column);

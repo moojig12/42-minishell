@@ -41,10 +41,14 @@ int	builtin_pwd(void) //char **env
 	// TODO: need renew env pwd ???
 	printf("%s\n", pwd);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	free(pwd);
 	free_array(args);
 =======
   free(pwd);
 >>>>>>> 01c86e8 (ADD_ENV and REMOVE_ENV currently dysfunctional, update of pwd in ENV after cd is functional. Several memory leaks fixed)
+=======
+	free(pwd);
+>>>>>>> 84e2675 (improve these)
 	return (SUCCESS);
 }

@@ -34,7 +34,11 @@ int	execute_commands(t_token *tokens, int index_command, \
 	set_redirect(tokens, index_command, vals);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
 	argv = tokens_to_argv(tokens, index_command);
+<<<<<<< HEAD
 	pgr = find_pgr(argv[0]);
+=======
+	pgr = find_pgr(argv[0], vals);
+>>>>>>> 84e2675 (improve these)
 	print_commands(pgr, argv, index_command, total_commands);
 	if (pgr == NULL)
 	{
