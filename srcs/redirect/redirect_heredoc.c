@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/07 10:42:11 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 01:42:36 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	heredoc_child_process(t_token *token, int *fds)
 }
 
 // take redirect heredoc operator as token then set fd and save it
-int	redirect_heredoc(t_token *token, t_values *val)
+int	redirect_heredoc(t_token *token, t_values *vals)
 {
-    int		fds[2];
-	int		pid;
+	int	fds[2];
+	int	pid;
 
 	pipe(fds);
 	pid = fork();
@@ -54,7 +54,7 @@ int	redirect_heredoc(t_token *token, t_values *val)
 		exit(EXIT_FAILURE); // TODO: fix error handling
 	close(fds[PIPE_WRITE_IN]);
 	dup2(fds[PIPE_READ_FROM], STDIN);
-	save_fd(fds[PIPE_READ_FROM], STDIN, val);
+	save_fd(fds[PIPE_READ_FROM], STDIN, vals);
 	waitpid(pid, NULL, 0);
 	return (SUCCESS);
 }

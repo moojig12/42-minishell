@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_utils.c                                      :+:      :+:    :+:   */
+/*   utils_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:16:13 by root              #+#    #+#             */
-/*   Updated: 2024/04/29 22:38:45 by root             ###   ########.fr       */
+/*   Updated: 2024/05/12 23:24:29 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,16 @@ int	count_value_size(char *input)
 
 	single_quoted = FALSE;
 	double_quoted = FALSE;
-	if (is_operator(input))
-		return (count_operator_letters(input));
 	count = 0;
 	while (input[count])
 	{
 		if (!single_quoted && !double_quoted && ft_isspace(input[count]))
 			return (count);
 		if (!single_quoted && !double_quoted && check_operator(&input[count]))
+		{
+			count += count_operator_letters(&input[count]);
 			return (count);
+		}
 		if (input[count] == '\'' && !double_quoted)
 			single_quoted = !single_quoted;
 		if (input[count] == '"' && !single_quoted)

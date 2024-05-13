@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/07 10:03:32 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 01:26:32 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,15 +134,18 @@ int			count_args(char **args);
 
 /**************** lex_analysis ****************/
 // lex_analysis/lex_analysis.c
-char		*get_next_value(char **input);
-int			lexical_analysis(t_token **tokens, char *input, t_values *val);
+char		*get_next_value(char **input, t_values *vals);
+int			lexical_analysis(t_token **tokens, char *input, t_values *vals);
 
 // lex_analysis/convert.c
 t_token		*token_init(void);
 void		add_token_types(t_token *token);
 void		remove_quote(char *value);
-int			process_env_vars(t_token *token);
-void		convert_to_token(t_token **tokens, char *value);
+int			process_env_vars(t_token *token, t_values *vals);
+void		convert_to_token(t_token **tokens, char *value, t_values *vals);
+
+// lex_analysis/grammar_check.c
+int			check_grammar(t_token *tokens, char *input, t_values *vals);
 
 // lex_analysis/utils_token.c
 int			check_operator(char *input);
@@ -154,18 +157,18 @@ int			count_value_size(char *input);
 // redirect/redirect.c
 int			set_pipe_io(int command_count, int **pipe_fds_array, \
 				int total_commands);
-int 		set_redirect(t_token *head, int index_command, t_values *vals);
+int			set_redirect(t_token *head, int index_command, t_values *vals);
 int			reset_redirect(t_values *vals);
 
 // redirect/redirect_*.c
-int			redirect_input(t_token *temp, t_values *val);
-int			redirect_output(t_token *temp, t_values *val);
-int			redirect_heredoc(t_token *temp, t_values *val);
-int			redirect_append(t_token *token, t_values *val);
+int			redirect_input(t_token *temp, t_values *vals);
+int			redirect_output(t_token *temp, t_values *vals);
+int			redirect_heredoc(t_token *temp, t_values *vals);
+int			redirect_append(t_token *token, t_values *vals);
 
 // redirect/redirect_util.c
 t_ios		*init_ios(int fd, int old_fd);
-int			save_fd(int fd, int old_fd, t_values *val);
+int			save_fd(int fd, int old_fd, t_values *s);
 
 /**************** builtin ****************/
 // builtin/*.c
@@ -183,18 +186,23 @@ int			execute_builtin(char **argv, char **env);
 
 /**************** utils ****************/
 // utils/env.c
-char		**get_env_elements(char **envp, char *key);
-char		*get_env_value(char *key);
-char		*get_env_str(char **env, char *key);
-char		*replace_env_var(char *str, int start);
+char		**get_env_elements_array(char *key);
+// char		*get_env_value(char *key);
+// char		*get_env_str(char **env, char *key);
+char		*replace_env_var(char *str, int start, t_values *vals);
 
 // utils/error.c
-void		exit_with_perror(char *message, char **array, char *str);
+void		exit_with_perror(char *message, t_values *vals);
 void		exit_without_perror(char *message, char *file_or_cmd, \
 				char **array, char *str);
+void		exit_command_not_found(char *cmd, char **argv, t_values *vals);
+void		set_error_waitpid(int status, t_values *vals);
+void		error_unclosed_quote(char *message1, t_values *vals);
+void		error_grammar(char *message, t_values *vals);
+void		error_io(char *message, t_values *vals);
 
 // utils/find_pgr_path.c
-char		*find_pgr(char *pgr_name, char **envp);
+char		*find_pgr(char *pgr_name);
 
 // utils/free.c
 void		free_array(char **array);
@@ -204,6 +212,7 @@ void		free_vals(t_values *vals);
 // utils/ft_myutils.c
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_isspace(char c);
+char		*ft_3strjoin(char *str, char *str2, char *str3);
 
 // utils/int_array.c
 int			**calloc_int_array(int row, int column);

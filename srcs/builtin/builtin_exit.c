@@ -22,7 +22,7 @@ exit: exit [n]
 	is that of the last command executed.
 */
 
-int builtin_exit(char ** argv)
+int	builtin_exit(char **argv)
 {
 	rl_event_hook = NULL;
 	if (argv[1] != NULL)
