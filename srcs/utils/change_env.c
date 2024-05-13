@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 22:10:13 by root              #+#    #+#             */
-/*   Updated: 2024/05/12 17:19:49 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:27:31 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,25 @@
 void	update_pwd(t_values *vals) // TODO: update past OLDPWD?
 {
 	char	*new_pwd;
+	char	*old_pwd;
 	char	*temp;
 	int		i;
+	int		j;
 
-	printf("UPDATE_PWD\n"); // TODO: remove later
 	i = 0;
+	j = 0;
 	temp = getcwd(NULL, 0);
 	new_pwd = ft_strjoin("PWD=", temp);
 	while (ft_strncmp(vals->env[i], "PWD=", 4))
 		i++;
-	printf("*vals->env: %s\n", vals->env[i]); // TODO: remove later
+	while (ft_strncmp(vals->env[j], "OLDPWD", 6))
+		j++;
+	old_pwd = ft_strdup(vals->env[i]);
+	free(vals->env[j]);
+	vals->env[j] = ft_strjoin("OLD", old_pwd);
+	free(old_pwd);
 	free(vals->env[i]);
 	vals->env[i] = ft_strdup(new_pwd);
-	printf("*vals->env: %s\n", vals->env[i]); // TODO: remove later
 	free(new_pwd);
 	free(temp);
 }
