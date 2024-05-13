@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:44:06 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/13 17:39:05 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:58:37 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_values	*init_values(char **env)
 	if (!ptr)
 		return (NULL);
 	ptr->head_token = NULL;
+	ptr->head_io = NULL;
 	ptr->total_tokens = 0;
 	ptr->env = malloc_env(env);
 	ptr->syntax_error = 0;

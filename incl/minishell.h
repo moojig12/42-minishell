@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/13 17:38:07 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:48:26 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int			execute_builtin(char **argv, t_values *vals);
 /**************** utils ****************/
 // utils/env.c
 int			change_env(char *key, char *value, char *operation, t_values *vals);
-char		**get_env_elements(char **envp, char *key);
+char		**get_env_elements_array(char **envp, char *key);
 char		*get_env_value(char *key);
 char		*get_env_str(char **env, char *key);
 char		*replace_env_var(char *str, int start, t_values *vals);
