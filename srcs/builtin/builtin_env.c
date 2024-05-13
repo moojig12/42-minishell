@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:00:18 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/09 16:00:23 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:58:42 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,16 @@ env with no options or arguments
 
 TODO: no help?
 */
-int	builtin_env(char **env)
+int	builtin_env(t_values *vals)
 {
 	int	i;
 
 	i = 0;
-	// getenv()
-	while (env[i] != NULL)
+	while (vals->env[i])
 	{
-		printf("%s\n", env[i]);
+		printf("%s\n", vals->env[i]);
 		i++;
 	}
 	return (SUCCESS);
 }
 
-// TODO: use getenv() ??

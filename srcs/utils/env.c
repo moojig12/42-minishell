@@ -56,7 +56,8 @@ char	*get_env_str(char **env, char *key)
 	i = 0;
 	while (env[i] != NULL)
 	{
-		if (ft_strncmp(env[i], key, len_key) == 0)
+		if (ft_strncmp(env[i], key, len_key) == 0 && \
+			env[i][len_key] == '=')
 		{
 			value_str = &env[i][len_key + 1];
 			return (value_str);

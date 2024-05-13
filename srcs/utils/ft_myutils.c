@@ -29,3 +29,35 @@ int	ft_isspace(char c)
 	else
 		return (FALSE);
 }
+
+char *ft_strndup(const char *s, size_t n)
+{
+	char	*str;
+	size_t	i;
+
+	str = (char *)malloc(sizeof(char) * (n + 1));
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (i < n)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+int	ft_ispathkey(char *key)
+{
+	int	i;
+
+	i = 0;
+	while (key[i])
+	{
+		if (ft_isalnum(key[i]) == FALSE && key[i] != '_')
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:44:06 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/04 10:59:53 by root             ###   ########.fr       */
+/*   Updated: 2024/05/13 16:39:24 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,18 @@ void	free_token(t_token *head)
 void	free_vals_elements(t_values *vals)
 {
 	free_token(vals->head_token);
+	free_args(vals->env);
 	free(vals);
 	vals = NULL;
+}
+
+void	free_args(char	**args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+		free(args[i++]);
+	free(args);
+	args = NULL;
 }

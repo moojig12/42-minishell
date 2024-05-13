@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/07 10:03:32 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:36:57 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int			count_token_argc(t_token *tokens, int num_command);
 int			count_commands(t_token *tokens);
 char		**tokens_to_argv(t_token *tokens, int num_command);
 int			is_last_command(t_token *tokens, int num_command);
-int			count_args(char **args);
+int			count_str_array(char **args);
 
 /**************** lex_analysis ****************/
 // lex_analysis/lex_analysis.c
@@ -170,19 +170,20 @@ int			save_fd(int fd, int old_fd, t_values *val);
 /**************** builtin ****************/
 // builtin/*.c
 int			builtin_echo(char **argv);
-int			builtin_cd(char **argv);
+int			builtin_cd(char **argv, t_values *vals);
 int			builtin_pwd(void);
-int			builtin_export(char **argv, char **env);
-int			builtin_unset(char **argv, char **env);
-int			builtin_env(char **env);
+int			builtin_export(char **argv, t_values *vals);
+int			builtin_unset(char **argv, t_values *vals);
+int			builtin_env(t_values *vals);
 int			builtin_exit(char **argv);
 
 // builtin/builtin_util.c
 int			is_builtin(char *cmd);
-int			execute_builtin(char **argv, char **env);
+int			execute_builtin(char **argv, t_values *vals);
 
 /**************** utils ****************/
 // utils/env.c
+int			change_env(char *key, char *value, char *operation, t_values *vals);
 char		**get_env_elements(char **envp, char *key);
 char		*get_env_value(char *key);
 char		*get_env_str(char **env, char *key);
@@ -197,6 +198,7 @@ void		exit_without_perror(char *message, char *file_or_cmd, \
 char		*find_pgr(char *pgr_name, char **envp);
 
 // utils/free.c
+void		free_vals_elements(t_values *vals);
 void		free_array(char **array);
 void		free_token(t_token *head);
 void		free_vals(t_values *vals);
@@ -204,6 +206,8 @@ void		free_vals(t_values *vals);
 // utils/ft_myutils.c
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_isspace(char c);
+char		*ft_strndup(const char *s, size_t n);
+int			ft_ispathkey(char *key);
 
 // utils/int_array.c
 int			**calloc_int_array(int row, int column);

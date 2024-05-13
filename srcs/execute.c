@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/07 07:29:10 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:38:42 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ int	execute_commands(t_token *tokens, int index_command, \
 	set_redirect(tokens, index_command, vals);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
 	argv = tokens_to_argv(tokens, index_command);
-	path = find_pgr(argv[0], vals->env);
-	// if (path == NULL)
-		// error
-	print_commands(path, argv, index_command, total_commands);
-	if (!path)
+	argv[0] = find_pgr(argv[0], vals->env);
+	print_commands(argv, index_command, total_commands);
+	if (!argv[0])
 	{
 		free_array(argv);
 		return (FAILURE);
@@ -42,11 +40,10 @@ int	execute_commands(t_token *tokens, int index_command, \
 	free(argv[0]);
 	argv[0] = path;
 	if (is_builtin(argv[0]))
-		execute_builtin(argv, vals->env);
+		execute_builtin(argv, vals);
 	else
 		execve(argv[0], argv, vals->env);
-	free_array(argv);
-	reset_redirect(vals);
+	free(argv);
 	return (SUCCESS);
 }
 
@@ -84,16 +81,17 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 
 int	execute_wrapper(t_token *tokens, t_values *vals)
 {
-	int		total_commands;
-	char	**argv;
 	int		**pipe_fds_array;
+	int		total_commands;
+	char	**temp;
 
 	total_commands = count_commands(tokens);
 	if (total_commands == 1 && is_builtin(tokens->value))
 	{
-		argv = tokens_to_argv(tokens, 0);
-		execute_builtin(argv, vals->env);
-		free_array(argv);
+		// set_redirect()
+		temp = tokens_to_argv(tokens, 0);
+		execute_builtin(temp, vals);
+		free_array(temp);
 	}
 	else
 	{

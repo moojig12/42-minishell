@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/07 10:33:36 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:39:05 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ int	main(int argc, char **argv, char **env)
 		reset_vals_elements(vals);
 		free(input);
 	}
-	free(vals);
+	free_array(vals->env);
+	if (vals)
+		free(vals);
 	write_history(".minishell_history");
 	printf("exit\n");
 	return (SUCCESS);

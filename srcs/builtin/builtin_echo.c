@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/09 16:01:30 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:55:10 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,23 @@ echo: echo [-neE] [arg ...]
 	Exit Status:
 	Returns success unless a write error occurs.
 */
+
+	// -n Option needs to be implemented later on!
+
+int	builtin_echo(char **argv)
+{
+	bool	new_l;
+
+	new_l = TRUE;
+	argv++;
+	while (*argv)
+	{
+		printf("%s", *argv);
+		argv++;
+		if (*argv)
+			printf(" ");
+	}
+	if (new_l)
+		printf("\n");
+	return (SUCCESS);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:27:20 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/07 07:31:21 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:39:10 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ cd: cd [-L|[-P [-e]] [-@]] [dir]
 	-P is used; non-zero otherwise.
 */
 
-int	builtin_cd(char **args)
+int	builtin_cd(char **args, t_values *vals)
 {
     int	ret;
 	int argc;
 
-	argc = count_args(args);
+	argc = count_str_array(args);
 	if (argc != 2)
 	{
         printf("cd: too many arguments\n"); // TODO: fix
@@ -68,5 +68,6 @@ int	builtin_cd(char **args)
         perror("cd");
 		return (FAILURE);
     }
+	change_env("PWD", NULL, "PWD_UPDATE", vals);
     return (SUCCESS);
 }
