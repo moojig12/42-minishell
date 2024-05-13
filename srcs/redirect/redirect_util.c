@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/06 22:10:50 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/12 22:27:58 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_ios	*init_ios(int fd, int old_fd)
 	return (io);
 }
 
-int	save_fd(int fd, int old_fd, t_values *val)
+int	save_fd(int fd, int old_fd, t_values *vals)
 {
 	t_ios	*new_io;
 	t_ios	*head;
@@ -33,9 +33,9 @@ int	save_fd(int fd, int old_fd, t_values *val)
 	new_io = init_ios(fd, old_fd);
 	if (new_io == NULL)
 		return (FAILURE);
-	head = val->head_io;
+	head = vals->head_io;
 	if (head != NULL)
 		new_io->next = head;
-	val->head_io = new_io;
+	vals->head_io = new_io;
 	return (SUCCESS);
 }

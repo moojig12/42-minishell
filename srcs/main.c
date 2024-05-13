@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/13 16:39:05 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:39:10 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,19 @@ void	preparation_process(void)
 	rl_event_hook = signals_handler;
 }
 
-void	main_process(char *input, t_values *vals)
+int	main_process(char *input, t_values *vals)
 {
-	lexical_analysis(&vals->head_token, input, vals);
-	// print_tokens(vals->head_token); // TODO: delete later
-	if (vals->syntax_error == 1)
+	if (lexical_analysis(&vals->head_token, input, vals) == FAILURE)
 	{
-		printf("error: syntax error\n");
-		return ;
+		vals->syntax_error = TRUE;
+		vals->last_error_code = 1;
+		return (FAILURE);
 	}
+	print_tokens(vals->head_token); // TODO: delete later
 	execute_wrapper(vals->head_token, vals);
 	if (vals->last_error_code != 0)
 		printf("error: %s\n", strerror(vals->last_error_code));
+	return (SUCCESS);
 }
 
 int	main(int argc, char **argv, char **env)

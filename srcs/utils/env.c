@@ -6,17 +6,17 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:17:25 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/09 16:02:57 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 01:05:51 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Function for get env value and return as array.
-char	**get_env_elements(char **env, char *key)
+char	**get_env_elements_array(char **env, char *key)
 {
+	int 	len_key;
 	int		i;
-	int		len_key;
 	char	*value_str;
 	char	**element_list;
 
@@ -33,17 +33,6 @@ char	**get_env_elements(char **env, char *key)
 		i++;
 	}
 	return (NULL);
-}
-
-// get_env_value with getenv() function.
-char	*get_env_value(char *key)
-{
-	char	*value_str;
-
-	value_str = getenv(key);
-	if (value_str == NULL)
-		return (NULL);
-	return (value_str);
 }
 
 char	*get_env_str(char **env, char *key)
@@ -67,33 +56,43 @@ char	*get_env_str(char **env, char *key)
 	return (NULL);
 }
 
-// replace string (from start to ' or " or space ) to env value in malloced string
-// given string  ptr must be freed and replaced with new string
-char *replace_env_var(char *str, int start)
+int	count_env_key(char *str)
 {
-	char	*temp;
-	int		i;
-	char 	*key;
-	char 	*s1;
-	char	*s2;
+	int	i;
 
-	temp = str + start;
 	i = 0;
-	while (*temp != '\0' && *temp != ' ' && *temp != '\'' && *temp != '"')
+	while (*str != '\0' && *str != ' ' && *str != '\'' && *str != '"')
 	{
-		temp++;
+		str++;
 		i++;
 	}
-	key = ft_substr(str, start, i);
-	s1 = ft_substr(str, 0, start);
-	if (ft_strcmp(key, "?") == 0)
-		s2 = ft_strjoin(s1, ft_itoa(0)); // TODO: fix to show exit status
+	return (i);
+}
+
+// replace env variable when str[start] is '$'
+char	*replace_env_var(char *str, int start, t_values *vals)
+{
+	int		key_len;
+	char	*key;
+	char	*val;
+	char	*replaced;
+	int		start_latter;
+
+	if (str[start + 1] == '?')
+	{
+		key_len = 1;
+		key = ft_strdup("?");
+		val = ft_itoa(vals->last_error_code);
+	}
 	else
-		s2 = ft_strjoin(s1, getenv("HOME"));
+	{
+		key_len = count_env_key(str + start + 1);
+		key = ft_substr(str, start + 1, key_len);
+		val = getenv(key);
+	}
 	free(key);
-	free(s1);
-	s1 = ft_strjoin(s2, temp);
-	free(s2);
+	start_latter = start + key_len + 1;
+	replaced = ft_3strjoin(ft_substr(str, 0, start), val, str + start_latter);
 	free(str);
-	return (s1);
+	return (replaced);
 }

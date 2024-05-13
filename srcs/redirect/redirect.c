@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/07 10:15:06 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 01:42:08 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	set_pipe_io(int command_count, int **pipe_fds_array, int total_commands)
 	return (SUCCESS);
 }
 
-int set_redirect(t_token *head, int index_command, t_values *vals)
+int	set_redirect(t_token *head, int index_command, t_values *vals)
 {
 	t_token	*temp;
 
@@ -55,7 +55,7 @@ int set_redirect(t_token *head, int index_command, t_values *vals)
 	return (SUCCESS);
 }
 
-int reset_redirect(t_values *vals)
+int	reset_redirect(t_values *vals)
 {
 	t_ios	*temp;
 	t_ios	*next;

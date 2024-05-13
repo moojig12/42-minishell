@@ -16,16 +16,16 @@
 pwd with no options
 
 pwd: pwd [-LP]
-    Print the name of the current working directory.
+	Print the name of the current working directory.
 
-    Options:
+	Options:
 		-L	print the value of $PWD if it names the current working directory
 		-P	print the physical directory, without any symbolic links
-    By default, `pwd' behaves as if `-L' were specified.
+	By default, `pwd' behaves as if `-L' were specified.
 
-    Exit Status:
-    Returns 0 unless an invalid option is given or the current directory
-    cannot be read.
+	Exit Status:
+	Returns 0 unless an invalid option is given or the current directory
+	cannot be read.
 */
 
 int	builtin_pwd(void) //char **env
@@ -33,13 +33,13 @@ int	builtin_pwd(void) //char **env
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
-  if (pwd == NULL)
-  {
-    printf("error: %s\n", strerror(errno));
-    return (FAILURE);
-  }
-  // TODO: need renew env pwd ???
+	if (pwd == NULL)
+	{
+		printf("error: %s\n", strerror(errno));
+		return (FAILURE);
+	}
+	// TODO: need renew env pwd ???
 	printf("%s\n", pwd);
-  free(pwd);
+	free(pwd);
 	return (SUCCESS);
 }

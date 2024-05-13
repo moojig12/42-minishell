@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/05/06 22:16:32 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/12 22:26:43 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	add_token_types(t_token *token)
 	}
 }
 
-int process_env_vars(t_token *token)
+int	process_env_vars(t_token *token, t_values *vals)
 {
-	bool 	single_quoted;
-	bool 	double_quoted;
+	bool	single_quoted;
+	bool	double_quoted;
 	int		i;
 
 	single_quoted = FALSE;
@@ -67,7 +67,7 @@ int process_env_vars(t_token *token)
 		if (token->value[i] == '"' && !single_quoted)
 			double_quoted = !double_quoted;
 		if (token->value[i] == '$' && !single_quoted)
-			token->value = replace_env_var(token->value, i);
+			token->value = replace_env_var(token->value, i, vals);
 		i++;
 	}
 	return (SUCCESS);
@@ -100,14 +100,14 @@ void	remove_quote(char *value)
 }
 
 // add input as a token to the end of the list
-void	convert_to_token(t_token **tokens, char *value)
+void	convert_to_token(t_token **tokens, char *value, t_values *vals)
 {
 	t_token	*new_token;
 
 	new_token = token_init();
 	new_token->value = value;
 	add_token_types(new_token);
-	process_env_vars(new_token);
+	process_env_vars(new_token, vals);
 	remove_quote(new_token->value);
 	add_to_back(tokens, new_token);
 }

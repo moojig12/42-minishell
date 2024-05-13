@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_myutils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:17:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/04/09 15:51:27 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:40:27 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,28 @@ int	ft_isspace(char c)
 		return (TRUE);
 	else
 		return (FALSE);
+}
+
+// join 3 strings (str2 can be NULL in this program)
+char	*ft_3strjoin(char *str, char *str2, char *str3)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	if (str2 != NULL)
+		tmp = ft_strjoin(str, str2);
+	else
+		tmp = ft_strdup(str);
+	if (!tmp)
+		return (NULL);
+	tmp2 = ft_strjoin(tmp, str3);
+	if (!tmp2)
+	{
+		free(tmp);
+		return (NULL);
+	}
+	free(tmp);
+	return (tmp2);
 }
 
 char *ft_strndup(const char *s, size_t n)
