@@ -49,6 +49,7 @@ t_values	*init_values(char **env)
 
 void reset_vals_elements(t_values *vals)
 {
+	reset_redirect(vals);
 	if (vals->head_token != NULL)
 		free_token(vals->head_token);
 	vals->head_token = NULL;
