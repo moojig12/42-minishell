@@ -19,16 +19,13 @@ int	redirect_append(t_token *token, t_values *vals)
 	int		fd;
 
 	temp = token->next;
-	fd = open(temp->value, O_APPEND);
-	// printf("fd: %d\n", fd);
+	fd = open(temp->value, O_WRONLY | O_CREAT | O_APPEND);
 	if (fd < 0)
 	{
-		// handle_error
 		error_io(temp->value, vals);
 		return (FAILURE);
 	}
-	save_fd(fd, STDIN, vals);
-	dup2(fd, STDIN);
-	close(fd);
+	save_fd(fd, STDOUT, vals);
+	dup2(fd, STDOUT);
 	return (SUCCESS);
 }

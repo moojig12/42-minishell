@@ -20,15 +20,12 @@ int	redirect_output(t_token *token, t_values *vals)
 
 	temp = token->next;
 	fd = open(temp->value, O_WRONLY | O_CREAT | O_TRUNC);
-	// printf("fd: %d\n", fd); // TODO: remove later
 	if (fd < 0)
 	{
-		// handle_error
 		error_io(temp->value, vals);
 		return (FAILURE);
 	}
 	save_fd(fd, STDOUT, vals);
 	dup2(fd, STDOUT);
-	close(fd);
 	return (SUCCESS);
 }

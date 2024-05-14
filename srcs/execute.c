@@ -93,6 +93,7 @@ int	execute_wrapper(t_token *tokens, t_values *vals)
 	{
 		// set_redirect()
 		temp = tokens_to_argv(tokens, 0);
+		set_redirect(tokens, 0, vals);
 		execute_builtin(temp, vals);
 		free_array(temp);
 	}

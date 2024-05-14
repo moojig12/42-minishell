@@ -12,11 +12,13 @@
 
 #include "minishell.h"
 
-int	heredoc_child_process(t_token *token, int *fds)
+int	heredoc_child_process(t_token *token, int *fds) //t_values *vals
 {
 	char	*line;
 	char	*delimiter;
+	// int		quoted;
 
+	// quoted = FALSE;
 	delimiter = token->next->value;
 	dup2(fds[PIPE_WRITE_IN], STDOUT);
 	close(fds[PIPE_READ_FROM]);
@@ -30,7 +32,7 @@ int	heredoc_child_process(t_token *token, int *fds)
 			free(line);
 			break ;
 		}
-		// TODO: need to replace val?
+		// line = process_env_heredocs(line, vals);
 		// TODO: need to add quoted delimiter?
 		ft_putstr_fd(line, fds[PIPE_WRITE_IN]);
 		ft_putstr_fd("\n", fds[PIPE_WRITE_IN]);
