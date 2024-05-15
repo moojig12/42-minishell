@@ -52,7 +52,7 @@ int	execute_commands(t_token *tokens, int index_command, \
 
 	total_commands = count_commands(tokens);
 	set_redirect(tokens, index_command, vals);
-	check_redirect(tokens, vals);
+	// check_redirect(tokens, vals);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
 	if (set_redirect(tokens, index_command, vals) == FAILURE)
 		exit (FAILURE);
