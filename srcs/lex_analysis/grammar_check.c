@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grammar_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:16:13 by root              #+#    #+#             */
-/*   Updated: 2024/05/13 01:40:07 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:42:40 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	check_grammar(t_token *tokens, char *input, t_values *vals)
 	temp = tokens;
 	if (temp->type != WORDS)
 	{
+		if (temp->next == NULL)
+			return (FAILURE);
 		error_grammar(temp->next->value, vals);
 		return (FAILURE);
 	}
