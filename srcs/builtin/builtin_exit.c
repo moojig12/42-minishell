@@ -27,11 +27,8 @@ int	builtin_exit(char **argv, t_values *vals)
 	free_vals_elements(vals);
 	free_array(argv);
 	rl_event_hook = NULL;
-	exit (0);
-	
-	// *Fix this later*
-	/* if (argv[1] != NULL)
-		exit (ft_atoi(argv[1]));
+	if (argv[1] != NULL)
+		return (ft_atoi(argv[1]));
 	else
-		exit (0); */
+		return (FAILURE);
 }

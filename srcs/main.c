@@ -34,7 +34,7 @@ int	check_minishell_args(int argc, char **argv)
 {
 	if (argc != 1 || argv[1] != NULL)
 	{
-		printf("Error: minishell does not take any arguments\n");
+		ft_putendl_fd("Error: minishell does not take any arguments", 2);
 		return (FAILURE);
 	}
 	return (SUCCESS);
@@ -56,10 +56,13 @@ int	main_process(char *input, t_values *vals)
 		vals->last_error_code = 1;
 		return (FAILURE);
 	}
-	print_tokens(vals->head_token); // TODO: delete later
+	// print_tokens(vals->head_token); // TODO: delete later
 	execute_wrapper(vals->head_token, vals);
 	if (vals->last_error_code != 0)
-		printf("error: %s\n", strerror(vals->last_error_code));
+	{
+		ft_putstr_fd("error: ", 2);
+		ft_putendl_fd(strerror(vals->last_error_code), 2);
+	}
 	return (SUCCESS);
 }
 
@@ -90,6 +93,6 @@ int	main(int argc, char **argv, char **env)
 	if (vals)
 		free(vals);
 	write_history(".minishell_history");
-	printf("exit\n");
+	ft_putendl_fd("exit", 2);
 	return (SUCCESS);
 }

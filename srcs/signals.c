@@ -17,7 +17,7 @@ void	signals_process_np(int signum)
 	if (signum == SIGINT)
 	{
 		rl_on_new_line();
-		printf("\n"); //TODO: this is ugly. Fix it.
+		ft_putchar_fd('\n', 1); //TODO: this is ugly. Fix it.
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}

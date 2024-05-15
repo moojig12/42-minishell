@@ -22,7 +22,6 @@ int	redirect_input(t_token *token, t_values *vals)
 	fd = open(temp->value, O_RDONLY);
 	if (fd < 0)
 	{
-		// handle_error
 		error_io(temp->value, vals);
 		return (FAILURE);
 	}

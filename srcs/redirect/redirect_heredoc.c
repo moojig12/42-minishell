@@ -53,7 +53,7 @@ int	redirect_heredoc(t_token *token, t_values *vals)
 	if (pid == 0)
 		heredoc_child_process(token, fds);
 	else if (pid < 0)
-		exit(EXIT_FAILURE); // TODO: fix error handling
+		return (FAILURE); // TODO: fix error handling
 	close(fds[PIPE_WRITE_IN]);
 	dup2(fds[PIPE_READ_FROM], STDIN);
 	save_fd(fds[PIPE_READ_FROM], STDIN, vals);
