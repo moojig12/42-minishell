@@ -61,12 +61,12 @@ int	builtin_echo(char **argv)
 	argv++;
 	while (*argv)
 	{
-		printf("%s", *argv);
+		ft_putstr_fd(*argv, 1);
 		argv++;
 		if (*argv)
-			printf(" ");
+			ft_putchar_fd(' ', 1);
 	}
 	if (new_l)
-		printf("\n");
+		ft_putchar_fd('\n', 1);
 	return (SUCCESS);
 }

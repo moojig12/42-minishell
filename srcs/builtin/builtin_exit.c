@@ -26,7 +26,7 @@ int	builtin_exit(char **argv)
 {
 	rl_event_hook = NULL;
 	if (argv[1] != NULL)
-		exit (ft_atoi(argv[1]));
+		return (ft_atoi(argv[1]));
 	else
-		exit (0);
+		return (FAILURE);
 }

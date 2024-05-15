@@ -17,14 +17,14 @@ int	is_acceptable(char c)
 	if (ft_isascii(c) == FALSE)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd("some characters are not ascii\n", 2);
+		ft_putendl_fd("some characters are not ascii", 2);
 		return (FALSE);
 	}
 	else if (c == '\\' || c == ';' || c == '*')
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd("This shell does not accept some special characters", 2);
-		ft_putstr_fd("like '\\', ';', '*'\n", 2); // TODO: check if this is okay
+		ft_putendl_fd("like '\\', ';', '*'", 2); // TODO: check if this is okay
 		return (FALSE);
 	}
 	else if (ft_isalnum(c) == TRUE)
@@ -46,7 +46,7 @@ int	check_value(char *value)
 	return (SUCCESS);
 }
 
-int	is_operator_grammer_error(t_token *temp, t_values *vals)
+int	is_operator_grammar_error(t_token *temp, t_values *vals)
 {
 	if (temp->type == PIPE || temp->type == REDIRECTION)
 	{
@@ -81,7 +81,7 @@ int	check_grammar(t_token *tokens, char *input, t_values *vals)
 	}
 	while (temp != NULL)
 	{
-		if (is_operator_grammer_error(temp, vals) == FAILURE)
+		if (is_operator_grammar_error(temp, vals) == FAILURE)
 			return (FAILURE);
 		temp = temp->next;
 	}

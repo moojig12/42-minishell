@@ -35,11 +35,11 @@ int	builtin_pwd(void) //char **env
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
-		printf("error: %s\n", strerror(errno));
+		ft_putstr_fd("error: ", 2);
+		ft_putendl_fd(strerror(errno), 2);
 		return (FAILURE);
 	}
-	// TODO: need renew env pwd ???
-	printf("%s\n", pwd);
+	ft_putendl_fd(pwd, 1);
 	free(pwd);
 	return (SUCCESS);
 }

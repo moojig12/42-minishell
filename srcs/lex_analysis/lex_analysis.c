@@ -63,6 +63,6 @@ int	lexical_analysis(t_token **tokens, char *input, t_values *vals)
 	}
 	if (check_grammar(*tokens, input, vals) == FAILURE)
 		return (FAILURE);
-	printf("tokens: %s\n", vals->head_token->value);
+	// fprintf(stderr, "tokens: %s\n", vals->head_token->value);
 	return (SUCCESS);
 }

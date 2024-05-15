@@ -24,7 +24,7 @@ int	builtin_env(t_values *vals)
 	i = 0;
 	while (vals->env[i])
 	{
-		printf("%s\n", vals->env[i]);
+		ft_putendl_fd(vals->env[i], 1);
 		i++;
 	}
 	return (SUCCESS);

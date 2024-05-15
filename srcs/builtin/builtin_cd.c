@@ -59,7 +59,7 @@ int	builtin_cd(char **args, t_values *vals)
 	argc = count_str_array(args);
 	if (argc != 2)
 	{
-        printf("cd: too many arguments\n"); // TODO: fix
+        ft_putendl_fd("cd: too many arguments", 2);
         return (FAILURE);
     }
 	ret = chdir(args[1]);
