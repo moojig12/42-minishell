@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/15 17:43:32 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:46:23 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_commands(char *path, char **argv, int index_command, int total_comman
 		fprintf(stderr, "--------\n");
 }
 
-void	check_redirect(t_token *tokens, t_values *vals)
+/* void	check_redirect(t_token *tokens, t_values *vals)
 {
 	t_token	*temp;
 
@@ -41,7 +41,7 @@ void	check_redirect(t_token *tokens, t_values *vals)
 		}
 		temp = temp->next;
 	}
-}
+} */
 
 int	execute_commands(t_token *tokens, int index_command, \
 	int **pipe_fds_array, t_values *vals)
@@ -52,7 +52,7 @@ int	execute_commands(t_token *tokens, int index_command, \
 
 	total_commands = count_commands(tokens);
 	set_redirect(tokens, index_command, vals);
-	check_redirect(tokens, vals);
+	// check_redirect(tokens, vals);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
 	argv = tokens_to_argv(tokens, index_command);
 	pgr = find_pgr(argv[0], vals);
