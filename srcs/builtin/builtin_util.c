@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 17:16:06 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/18 09:58:25 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ int	execute_builtin(char **argv, t_values *vals)
 	if (ft_strcmp(argv[0], "env") == 0)
 		return (builtin_env(vals));
 	if (ft_strcmp(argv[0], "exit") == 0)
-		return (builtin_exit(argv));
+		return (builtin_exit(argv, vals));
 	return (FAILURE);
 }

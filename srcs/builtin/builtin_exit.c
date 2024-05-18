@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/13 17:39:56 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:20:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ exit: exit [n]
 	is that of the last command executed.
 */
 
-int	builtin_exit(char **argv)
+int	builtin_exit(char **argv, t_values *vals)
 {
+	free_vals_elements(vals);
+	free_array(argv);
 	rl_event_hook = NULL;
 	if (argv[1] != NULL)
 		return (ft_atoi(argv[1]));

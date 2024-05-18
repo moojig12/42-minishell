@@ -104,5 +104,5 @@ norm:
 	norminette $(SRCS) $(INCL)
 memcheck:
 	make
-	valgrind --suppressions=valgrind_pref.txt --leak-check=full ./minishell
+	valgrind --suppressions=valgrind_pref.txt --leak-check=full --show-leak-kinds=all ./minishell
 .PHONY = all clean fclean re update norm
