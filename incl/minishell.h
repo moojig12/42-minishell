@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/13 17:48:26 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:04:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int			builtin_pwd(void);
 int			builtin_export(char **argv, t_values *vals);
 int			builtin_unset(char **argv, t_values *vals);
 int			builtin_env(t_values *vals);
-int			builtin_exit(char **argv);
+int			builtin_exit(char **argv, t_values *vals);
 
 // builtin/builtin_util.c
 int			is_builtin(char *cmd);
@@ -209,7 +209,7 @@ char		*find_pgr(char *pgr_name, t_values *vals);
 void		free_vals_elements(t_values *vals);
 void		free_array(char **array);
 void		free_token(t_token *head);
-void		free_vals(t_values *vals);
+// void		free_vals(t_values *vals);
 
 // utils/ft_myutils.c
 int			ft_strcmp(const char *s1, const char *s2);

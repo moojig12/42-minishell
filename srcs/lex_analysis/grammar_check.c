@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grammar_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:16:13 by root              #+#    #+#             */
-/*   Updated: 2024/05/15 17:42:40 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/05/18 08:58:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,13 @@ int	check_grammar(t_token *tokens, char *input, t_values *vals)
 {
 	t_token	*temp;
 
-	if (check_value(input) == FAILURE)
+	/* if (check_value(input) == FAILURE)
 	{
 		vals->syntax_error = TRUE;
+		return (FAILURE);
+	} */
+	if (!input || !tokens)
+	{
 		return (FAILURE);
 	}
 	temp = tokens;
