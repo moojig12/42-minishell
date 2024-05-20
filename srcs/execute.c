@@ -105,10 +105,6 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 			set_error_waitpid(status, vals);
 		count++;
 	}
-	waitpid(pid, &status, 0);
-	vals->last_error_code = status;
-	if (status == -1)
-		set_error_waitpid(status, vals);
 	return (SUCCESS);
 }
 
