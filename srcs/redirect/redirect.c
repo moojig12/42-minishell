@@ -40,7 +40,7 @@ int	set_redirect(t_token *head, int index_command, t_values *vals)
 
 	temp = get_command_head(head, index_command);
 	temp = get_next_redirection(temp);
-	while (temp != NULL)
+	while (temp != NULL && vals->execute_error == FALSE)
 	{
 		if (temp->redirect_type == REDIRECT_IN)
 			redirect_input(temp, vals);

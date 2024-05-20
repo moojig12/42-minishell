@@ -102,6 +102,7 @@ typedef struct s_values {
 	struct s_io		*head_io;
 	char			**env;
 	int				syntax_error;
+	int				execute_error;
 	int				last_error_code;
 }	t_values;
 

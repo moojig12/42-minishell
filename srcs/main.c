@@ -17,7 +17,7 @@ void	print_tokens(t_token *token)
 	t_token	*temp;
 	int		i;
 
-	fprintf(stderr, "--------\n");
+	ft_putendl_fd("--------", 2);
 	i = 0;
 	temp = token;
 	while (temp != NULL)
@@ -27,7 +27,7 @@ void	print_tokens(t_token *token)
 			i, temp->value, temp->type, temp->redirect_type);
 		temp = temp->next;
 	}
-	fprintf(stderr, "--------\n");
+	ft_putendl_fd("--------", 2);
 }
 
 int	check_minishell_args(int argc, char **argv)
@@ -60,8 +60,8 @@ int	main_process(char *input, t_values *vals)
 	execute_wrapper(vals->head_token, vals);
 	if (vals->last_error_code != 0)
 	{
-		ft_putstr_fd("error: ", 2);
-		ft_putendl_fd(strerror(vals->last_error_code), 2);
+		// ft_putstr_fd("error: ", 2);
+		// ft_putendl_fd(strerror(vals->last_error_code), 2);
 	}
 	return (SUCCESS);
 }
@@ -93,6 +93,6 @@ int	main(int argc, char **argv, char **env)
 	if (vals)
 		free(vals);
 	write_history(".minishell_history");
-	ft_putendl_fd("exit", 2);
+	ft_putendl_fd("exit", 1);
 	return (SUCCESS);
 }

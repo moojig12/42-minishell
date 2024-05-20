@@ -40,7 +40,8 @@ void	exit_command_not_found(char *cmd, char **argv, t_values *vals)
 
 void	set_error_waitpid(int status, t_values *vals)
 {
-	strerror(status);
+	vals->execute_error = TRUE;
+	// strerror(status);
 	if (WIFEXITED(status))
 		vals->last_error_code = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
@@ -77,6 +78,7 @@ void	error_io(char *message, t_values *vals)
 {
 	ft_putstr_fd("minishell: ", 2);
 	perror(message);
+	vals->execute_error = TRUE;
 	vals->last_error_code = 1;
 	return ;
 }
