@@ -42,11 +42,13 @@ t_values	*init_values(char **env)
 	ptr->head_io = NULL;
 	ptr->total_tokens = 0;
 	ptr->env = malloc_env(env);
-	ptr->syntax_error = 0;
+	ptr->syntax_error = FALSE;
+	ptr->execute_error = FALSE;
 	ptr->last_error_code = 0;
 	return (ptr);
 }
 
+// reset elements of vals except last_eror_code
 void reset_vals_elements(t_values *vals)
 {
 	reset_redirect(vals);
@@ -55,7 +57,7 @@ void reset_vals_elements(t_values *vals)
 	vals->head_token = NULL;
 	vals->total_commands = 0;
 	vals->total_tokens = 0;
-	vals->syntax_error = 0;
-	// vals->last_error_code = 0;
+	vals->syntax_error = FALSE;
+	vals->execute_error = FALSE;
 	return ;
 }

@@ -28,24 +28,26 @@ int	execute_commands(t_token *tokens, int index_command, \
 
 	total_commands = count_commands(tokens);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
-	set_redirect(tokens, index_command, vals);
+	if (set_redirect(tokens, index_command, vals) == FAILURE)
+		exit (FAILURE);
+	if (vals->execute_error == TRUE)
+	{
+		reset_redirect(vals);
+		exit (FAILURE);
+	}
 	argv = tokens_to_argv(tokens, index_command);
 	pgr = find_pgr(argv[0], vals);
 	// print_commands(pgr, argv, index_command, total_commands);
 	if (pgr == NULL)
-	{
 		exit_command_not_found(argv[0], argv, vals);
-		return (FAILURE);
-	}
-	free(argv[0]);
-	argv[0] = pgr;
-	if (is_builtin(argv[0]))
+	if (is_builtin(pgr))
 		execute_builtin(argv, vals);
 	else
-		execve(argv[0], argv, vals->env);
-	reset_redirect(vals);
+		execve(pgr, argv, vals->env);
+	// reset_redirect(vals);
 	free(argv);
-	return (SUCCESS);
+	free(pgr);
+	exit (SUCCESS);
 }
 
 int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
@@ -58,16 +60,13 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 	total_commands = count_commands(tokens);
 	count = 0;
 	status = 0;
-	while (count < total_commands)
+	while (count < total_commands && vals->execute_error == FALSE)
 	{
 		if (count < total_commands - 1)
 			pipe(pipe_fds_array[count]);
 		pid = fork();
 		if (pid == 0)
-		{
 			execute_commands(tokens, count, pipe_fds_array, vals);
-			exit (EXIT_SUCCESS);
-		}
 		if (pid < 0)
 			vals->last_error_code = 1;
 		if (count > 0)
@@ -75,12 +74,11 @@ int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 			close(pipe_fds_array[count - 1][PIPE_WRITE_IN]);
 			close(pipe_fds_array[count - 1][PIPE_READ_FROM]);
 		}
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			set_error_waitpid(status, vals);
 		count++;
 	}
-	waitpid(pid, &status, 0);
-	vals->last_error_code = status;
-	if (status == -1)
-		set_error_waitpid(status, vals);
 	return (SUCCESS);
 }
 
@@ -95,7 +93,8 @@ int	execute_wrapper(t_token *tokens, t_values *vals)
 	{
 		temp = tokens_to_argv(tokens, 0);
 		set_redirect(tokens, 0, vals);
-		execute_builtin(temp, vals);
+		if (vals->execute_error == FALSE)
+			execute_builtin(temp, vals);
 		reset_redirect(vals);
 		free_array(temp);
 	}
@@ -106,6 +105,7 @@ int	execute_wrapper(t_token *tokens, t_values *vals)
 		// 	exit_with_perror("calloc_int_array()", NULL, NULL);
 		fork_process(tokens, pipe_fds_array, vals);
 		free_int_array(pipe_fds_array, total_commands);
+		reset_redirect(vals);
 	}
 	return (SUCCESS);
 }
