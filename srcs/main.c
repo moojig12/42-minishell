@@ -1,95 +1,56 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/13 17:39:10 by nmandakh         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "minishell_r.h"
 
-#include "minishell.h"
-
-void	print_tokens(t_token *token)
+void	interactive_mode(t_values *vals)
 {
-	t_token	*temp;
+	prepare_signals();
+	while (1)
+	{
+		vals->input = readline("minishell$ ");
+		// prepare_signals_child();
+		if (vals->input == NULL)
+			break ;
+		if (vals->input && vals->input[0])
+			add_history(vals->input);
+		if (parse_input(vals) == EXIT_SUCCESS)
+			vals->exit_code = execution(vals);
+		else
+			vals->exit_code = EXIT_FAILURE;
+	}
+}
+
+void	background_mode(t_values *vals, char *argv)
+{
+	char	**input;
 	int		i;
 
-	fprintf(stderr, "--------\n");
+	input = ft_split(argv, ';');
+	if (!input)
+		exit_shell(vals, EXIT_FAILURE);
 	i = 0;
-	temp = token;
-	while (temp != NULL)
+	while (input[i])
 	{
+		vals->input = ft_strdup(input[i]);
+		if (parse_input(vals) == EXIT_SUCCESS)
+			vals->exit_code = execution(vals);
+		else
+			vals->exit_code = EXIT_FAILURE;
 		i++;
-		fprintf(stderr, "*Token %i*\n value	: %s\n type	: %i\n r_type	: %i\n", \
-			i, temp->value, temp->type, temp->redirect_type);
-		temp = temp->next;
 	}
-	fprintf(stderr, "--------\n");
-}
-
-int	check_minishell_args(int argc, char **argv)
-{
-	if (argc != 1 || argv[1] != NULL)
-	{
-		printf("Error: minishell does not take any arguments\n");
-		return (FAILURE);
-	}
-	return (SUCCESS);
-}
-
-void	preparation_process(void)
-{
-	using_history();
-	read_history(".minishell_history");
-	rl_outstream = stderr;
-	rl_event_hook = signals_handler;
-}
-
-int	main_process(char *input, t_values *vals)
-{
-	if (lexical_analysis(&vals->head_token, input, vals) == FAILURE)
-	{
-		vals->syntax_error = TRUE;
-		vals->last_error_code = 1;
-		return (FAILURE);
-	}
-	print_tokens(vals->head_token); // TODO: delete later
-	execute_wrapper(vals->head_token, vals);
-	if (vals->last_error_code != 0)
-		printf("error: %s\n", strerror(vals->last_error_code));
-	return (SUCCESS);
+	free_input_array(input);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	char		*input;
 	t_values	*vals;
 
-	if (check_minishell_args(argc, argv) == FAILURE)
-		return (FAILURE);
-	preparation_process();
-	vals = init_values(env);
-	if (vals == NULL)
-		return (FAILURE);
-	while (rl_event_hook != NULL)
-	{
-		input = readline("minishell$ ");
-		if (!input)
-			break ;
-		if (*input && input[0] != '\t')
-			add_history(input);
-		if (input[0])
-			main_process(input, vals);
-		reset_vals_elements(vals);
-		free(input);
-	}
-	free_array(vals->env);
-	if (vals)
-		free(vals);
-	write_history(".minishell_history");
-	printf("exit\n");
-	return (SUCCESS);
+	vals = init_vals(env);
+	if (!vals)
+		return (EXIT_FAILURE);
+	check_minishell_args(vals, argv, argc);
+	if (vals->background)
+		background_mode(vals, argv[2]);
+	else
+		interactive_mode(vals);
+	exit_program(vals, vals->exit_code);
+	return (0);
 }

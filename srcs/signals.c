@@ -1,33 +1,35 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 13:38:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 16:40:32 by nmandakh         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "minishell_r.h"
 
-#include "minishell.h"
-
-void	signals_process_np(int signum)
+void	signal_handler(int signum)
 {
-	if (signum == SIGINT)
-	{
-		rl_on_new_line();
-		printf("\n"); //TODO: this is ugly. Fix it.
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
-//	TODO: Add tokens as param in signal handler for SIGQUIT and free tokens before exit
-
-int	signals_handler(void)
+void	signal_handler_child(int num)
 {
-	signal(SIGINT, signals_process_np);
+	(void)num;
+	rl_on_new_line();
+}
+
+void	prepare_signals()
+{
+	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, NULL);
-	return (SUCCESS);
+}
+
+void	prepare_signals_child()
+{
+	signal(SIGINT, signal_handler_child);
+	signal(SIGQUIT, signal_handler_child);
+}
+
+void	preparation_process(void)
+{
+	using_history();
+	read_history(".minishell_history");
+	rl_outstream = stderr;
+	rl_event_hook = prepare_signals;
 }
