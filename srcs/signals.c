@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:38:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 16:40:32 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/06/18 06:52:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ void	signals_process_np(int signum)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	else
+	{
+		return ;
+	}
 }
 
 //	TODO: Add tokens as param in signal handler for SIGQUIT and free tokens before exit
@@ -28,6 +32,6 @@ void	signals_process_np(int signum)
 int	signals_handler(void)
 {
 	signal(SIGINT, signals_process_np);
-	signal(SIGQUIT, NULL);
+	signal(SIGQUIT, signals_process_np);
 	return (SUCCESS);
 }

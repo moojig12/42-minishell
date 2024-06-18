@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grammar_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:16:13 by root              #+#    #+#             */
-/*   Updated: 2024/05/13 01:40:07 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/06/18 06:45:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	check_grammar(t_token *tokens, char *input, t_values *vals)
 		vals->syntax_error = TRUE;
 		return (FAILURE);
 	}
+	if (!tokens)
+		return (FAILURE);
 	temp = tokens;
 	if (temp->type != WORDS)
 	{
