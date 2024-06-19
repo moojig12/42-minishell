@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/13 17:39:10 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:21:36 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	preparation_process(void)
 	using_history();
 	read_history(".minishell_history");
 	rl_outstream = stderr;
-	rl_event_hook = signals_handler;
+	// rl_event_hook = signals_handler;
 }
 
 int	main_process(char *input, t_values *vals)
@@ -77,9 +77,11 @@ int	main(int argc, char **argv, char **env)
 	vals = init_values(env);
 	if (vals == NULL)
 		return (FAILURE);
-	while (rl_event_hook != NULL)
+	while (1)
 	{
+		signals_handler();
 		input = readline("minishell$ ");
+		signals_handler_child();
 		if (!input)
 			break ;
 		if (*input && input[0] != '\t')
