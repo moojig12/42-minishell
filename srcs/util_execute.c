@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   util_execute.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/06/19 16:27:02 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/06/21 00:16:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-volatile sig_atomic_t sigint_received;
 
 int	count_all_tokens(t_token *tokens)
 {
