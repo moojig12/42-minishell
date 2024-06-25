@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:38:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/06/19 17:33:50 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:18:55 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ void	signals_process_np(int signum)
 	rl_redisplay();
 }
 
-void	signals_process_child(int signum)
-{
-	(void)signum;
-	rl_on_new_line();
-}
-
 void	sigquit_process(int signum)
 {
 	(void)signum;
@@ -37,12 +31,5 @@ int	signals_handler(void)
 {
 	signal(SIGINT, signals_process_np);
 	signal(SIGQUIT, SIG_IGN);
-	return (SUCCESS);
-}
-
-int	signals_handler_child(void)
-{
-	signal(SIGINT, signals_process_child);
-	signal(SIGQUIT, signals_process_child);
 	return (SUCCESS);
 }

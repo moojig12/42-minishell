@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/06/21 00:17:01 by root             ###   ########.fr       */
+/*   Updated: 2024/06/25 15:18:42 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	preparation_process(void)
 	using_history();
 	read_history(".minishell_history");
 	rl_outstream = stderr;
-	// rl_event_hook = signals_handler;
+	rl_event_hook = signals_handler;
 }
 
 int	main_process(char *input, t_values *vals)
@@ -81,9 +81,7 @@ int	main(int argc, char **argv, char **env)
 		return (FAILURE);
 	while (1)
 	{
-		signals_handler();
 		input = readline("minishell$ ");
-		signals_handler_child();
 		if (!input)
 			break ;
 		if (*input && input[0] != '\t')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/06/23 16:31:12 by root             ###   ########.fr       */
+/*   Updated: 2024/06/25 15:18:59 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int			execute_wrapper(t_token *tokens, t_values *vals);
 // signal.c
 void		signals_process_np(int signum);
 void		signals_process_nothing(int signum);
-int			signals_handler_child(void);
 int			signals_handler(void);
 void		sigquit_process(int signum);
 
