@@ -17,6 +17,7 @@ int	redirect_append(t_token *token, t_values *vals)
 {
 	t_token *temp;
 	int		fd;
+	int		fd_stashed;
 
 	temp = token->next;
 	fd = open(temp->value, O_WRONLY | O_CREAT | O_APPEND);
@@ -25,7 +26,9 @@ int	redirect_append(t_token *token, t_values *vals)
 		error_io(temp->value, vals);
 		return (FAILURE);
 	}
-	save_fd(fd, STDOUT, vals);
+	fd_stashed = stash_fd(STDOUT);
+	save_fd(fd_stashed, STDOUT, vals);
 	dup2(fd, STDOUT);
+	close(fd);
 	return (SUCCESS);
 }
