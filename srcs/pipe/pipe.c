@@ -12,41 +12,31 @@
 
 #include "minishell.h"
 
-int	set_redirect(t_token *head, int index_command, t_values *vals)
+int	set_pipe_io(int command_count, int **pipe_fds_array, int total_commands)
 {
-	t_token	*temp;
+	int	*last_pipe;
+	int	*current_pipe;
 
-	temp = get_command_head(head, index_command);
-	temp = get_next_redirection(temp);
-	while (temp != NULL && vals->execute_error == FALSE)
+	if (0 < command_count)
 	{
-		if (temp->redirect_type == REDIRECT_IN)
-			redirect_input(temp, vals);
-		else if (temp->redirect_type == REDIRECT_OUT)
-			redirect_output(temp, vals);
-		else if (temp->redirect_type == REDIRECT_HEREDOC)
-			redirect_heredoc(temp, vals);
-		else if (temp->redirect_type == REDIRECT_APPEND)
-			redirect_append(temp, vals);
-		temp = get_next_redirection(temp);
+		last_pipe = pipe_fds_array[command_count - 1];
+		dup2(last_pipe[PIPE_READ_FROM], STDIN_FILENO);
+		close(last_pipe[PIPE_WRITE_IN]);
+		close(last_pipe[PIPE_READ_FROM]);
+	}
+	if (command_count < total_commands - 1)
+	{
+		current_pipe = pipe_fds_array[command_count];
+		dup2(current_pipe[PIPE_WRITE_IN], STDOUT_FILENO);
+		close(current_pipe[PIPE_WRITE_IN]);
+		close(current_pipe[PIPE_READ_FROM]);
 	}
 	return (SUCCESS);
 }
 
-int	reset_redirect(t_values *vals)
+int close_past_parent_pipe(int **pipe_fds_array, int count)
 {
-	t_ios	*temp;
-	t_ios	*next;
-
-	temp = vals->head_io;
-	while (temp != NULL)
-	{
-		dup2(temp->save_fd, temp->dest_fd);
-		close(temp->save_fd);
-		next = temp->next;
-		free(temp);
-		temp = next;
-	}
-	vals->head_io = NULL;
+	close(pipe_fds_array[count - 1][PIPE_WRITE_IN]);
+	close(pipe_fds_array[count - 1][PIPE_READ_FROM]);
 	return (SUCCESS);
 }

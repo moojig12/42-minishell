@@ -56,11 +56,11 @@ int	execute_commands(t_token *tokens, int index_command, \
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
 	if (set_redirect(tokens, index_command, vals) == FAILURE)
 		exit (FAILURE);
-	if (vals->execute_error == TRUE)
-	{
-		reset_redirect(vals);
-		exit (FAILURE);
-	}
+	// if (vals->execute_error == TRUE)
+	// {
+	// 	reset_redirect(vals);
+	// 	exit (FAILURE);
+	// }
 	argv = tokens_to_argv(tokens, index_command);
 	pgr = find_pgr(argv[0], vals);
 	// print_commands(pgr, argv, index_command, total_commands);
@@ -79,31 +79,28 @@ int	execute_commands(t_token *tokens, int index_command, \
 int	fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals)
 {
 	int		total_commands;
-	pid_t	pid;
+	int		command_count;
 	int		status;
-	int		count;
+	pid_t	pid;
 
 	total_commands = count_commands(tokens);
-	count = 0;
+	command_count = 0;
 	status = 0;
-	while (count < total_commands && vals->execute_error == FALSE)
+	while (command_count < total_commands) // && vals->execute_error == FALSE)
 	{
-		if (count < total_commands - 1)
-			pipe(pipe_fds_array[count]);
+		if (command_count < total_commands - 1)
+			pipe(pipe_fds_array[command_count]);
 		pid = fork();
 		if (pid == 0)
-			execute_commands(tokens, count, pipe_fds_array, vals);
+			execute_commands(tokens, command_count, pipe_fds_array, vals);
 		if (pid < 0)
 			vals->last_error_code = 1;
-		if (count > 0)
-		{
-			close(pipe_fds_array[count - 1][PIPE_WRITE_IN]);
-			close(pipe_fds_array[count - 1][PIPE_READ_FROM]);
-		}
+		if (0 < pid && 0 < command_count)
+			close_past_parent_pipe(pipe_fds_array, command_count);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			set_error_waitpid(status, vals);
-		count++;
+		command_count++;
 	}
 	return (SUCCESS);
 }

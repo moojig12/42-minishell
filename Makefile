@@ -24,6 +24,7 @@ INCL	=	$(wildcard $(INCL_DIR)/*.h) # FIX: change this before submit
 SRCS	=	$(wildcard $(SRCS_DIR)/*.c) # FIX: change this before submit
 SRCS	+=	$(wildcard $(SRCS_DIR)/lex_analysis/*.c) # FIX: change this before submit
 SRCS	+=	$(wildcard $(SRCS_DIR)/redirect/*.c) # FIX: change this before submit
+SRCS	+=	$(wildcard $(SRCS_DIR)/pipe/*.c) # FIX: change this before submit
 SRCS	+=	$(wildcard $(SRCS_DIR)/builtin/*.c) # FIX: change this before submit
 SRCS	+=	$(wildcard $(SRCS_DIR)/utils/*.c) # FIX: change this before submit
 SRCS	+=	$(wildcard $(SRCS_DIR)/test/*.c) # FIX: change this before submit
@@ -74,6 +75,7 @@ $(OBJS_DIR):
 	mkdir $(OBJS_DIR)
 	mkdir $(OBJS_DIR)/lex_analysis
 	mkdir $(OBJS_DIR)/redirect
+	mkdir $(OBJS_DIR)/pipe
 	mkdir $(OBJS_DIR)/builtin
 	mkdir $(OBJS_DIR)/utils
 	mkdir $(OBJS_DIR)/test
