@@ -161,10 +161,15 @@ int			is_operator(char *input);
 int			count_operator_letters(char *input);
 int			count_value_size(char *input);
 
-/**************** redirect ****************/
-// redirect/redirect.c
+
+/**************** pipe ****************/
+// pipe/pipe.c
 int			set_pipe_io(int command_count, int **pipe_fds_array, \
 				int total_commands);
+int			close_past_parent_pipe(int **pipe_fds_array, int count);
+
+/**************** redirect ****************/
+// redirect/redirect.c
 int			set_redirect(t_token *head, int index_command, t_values *vals);
 int			reset_redirect(t_values *vals);
 
