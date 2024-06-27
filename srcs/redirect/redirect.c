@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/13 01:42:08 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/06/24 21:43:37 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	reset_redirect(t_values *vals)
 	temp = vals->head_io;
 	while (temp != NULL)
 	{
-		dup2(temp->fd, temp->old_fd);
-		// close(temp->old_fd);
+		dup2(temp->save_fd, temp->dest_fd);
+		close(temp->save_fd);
 		next = temp->next;
 		free(temp);
 		temp = next;

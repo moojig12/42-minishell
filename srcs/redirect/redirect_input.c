@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/13 01:16:32 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/06/24 22:04:01 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	redirect_input(t_token *token, t_values *vals)
 {
 	t_token	*temp;
 	int		fd;
+	int 	fd_stashed;
 
 	temp = token->next;
 	fd = open(temp->value, O_RDONLY);
@@ -25,7 +26,8 @@ int	redirect_input(t_token *token, t_values *vals)
 		error_io(temp->value, vals);
 		return (FAILURE);
 	}
-	save_fd(fd, STDIN, vals);
+	fd_stashed = stash_fd(STDIN);
+	save_fd(fd_stashed, STDIN, vals);
 	dup2(fd, STDIN);
 	close(fd);
 	return (SUCCESS);

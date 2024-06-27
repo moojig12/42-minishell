@@ -12,16 +12,37 @@
 
 #include "minishell.h"
 
-int	heredoc_child_process(t_token *token, int *fds) //t_values *vals
+int	redirect_heredoc_input(t_values *vals)
 {
+	int	fd;
+	int	fd_stashed;
+
+	fd = open(TMP_FILENAME, O_RDONLY);
+	if (fd == -1)
+	{
+		perror("File not found");
+		return (FILE_NF);
+	}
+	fd_stashed = stash_fd(STDIN);
+	save_fd(fd_stashed, STDIN, vals);
+	dup2(fd, STDIN);
+	close(fd);
+	return (SUCCESS);
+}
+
+int	redirect_heredoc(t_token *token, t_values *vals)
+{
+	int		fd;
 	char	*line;
 	char	*delimiter;
-	// int		quoted;
 
-	// quoted = FALSE;
+	fd = open(TMP_FILENAME, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		perror("File not found");
+		return (FILE_NF);
+	}
 	delimiter = token->next->value;
-	dup2(fds[PIPE_WRITE_IN], STDOUT);
-	close(fds[PIPE_READ_FROM]);
 	while (1)
 	{
 		line = readline("> ");
@@ -34,29 +55,11 @@ int	heredoc_child_process(t_token *token, int *fds) //t_values *vals
 		}
 		// line = process_env_heredocs(line, vals);
 		// TODO: need to add quoted delimiter?
-		ft_putstr_fd(line, fds[PIPE_WRITE_IN]);
-		ft_putstr_fd("\n", fds[PIPE_WRITE_IN]);
+		ft_putstr_fd(line, fd);
+		ft_putstr_fd("\n", fd);
 		free(line);
 	}
-	close(fds[PIPE_WRITE_IN]);
-	exit(EXIT_SUCCESS);
-}
-
-// take redirect heredoc operator as token then set fd and save it
-int	redirect_heredoc(t_token *token, t_values *vals)
-{
-	int	fds[2];
-	int	pid;
-
-	pipe(fds);
-	pid = fork();
-	if (pid == 0)
-		heredoc_child_process(token, fds);
-	else if (pid < 0)
-		return (FAILURE); // TODO: fix error handling
-	close(fds[PIPE_WRITE_IN]);
-	dup2(fds[PIPE_READ_FROM], STDIN);
-	save_fd(fds[PIPE_READ_FROM], STDIN, vals);
-	waitpid(pid, NULL, 0);
+	close(fd);
+	redirect_heredoc_input(vals);
 	return (SUCCESS);
 }

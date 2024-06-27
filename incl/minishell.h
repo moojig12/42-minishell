@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/18 10:04:50 by root             ###   ########.fr       */
+/*   Updated: 2024/06/24 21:33:59 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,13 @@ redirect_type:
 # define REDIRECT_HEREDOC 4
 # define REDIRECT_APPEND 5
 
+/* Redirection */
+# define TMP_FILENAME "/tmp/heredoc_tmp.tmp"
+# define FILE_NF		20
+# define RED_IN_ERR		21
+# define RED_OUT_ERR	22
+# define INVALID_FNAME	23
+
 typedef struct s_token {
 	char			*value;
 	int				type;
@@ -90,8 +97,8 @@ typedef struct s_token {
 
 //need io struct?
 typedef struct s_io {
-	int				fd;
-	int				old_fd;
+	int				save_fd;
+	int				dest_fd;
 	struct s_io		*next;
 }	t_ios;
 
@@ -167,9 +174,13 @@ int			redirect_output(t_token *temp, t_values *vals);
 int			redirect_heredoc(t_token *temp, t_values *vals);
 int			redirect_append(t_token *token, t_values *vals);
 
+int			redirect_heredoc_input(t_values *vals);
+
 // redirect/redirect_util.c
-t_ios		*init_ios(int fd, int old_fd);
-int			save_fd(int fd, int old_fd, t_values *s);
+t_ios		*init_ios(int save_fd, int dest_fd);
+int			save_fd(int save_fd, int dest_fd, t_values *s);
+int			stash_fd(int fd);
+bool		is_valid_fd(int fd);
 
 /**************** builtin ****************/
 // builtin/*.c

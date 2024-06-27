@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/15 17:46:23 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:03:42 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	execute_commands(t_token *tokens, int index_command, \
 	char	*pgr;
 
 	total_commands = count_commands(tokens);
-	set_redirect(tokens, index_command, vals);
+	// set_redirect(tokens, index_command, vals);
 	// check_redirect(tokens, vals);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
 	if (set_redirect(tokens, index_command, vals) == FAILURE)
@@ -70,7 +70,7 @@ int	execute_commands(t_token *tokens, int index_command, \
 		execute_builtin(argv, vals);
 	else
 		execve(pgr, argv, vals->env);
-	// reset_redirect(vals);
+	reset_redirect(vals);
 	free(argv);
 	free(pgr);
 	exit (SUCCESS);
@@ -131,7 +131,7 @@ int	execute_wrapper(t_token *tokens, t_values *vals)
 		// 	exit_with_perror("calloc_int_array()", NULL, NULL);
 		fork_process(tokens, pipe_fds_array, vals);
 		free_int_array(pipe_fds_array, total_commands);
-		reset_redirect(vals);
+		// reset_redirect(vals);
 	}
 	return (SUCCESS);
 }
