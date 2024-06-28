@@ -1,0 +1,13 @@
+echo hoge
+cat hoge
+ls
+ls | echo
+ls | cat
+pwd
+echo this
+echo "this"
+echo 'this'
+echo "$(PATH)"
+echo '$(PATH)'
+echo "$PATH"
+echo '$PATH'
