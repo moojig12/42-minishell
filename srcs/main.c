@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/05/13 17:39:10 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/06/30 23:09:40 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_tokens(t_token *token)
+/*
+void	print_tokens(t_token *token) //TODO: delete later
 {
 	t_token	*temp;
 	int		i;
@@ -29,70 +30,54 @@ void	print_tokens(t_token *token)
 	}
 	ft_putendl_fd("--------", 2);
 }
+*/
 
-int	check_minishell_args(int argc, char **argv)
+int	preparation_before_command(int argc, char **argv)
 {
-	if (argc != 1 || argv[1] != NULL)
+	if (argc > 1 && argv[1] != NULL)
 	{
-		ft_putendl_fd("Error: minishell does not take any arguments", 2);
+		ft_putstr_fd("Error: ", STDERR_FILENO);
+		ft_putendl_fd("minishell does not take any arguments", \
+			STDERR_FILENO);
 		return (FAILURE);
 	}
-	return (SUCCESS);
-}
-
-void	preparation_process(void)
-{
 	using_history();
 	read_history(".minishell_history");
 	rl_outstream = stderr;
 	rl_event_hook = signals_handler;
+	return (SUCCESS);
 }
 
-int	main_process(char *input, t_values *vals)
+void	save_input_and_free(char *input)
 {
-	if (lexical_analysis(&vals->head_token, input, vals) == FAILURE)
-	{
-		vals->syntax_error = TRUE;
-		vals->last_error_code = 1;
-		return (FAILURE);
-	}
-	// print_tokens(vals->head_token); // TODO: delete later
-	execute_wrapper(vals->head_token, vals);
-	if (vals->last_error_code != 0)
-	{
-		// ft_putstr_fd("error: ", 2);
-		// ft_putendl_fd(strerror(vals->last_error_code), 2);
-	}
-	return (SUCCESS);
+	if (input == NULL)
+		return;
+	if (input[0] != '\0')
+		add_history(input);
+	free(input);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	char		*input;
 	t_values	*vals;
+	char		*input;
 
-	if (check_minishell_args(argc, argv) == FAILURE)
+	if (preparation_before_command(argc, argv) == FAILURE)
 		return (FAILURE);
-	preparation_process();
-	vals = init_values(env);
-	if (vals == NULL)
+	if ((vals = init_values(env)) == NULL)
 		return (FAILURE);
 	while (rl_event_hook != NULL)
 	{
-		input = readline("minishell$ ");
-		if (!input)
+		input = readline(PROMPT);
+		if (input == NULL)
+			input = ft_strdup("exit");
+		if (!isatty(STDIN_FILENO) && input[0] == '\0')
 			break ;
-		if (*input && input[0] != '\t')
-			add_history(input);
-		if (input[0])
-			main_process(input, vals);
+		if (input[0] != '\0')
+			execute_wrapper(input, vals);
 		reset_vals_elements(vals);
-		free(input);
+		save_input_and_free(input);
 	}
-	free_array(vals->env);
-	if (vals)
-		free(vals);
 	write_history(".minishell_history");
-	ft_putendl_fd("exit", 1);
-	return (SUCCESS);
+	exit_shell(-1, vals);
 }

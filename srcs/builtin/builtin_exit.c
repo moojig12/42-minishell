@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/18 10:20:05 by root             ###   ########.fr       */
+/*   Updated: 2024/06/30 23:29:05 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,43 @@ exit: exit [n]
 	is that of the last command executed.
 */
 
+
+//TODO: need to fix how to handle exit code?? ->check
+
+int ft_isnumber(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
 int	builtin_exit(char **argv, t_values *vals)
 {
-	free_vals_elements(vals);
-	free_array(argv);
-	rl_event_hook = NULL;
-	if (argv[1] != NULL)
-		return (ft_atoi(argv[1]));
+	int exit_code;
+
+	if (argv[1] == NULL)
+		exit_code = EXIT_FAILURE;
+	else if (ft_isnumber(argv[1]) == FALSE)
+	{
+		error_command("exit", argv[1], "numeric argument required");
+		exit_code = 255;
+	}
+	else if (argv[2] != NULL)
+	{
+		error_command("exit", NULL, "too many arguments");
+		exit_code = 1;
+	}
 	else
-		return (FAILURE);
+		exit_code = ft_atoi(argv[1]);
+	rl_event_hook = NULL;
+	ft_putendl_fd("exit", STDERR_FILENO);
+	vals->last_exit_code = exit_code;
+	return (exit_code);
 }

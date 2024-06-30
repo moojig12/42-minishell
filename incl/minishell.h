@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/06/24 21:33:59 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/06/30 23:14:13 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define PIPE_WRITE_IN 1
 
 # define _POSIX_SOURCE 1
+
+# define PROMPT "\e[1;32mminishell$ \e[0m"
 
 # include <stdbool.h>			// boolean
 # include <stdio.h>				// printf
@@ -110,7 +112,7 @@ typedef struct s_values {
 	char			**env;
 	int				syntax_error;
 	int				execute_error;
-	int				last_error_code;
+	int				last_exit_code;
 }	t_values;
 
 /**************** prototypes ****************/
@@ -118,14 +120,13 @@ typedef struct s_values {
 int			main(int argc, char **argv, char **env);
 
 // execute.c
-int			execute_commands(t_token *tokens, int index_command, \
+int			child_process(t_token *tokens, int index_command, \
 			int **pipe_fds_array, t_values *vals);
 int			fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals);
-int			execute_wrapper(t_token *tokens, t_values *vals);
+int			execute_wrapper(char *input, t_values *vals);
 
 // signal.c
-void		signals_process_np(int signum);
-void		signals_process_nothing(int signum);
+void		signals_process(int signum);
 int			signals_handler(void);
 
 // initialize.c
@@ -210,14 +211,18 @@ char		*get_env_str(char **env, char *key);
 char		*replace_env_var(char *str, int start, t_values *vals);
 
 // utils/error.c
-void		exit_with_perror(char *message, t_values *vals);
-void		exit_without_perror(char *message, char *file_or_cmd, \
-				char **array, char *str);
-void		exit_command_not_found(char *cmd, char **argv, t_values *vals);
 void		set_error_waitpid(int status, t_values *vals);
 void		error_unclosed_quote(char *message1, t_values *vals);
 void		error_grammar(char *message, t_values *vals);
 void		error_io(char *message, t_values *vals);
+void		error_command(char *command, char *arg, char *message);
+
+// utils/exit_handler.c
+void		exit_with_perror(char *message, t_values *vals);
+void		exit_without_perror(char *message, char *file_or_cmd, \
+				char **array, char *str);
+void		exit_command_not_found(char *cmd, char **argv, t_values *vals);
+void		exit_shell(int exit_code, t_values *vals);
 
 // utils/find_pgr_path.c
 char		*find_pgr(char *pgr_name, t_values *vals);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:44:06 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/13 17:58:37 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/06/30 22:49:03 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_values	*init_values(char **env)
 	ptr->env = malloc_env(env);
 	ptr->syntax_error = FALSE;
 	ptr->execute_error = FALSE;
-	ptr->last_error_code = 0;
+	ptr->last_exit_code = 0;
 	return (ptr);
 }
 

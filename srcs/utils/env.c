@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:17:25 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/13 01:05:51 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/06/30 21:42:30 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*replace_env_var(char *str, int start, t_values *vals)
 	{
 		key_len = 1;
 		key = ft_strdup("?");
-		val = ft_itoa(vals->last_error_code);
+		val = ft_itoa(vals->last_exit_code);
 	}
 	else
 	{

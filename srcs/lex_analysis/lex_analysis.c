@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:17:51 by root              #+#    #+#             */
-/*   Updated: 2024/05/13 01:32:52 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/06/30 22:40:53 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,5 @@ int	lexical_analysis(t_token **tokens, char *input, t_values *vals)
 	}
 	if (check_grammar(*tokens, input, vals) == FAILURE)
 		return (FAILURE);
-	// fprintf(stderr, "tokens: %s\n", vals->head_token->value);
 	return (SUCCESS);
 }
