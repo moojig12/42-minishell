@@ -81,4 +81,5 @@ int	main(int argc, char **argv, char **env)
 	}
 	write_history(".minishell_history");
 	exit_shell(-1, vals);
+	return (EXIT_SUCCESS);
 }
