@@ -27,7 +27,7 @@ char	*find_pgr_in_path_list(char *pgr_name, char **env_path_list)
 		path = ft_strjoin(env_path_list[i++], "/");
 		pgr_path = ft_strjoin(path, pgr_name);
 		free(path);
-		if (access(pgr_path, X_OK) == SUCCESS)
+		if (access(pgr_path, X_OK) == EXIT_SUCCESS)
 			return (pgr_path);
 		free(pgr_path);
 	}
@@ -40,9 +40,9 @@ char	*find_pgr(char *pgr_name, t_values *vals)
 	char 	*pgr_path;
 
 	if (access(pgr_name, F_OK | X_OK) == 0)
-		return (pgr_name);
+		return (ft_strdup(pgr_name));
 	if (is_builtin(pgr_name))
-		return (pgr_name);
+		return (ft_strdup(pgr_name));
 	env_path_list = get_env_elements_array(vals->env, "PATH");
 	if (env_path_list == NULL)
 		return (NULL);

@@ -42,12 +42,12 @@ int	builtin_export(char **argv, t_values *vals)
 
 	variable = argv[1];
 	if (variable == NULL || ft_strchr(variable, '=') == NULL)
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	key = ft_strndup(variable, ft_strchr(variable, '=') - variable);
 	if (ft_ispathkey(key) == FALSE)
 	{
 		free(key);
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	}
 	status = change_env(key, variable, "SET_ENV", vals);
 	free(key);

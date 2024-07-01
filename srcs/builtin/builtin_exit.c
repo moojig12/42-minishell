@@ -39,7 +39,7 @@ int ft_isnumber(char *str)
 	return (TRUE);
 }
 
-int	builtin_exit(char **argv, t_values *vals)
+int	builtin_exit(char **argv)
 {
 	int exit_code;
 
@@ -50,15 +50,14 @@ int	builtin_exit(char **argv, t_values *vals)
 		error_command("exit", argv[1], "numeric argument required");
 		exit_code = 255;
 	}
-	else if (argv[2] != NULL)
-	{
-		error_command("exit", NULL, "too many arguments");
-		exit_code = 1;
-	}
+	// else if (argv[2] != NULL)
+	// {
+	// 	error_command("exit", NULL, "too many arguments");
+	// 	exit_code = 1;
+	// }
 	else
 		exit_code = ft_atoi(argv[1]);
 	rl_event_hook = NULL;
 	ft_putendl_fd("exit", STDERR_FILENO);
-	vals->last_exit_code = exit_code;
 	return (exit_code);
 }

@@ -50,9 +50,9 @@ int	count_operator_letters(char *input)
 //   or return error(FAILURE = -1) if quote is not closed
 int	count_value_size(char *input)
 {
-	int		count;
 	bool	single_quoted;
 	bool	double_quoted;
+	int		count;
 
 	single_quoted = FALSE;
 	double_quoted = FALSE;
@@ -73,6 +73,6 @@ int	count_value_size(char *input)
 		count++;
 	}
 	if (single_quoted || double_quoted)
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	return (count);
 }

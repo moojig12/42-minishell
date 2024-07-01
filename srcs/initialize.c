@@ -44,7 +44,7 @@ t_values	*init_values(char **env)
 	ptr->env = malloc_env(env);
 	ptr->syntax_error = FALSE;
 	ptr->execute_error = FALSE;
-	ptr->last_exit_code = 0;
+	ptr->last_exit_code = EXIT_SUCCESS;
 	return (ptr);
 }
 

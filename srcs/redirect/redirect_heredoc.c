@@ -27,7 +27,7 @@ int	redirect_heredoc_input(t_values *vals)
 	save_fd(fd_stashed, STDIN_FILENO, vals);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	redirect_heredoc(t_token *token, t_values *vals)
@@ -61,5 +61,5 @@ int	redirect_heredoc(t_token *token, t_values *vals)
 	}
 	close(fd);
 	redirect_heredoc_input(vals);
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }

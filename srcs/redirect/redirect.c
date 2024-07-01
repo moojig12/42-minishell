@@ -30,7 +30,7 @@ int	set_redirect(t_token *head, int index_command, t_values *vals)
 			redirect_append(temp, vals);
 		temp = get_next_redirection(temp);
 	}
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	reset_redirect(t_values *vals)
@@ -48,5 +48,5 @@ int	reset_redirect(t_values *vals)
 		temp = next;
 	}
 	vals->head_io = NULL;
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }

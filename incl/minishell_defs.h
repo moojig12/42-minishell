@@ -13,9 +13,6 @@
 #ifndef MINISHELL_DEFS_H
 # define MINISHELL_DEFS_H 1
 
-# define SUCCESS 0
-# define FAILURE -1
-
 # define TRUE 1
 # define FALSE 0
 
@@ -35,6 +32,18 @@
 # define FORK_ERROR		5
 # define DUP_ERROR		6
 
+/* Command errors */
+# define INVALID_KEY	1
+# define INVALID_PARM	1
+# define CMD_NOT_FOUND	127
+# define CMD_NOT_EXEC	126
+
+/* Redirection errors */
+# define FILE_NF		20
+# define RED_IN_ERR		21
+# define RED_OUT_ERR	22
+# define INVALID_FNAME	23
+
 /* Redirection errors */
 # define FILE_NF		20
 # define RED_IN_ERR		21
@@ -45,7 +54,7 @@
 # define EOF_ERROR		24
 
 /* Parsing Tree errors */
-# define SYNTAX_ERROR		25
+# define SYNTAX_ERROR	25
 
 /**************** Redirection / Pipe ****************/
 # define TMP_FILENAME "/tmp/heredoc_tmp.tmp"

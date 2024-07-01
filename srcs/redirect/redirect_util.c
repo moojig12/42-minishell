@@ -32,12 +32,12 @@ int	save_fd(int save_fd, int dest_fd, t_values *vals)
 
 	new_io = init_ios(save_fd, dest_fd);
 	if (new_io == NULL)
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	head = vals->head_io;
 	if (head != NULL)
 		new_io->next = head;
 	vals->head_io = new_io;
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int stash_fd(int fd)
@@ -47,7 +47,7 @@ int stash_fd(int fd)
 	if (!is_valid_fd(fd))
 	{
 		errno = EBADF;
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	}
 	stash_fd = 10;
 	while (is_valid_fd(stash_fd))

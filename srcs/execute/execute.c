@@ -53,11 +53,10 @@ int	child_process(t_token *tokens, int index_command, \
 
 	total_commands = count_commands(tokens);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);
-	if (set_redirect(tokens, index_command, vals) == FAILURE)
-		exit (FAILURE);
+	if (set_redirect(tokens, index_command, vals) != EXIT_SUCCESS)
+		exit (EXIT_FAILURE);
 	argv = tokens_to_argv(tokens, index_command);
 	pgr = find_pgr(argv[0], vals);
-	// print_commands(pgr, argv, index_command, total_commands);
 	if (pgr == NULL)
 		exit_command_not_found(argv[0], argv, vals);
 	if (is_builtin(pgr))
@@ -65,8 +64,10 @@ int	child_process(t_token *tokens, int index_command, \
 	else
 		status = execve(pgr, argv, vals->env);
 	reset_redirect(vals);
-	free(argv);
+	free_array(argv);
 	free(pgr);
+	free_int_array(pipe_fds_array, total_commands);
+	free_vals_elements(vals);
 	exit (status);
 }
 
@@ -92,11 +93,10 @@ int	fork_process(t_token *head_token, int **pipe_fds_array, t_values *vals)
 		else if (0 < pid && 0 < command_count)
 			close_past_parent_pipe(pipe_fds_array, command_count);
 		waitpid(pid, &status, 0);
-		if (!WIFEXITED(status))
-			set_error_waitpid(status, vals);
+		set_error_waitpid(status, vals);
 		command_count++;
 	}
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 /*
@@ -111,8 +111,8 @@ int	execute_wrapper(char *input, t_values *vals)
 	char	**argv;
 	t_token	*head_token;
 
-	if (lexical_analysis(&vals->head_token, input, vals) == FAILURE)
-		return (FAILURE);
+	if (lexical_analysis(input, vals) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
 	head_token = vals->head_token;
 	total_commands = count_commands(head_token);
 	if (total_commands == 1 && is_builtin(head_token->value))
@@ -126,9 +126,9 @@ int	execute_wrapper(char *input, t_values *vals)
 	else
 	{
 		if ((pipe_fds_array = calloc_int_array(total_commands, 2)) == NULL)
-			return (FAILURE);
+			return (system_error(MEM_ERROR));
 		fork_process(head_token, pipe_fds_array, vals);
 		free_int_array(pipe_fds_array, total_commands);
 	}
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }

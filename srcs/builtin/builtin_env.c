@@ -27,6 +27,6 @@ int	builtin_env(t_values *vals)
 		ft_putendl_fd(vals->env[i], 1);
 		i++;
 	}
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 

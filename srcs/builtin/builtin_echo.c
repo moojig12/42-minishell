@@ -68,5 +68,5 @@ int	builtin_echo(char **argv)
 	}
 	if (new_l)
 		ft_putchar_fd('\n', STDOUT_FILENO);
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }

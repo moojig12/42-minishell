@@ -24,11 +24,11 @@ int	redirect_output(t_token *token, t_values *vals)
 	if (fd < 0)
 	{
 		error_io(temp->value, vals);
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	}
 	fd_stashed = stash_fd(STDOUT_FILENO);
 	save_fd(fd_stashed, STDOUT_FILENO, vals);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }

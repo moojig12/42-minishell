@@ -78,5 +78,5 @@ int test_fds()
     i++;
     }
     fprintf(stderr, "--------\n");
-    return (SUCCESS);
+    return (EXIT_SUCCESS);
 }

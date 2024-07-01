@@ -60,14 +60,14 @@ int	builtin_cd(char **args, t_values *vals)
 	if (argc != 2)
 	{
         ft_putendl_fd("cd: too many arguments", STDERR_FILENO);
-        return (FAILURE);
+        return (EXIT_FAILURE);
     }
 	ret = chdir(args[1]);
 	if (ret != 0)
 	{
         perror("cd");
-		return (FAILURE);
+		return (EXIT_FAILURE);
     }
 	change_env("PWD", NULL, "PWD_UPDATE", vals);
-    return (SUCCESS);
+    return (EXIT_SUCCESS);
 }

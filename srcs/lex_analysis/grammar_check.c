@@ -33,6 +33,7 @@ int	is_acceptable(char c)
 	return (TRUE);
 }
 
+// check if each character is acceptable
 int	check_value(char *value)
 {
 	int	i;
@@ -41,10 +42,10 @@ int	check_value(char *value)
 	while (value[i])
 	{
 		if (is_acceptable(value[i]) == FALSE)
-			return (FAILURE);
+			return (EXIT_FAILURE);
 		i++;
 	}
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	is_operator_grammar_error(t_token *temp, t_values *vals)
@@ -54,43 +55,36 @@ int	is_operator_grammar_error(t_token *temp, t_values *vals)
 		if (temp->next == NULL)
 		{
 			error_grammar("newline", vals);
-			return (FAILURE);
+			return (FALSE);
 		}
 		if (temp->next->type != WORDS)
 		{
 			error_grammar(temp->next->value, vals);
-			return (FAILURE);
+			return (FALSE);
 		}
 	}
 	return (TRUE);
 }
 
-int	check_grammar(t_token *tokens, char *input, t_values *vals)
+int	check_grammar(t_token *tokens, t_values *vals)
 {
 	t_token	*temp;
 
-	/* if (check_value(input) == FAILURE)
-	{
-		vals->syntax_error = TRUE;
-		return (FAILURE);
-	} */
-	if (!input || !tokens)
-	{
-		return (FAILURE);
-	}
+	if (!tokens)
+		return (EXIT_FAILURE);
 	temp = tokens;
 	if (temp->type != WORDS)
 	{
 		if (temp->next == NULL)
-			return (FAILURE);
+			return (EXIT_FAILURE);
 		error_grammar(temp->next->value, vals);
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	}
 	while (temp != NULL)
 	{
-		if (is_operator_grammar_error(temp, vals) == FAILURE)
-			return (FAILURE);
+		if (is_operator_grammar_error(temp, vals) != TRUE)
+			return (EXIT_FAILURE);
 		temp = temp->next;
 	}
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }

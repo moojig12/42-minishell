@@ -32,12 +32,12 @@ int	set_pipe_io(int command_count, int **pipe_fds_array, int total_commands)
 		close(current_pipe[PIPE_WRITE_IN]);
 		close(current_pipe[PIPE_READ_FROM]);
 	}
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int close_past_parent_pipe(int **pipe_fds_array, int count)
 {
 	close(pipe_fds_array[count - 1][PIPE_WRITE_IN]);
 	close(pipe_fds_array[count - 1][PIPE_READ_FROM]);
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }

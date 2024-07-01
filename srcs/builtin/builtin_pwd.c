@@ -37,9 +37,9 @@ int	builtin_pwd(void) //char **env
 	{
 		ft_putstr_fd("error: ", STDERR_FILENO);
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	}
 	ft_putendl_fd(pwd, 1);
 	free(pwd);
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }

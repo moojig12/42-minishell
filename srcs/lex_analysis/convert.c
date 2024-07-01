@@ -6,11 +6,18 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/05/12 22:26:43 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/01 08:35:50 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+- Handle quote which should prevent the shell
+	from interpreting the meta-characters,
+- ’ (single quote): in the all quoted sequence
+- " (double quote): in the quoted sequence except for $ (dollar sign).
+*/
 
 t_token	*token_init(void)
 {
@@ -70,7 +77,7 @@ int	process_env_vars(t_token *token, t_values *vals)
 			token->value = replace_env_var(token->value, i, vals);
 		i++;
 	}
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 // remove unneeded quotes from value

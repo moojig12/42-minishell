@@ -39,13 +39,13 @@ int	preparation_before_command(int argc, char **argv)
 		ft_putstr_fd("Error: ", STDERR_FILENO);
 		ft_putendl_fd("minishell does not take any arguments", \
 			STDERR_FILENO);
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	}
 	using_history();
 	read_history(".minishell_history");
 	rl_outstream = stderr;
 	rl_event_hook = signals_handler;
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 void	save_input_and_free(char *input)
@@ -55,6 +55,7 @@ void	save_input_and_free(char *input)
 	if (input[0] != '\0')
 		add_history(input);
 	free(input);
+	return;
 }
 
 int	main(int argc, char **argv, char **env)
@@ -62,10 +63,10 @@ int	main(int argc, char **argv, char **env)
 	t_values	*vals;
 	char		*input;
 
-	if (preparation_before_command(argc, argv) == FAILURE)
-		return (FAILURE);
+	if (preparation_before_command(argc, argv) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
 	if ((vals = init_values(env)) == NULL)
-		return (FAILURE);
+		return (system_error(MEM_ERROR));
 	while (rl_event_hook != NULL)
 	{
 		input = readline(PROMPT);

@@ -20,32 +20,18 @@
 // main.c
 int			main(int argc, char **argv, char **env);
 
-// execute.c
-int			child_process(t_token *tokens, int index_command, \
-			int **pipe_fds_array, t_values *vals);
-int			fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals);
-int			execute_wrapper(char *input, t_values *vals);
+// initialize.c
+t_values	*init_values(char **env);
+void		reset_vals_elements(t_values *vals);
 
 // signal.c
 void		signals_process(int signum);
 int			signals_handler(void);
 
-// initialize.c
-t_values	*init_values(char **env);
-void		reset_vals_elements(t_values *vals);
-
-// util_execute.c
-int			count_all_tokens(t_token *tokens);
-int			count_token_argc(t_token *tokens, int num_command);
-int			count_commands(t_token *tokens);
-char		**tokens_to_argv(t_token *tokens, int num_command);
-int			is_last_command(t_token *tokens, int num_command);
-int			count_str_array(char **args);
-
 /**************** lex_analysis ****************/
 // lex_analysis/lex_analysis.c
 char		*get_next_value(char **input, t_values *vals);
-int			lexical_analysis(t_token **tokens, char *input, t_values *vals);
+int			lexical_analysis(char *input, t_values *vals);
 
 // lex_analysis/convert.c
 t_token		*token_init(void);
@@ -55,7 +41,7 @@ int			process_env_vars(t_token *token, t_values *vals);
 void		convert_to_token(t_token **tokens, char *value, t_values *vals);
 
 // lex_analysis/grammar_check.c
-int			check_grammar(t_token *tokens, char *input, t_values *vals);
+int			check_grammar(t_token *tokens, t_values *vals);
 
 // lex_analysis/utils_token.c
 int			check_operator(char *input);
@@ -63,11 +49,25 @@ int			is_operator(char *input);
 int			count_operator_letters(char *input);
 int			count_value_size(char *input);
 
-/**************** pipe ****************/
-// pipe/pipe.c
+/**************** execute ****************/
+// execute/execute.c
+int			child_process(t_token *tokens, int index_command, \
+			int **pipe_fds_array, t_values *vals);
+int			fork_process(t_token *tokens, int **pipe_fds_array, t_values *vals);
+int			execute_wrapper(char *input, t_values *vals);
+
+// execute/pipe_redirection.c
 int			set_pipe_io(int command_count, int **pipe_fds_array, \
 				int total_commands);
 int			close_past_parent_pipe(int **pipe_fds_array, int count);
+
+// execute/utils_execute.c
+int			count_all_tokens(t_token *tokens);
+int			count_token_argc(t_token *tokens, int num_command);
+int			count_commands(t_token *tokens);
+char		**tokens_to_argv(t_token *tokens, int num_command);
+int			is_last_command(t_token *tokens, int num_command);
+int			count_str_array(char **args);
 
 /**************** redirect ****************/
 // redirect/redirect.c
@@ -96,11 +96,33 @@ int			builtin_pwd(void);
 int			builtin_export(char **argv, t_values *vals);
 int			builtin_unset(char **argv, t_values *vals);
 int			builtin_env(t_values *vals);
-int			builtin_exit(char **argv, t_values *vals);
+int			builtin_exit(char **argv);
 
 // builtin/builtin_util.c
 int			is_builtin(char *cmd);
 int			execute_builtin(char **argv, t_values *vals);
+
+/**************** utils_error_exit ****************/
+// utils_error_exit/sys_error.c
+int			system_error(int error_code);
+int			cmd_error(int error_code);
+int			red_error(int error_code);
+int			tokenizer_error(int error_code);
+int			parsing_tree_error(int error_code);
+
+// utils_error_exit/error.c
+void		set_error_waitpid(int status, t_values *vals);
+void		error_unclosed_quote(char *message1, t_values *vals);
+void		error_grammar(char *message, t_values *vals);
+void		error_io(char *message, t_values *vals);
+void		error_command(char *command, char *arg, char *message);
+
+// utils_error_exit/exit_handler.c
+void		exit_with_perror(char *message, t_values *vals);
+void		exit_without_perror(char *message, char *file_or_cmd, \
+				char **array, char *str);
+void		exit_command_not_found(char *cmd, char **argv, t_values *vals);
+void		exit_shell(int exit_code, t_values *vals);
 
 /**************** utils ****************/
 // utils/env.c
@@ -109,20 +131,6 @@ char		**get_env_elements_array(char **envp, char *key);
 char		*get_env_value(char *key);
 char		*get_env_str(char **env, char *key);
 char		*replace_env_var(char *str, int start, t_values *vals);
-
-// utils/error.c
-void		set_error_waitpid(int status, t_values *vals);
-void		error_unclosed_quote(char *message1, t_values *vals);
-void		error_grammar(char *message, t_values *vals);
-void		error_io(char *message, t_values *vals);
-void		error_command(char *command, char *arg, char *message);
-
-// utils/exit_handler.c
-void		exit_with_perror(char *message, t_values *vals);
-void		exit_without_perror(char *message, char *file_or_cmd, \
-				char **array, char *str);
-void		exit_command_not_found(char *cmd, char **argv, t_values *vals);
-void		exit_shell(int exit_code, t_values *vals);
 
 // utils/find_pgr_path.c
 char		*find_pgr(char *pgr_name, t_values *vals);

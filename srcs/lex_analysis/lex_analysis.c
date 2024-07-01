@@ -27,8 +27,7 @@ char	*get_next_value(char **input, t_values *vals)
 		error_unclosed_quote("quote is not closed", vals);
 		return (NULL);
 	}
-	ptr = (char *) malloc((value_size + 1) * sizeof(char));
-	if (!ptr)
+	if ((ptr = (char *) malloc((value_size + 1) * sizeof(char))) == NULL)
 		return (NULL);
 	count = 0;
 	while (count < value_size)
@@ -42,26 +41,26 @@ char	*get_next_value(char **input, t_values *vals)
 }
 
 // convert input to tokens
-int	lexical_analysis(t_token **tokens, char *input, t_values *vals)
+int	lexical_analysis(char *input, t_values *vals)
 {
-	char	*value;
+	t_token **tokens;
 	char	*temp;
+	char	*token_value;
 
+	tokens = &vals->head_token;
 	temp = input;
-	vals->head_token = *tokens;
 	while (*temp)
 	{
 		if (!ft_isspace(*temp))
 		{
-			value = get_next_value(&temp, vals);
-			if (value == NULL)
-				return (FAILURE);
-			convert_to_token(tokens, value, vals);
+			if ((token_value = get_next_value(&temp, vals)) == NULL)
+				return (EXIT_FAILURE);
+			convert_to_token(tokens, token_value, vals);
 		}
 		while (ft_isspace(*temp))
 			temp++;
 	}
-	if (check_grammar(*tokens, input, vals) == FAILURE)
-		return (FAILURE);
-	return (SUCCESS);
+	if (check_grammar(*tokens, vals) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

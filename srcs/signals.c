@@ -48,5 +48,5 @@ int	signals_handler(void)
 {
 	signal(SIGINT, signals_process);
 	signal(SIGQUIT, SIG_IGN);
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }

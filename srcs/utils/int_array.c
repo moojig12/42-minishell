@@ -15,31 +15,34 @@
 int	**calloc_int_array(int row, int column)
 {
 	int	**array;
-	int	i;
+	int	count_row;
 
 	array = (int **)malloc(sizeof(int *) * row);
 	if (array == NULL)
 		return (NULL);
-	i = 0;
-	while (i < row)
+	count_row = 0;
+	while (count_row < row)
 	{
-		array[i] = (int *)ft_calloc(column, sizeof(int));
-		if (array[i] == NULL)
+		array[count_row] = (int *)ft_calloc(column, sizeof(int));
+		if (array[count_row] == NULL)
 		{
-			free_int_array(array, i);
+			free_int_array(array, count_row);
 			return (NULL);
 		}
-		i++;
+		count_row++;
 	}
 	return (array);
 }
 
 void	free_int_array(int **array, int row)
 {
-	int	i;
+	int	count_row;
 
-	i = 0;
-	while (i < row)
-		free(array[i++]);
+	count_row = 0;
+	while (count_row < row)
+	{
+		free(array[count_row]);
+		count_row++;
+	}
 	free(array);
 }

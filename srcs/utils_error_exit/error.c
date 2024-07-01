@@ -14,12 +14,10 @@
 
 void	set_error_waitpid(int status, t_values *vals)
 {
-	vals->execute_error = TRUE;
-	// strerror(status);
 	if (WIFEXITED(status))
 		vals->last_exit_code = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		vals->last_exit_code = WTERMSIG(status);
+		vals->last_exit_code = 128 + WTERMSIG(status);
 	else if (WIFSTOPPED(status))
 		vals->last_exit_code = WSTOPSIG(status);
 	return ;

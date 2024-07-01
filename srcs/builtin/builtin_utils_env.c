@@ -53,11 +53,11 @@ int	update_env(char *key, char *value, t_values *vals)
 			free(vals->env[count]);
 			vals->env[count] = ft_strdup(value);
 			printf("*vals->env: %s\n", vals->env[count]); // TODO: remove later
-			return (SUCCESS);
+			return (EXIT_SUCCESS);
 		}
 		count++;
 	}
-	return (FAILURE);
+	return (EXIT_FAILURE);
 }
 
 //	removes variable by free'ing and decrementing each index
@@ -122,6 +122,6 @@ int	change_env(char *key, char *value, char *operation, t_values *vals)
 		get_env_str(vals->env, key) != NULL)
 		remove_env(key, vals);
 	else
-		return (FAILURE);
-	return (SUCCESS);
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
