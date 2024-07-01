@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grammar_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:16:13 by root              #+#    #+#             */
-/*   Updated: 2024/05/18 08:58:44 by root             ###   ########.fr       */
+/*   Updated: 2024/07/01 08:54:57 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@ int	is_acceptable(char c)
 {
 	if (ft_isascii(c) == FALSE)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putendl_fd("some characters are not ascii", 2);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putendl_fd("some characters are not ascii", STDERR_FILENO);
 		return (FALSE);
 	}
 	else if (c == '\\' || c == ';' || c == '*')
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd("This shell does not accept some special characters", 2);
-		ft_putendl_fd("like '\\', ';', '*'", 2); // TODO: check if this is okay
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd("This shell does not accept some special characters" \
+		, STDERR_FILENO);
+		ft_putendl_fd("like '\\', ';', '*'", STDERR_FILENO); // TODO: check if this is okay
 		return (FALSE);
 	}
 	else if (ft_isalnum(c) == TRUE)

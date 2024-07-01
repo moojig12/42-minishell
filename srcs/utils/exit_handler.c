@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:57:26 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/06/30 21:42:30 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/01 08:55:34 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ void	exit_with_perror(char *message, t_values *vals)
 
 void	exit_command_not_found(char *cmd, char **argv, t_values *vals)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd("command not found: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putchar_fd('\n', 2);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd("command not found: ", STDERR_FILENO);
+	ft_putendl_fd(cmd, STDERR_FILENO);
 	free_array(argv);
 	vals->last_exit_code = 127;
 	exit (127);

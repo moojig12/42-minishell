@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/06/24 22:04:01 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/01 08:38:25 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	redirect_input(t_token *token, t_values *vals)
 		error_io(temp->value, vals);
 		return (FAILURE);
 	}
-	fd_stashed = stash_fd(STDIN);
-	save_fd(fd_stashed, STDIN, vals);
-	dup2(fd, STDIN);
+	fd_stashed = stash_fd(STDIN_FILENO);
+	save_fd(fd_stashed, STDIN_FILENO, vals);
+	dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (SUCCESS);
 }

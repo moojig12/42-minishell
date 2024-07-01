@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/06/30 23:24:12 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/01 08:59:09 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	child_process(t_token *tokens, int index_command, \
 	int		total_commands;
 	char	**argv;
 	char	*pgr;
-	int 	*status;
+	int 	status;
 
 	total_commands = count_commands(tokens);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);

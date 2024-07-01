@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/06/30 23:09:40 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/01 08:56:37 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_tokens(t_token *token) //TODO: delete later
 	t_token	*temp;
 	int		i;
 
-	ft_putendl_fd("--------", 2);
+	ft_putendl_fd("--------", STDERR_FILENO);
 	i = 0;
 	temp = token;
 	while (temp != NULL)
@@ -28,7 +28,7 @@ void	print_tokens(t_token *token) //TODO: delete later
 			i, temp->value, temp->type, temp->redirect_type);
 		temp = temp->next;
 	}
-	ft_putendl_fd("--------", 2);
+	ft_putendl_fd("--------", STDERR_FILENO);
 }
 */
 

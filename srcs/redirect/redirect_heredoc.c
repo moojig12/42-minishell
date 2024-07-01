@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/13 01:42:36 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/01 08:38:15 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	redirect_heredoc_input(t_values *vals)
 		perror("File not found");
 		return (FILE_NF);
 	}
-	fd_stashed = stash_fd(STDIN);
-	save_fd(fd_stashed, STDIN, vals);
-	dup2(fd, STDIN);
+	fd_stashed = stash_fd(STDIN_FILENO);
+	save_fd(fd_stashed, STDIN_FILENO, vals);
+	dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (SUCCESS);
 }

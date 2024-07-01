@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 16:55:10 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/01 08:38:49 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ int	builtin_echo(char **argv)
 	argv++;
 	while (*argv)
 	{
-		ft_putstr_fd(*argv, STDOUT);
+		ft_putstr_fd(*argv, STDOUT_FILENO);
 		argv++;
 		if (*argv)
-			ft_putchar_fd(' ', STDOUT);
+			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 	if (new_l)
-		ft_putchar_fd('\n', STDOUT);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (SUCCESS);
 }

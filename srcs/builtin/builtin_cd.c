@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:27:20 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/13 17:39:17 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/01 08:54:03 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	builtin_cd(char **args, t_values *vals)
 	argc = count_str_array(args);
 	if (argc != 2)
 	{
-        ft_putendl_fd("cd: too many arguments", 2);
+        ft_putendl_fd("cd: too many arguments", STDERR_FILENO);
         return (FAILURE);
     }
 	ret = chdir(args[1]);

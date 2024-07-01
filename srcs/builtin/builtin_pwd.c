@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:59:37 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 16:55:32 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/01 08:54:11 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	builtin_pwd(void) //char **env
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
-		ft_putstr_fd("error: ", 2);
-		ft_putendl_fd(strerror(errno), 2);
+		ft_putstr_fd("error: ", STDERR_FILENO);
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		return (FAILURE);
 	}
 	ft_putendl_fd(pwd, 1);

@@ -6,7 +6,7 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/06/30 23:14:13 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/01 09:03:53 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@
 
 # define TRUE 1
 # define FALSE 0
-
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
 
 # define PIPE_READ_FROM 0
 # define PIPE_WRITE_IN 1
