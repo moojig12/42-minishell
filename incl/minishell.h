@@ -6,110 +6,15 @@
 /*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/07/01 09:03:53 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/01 09:37:59 by yjinnouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-# define MINISHELL_H
+# define MINISHELL_H 1
 
-# define SUCCESS 0
-# define FAILURE -1
-
-# define TRUE 1
-# define FALSE 0
-
-# define PIPE_READ_FROM 0
-# define PIPE_WRITE_IN 1
-
-# define _POSIX_SOURCE 1
-
-# define PROMPT "\e[1;32mminishell$ \e[0m"
-
-# include <stdbool.h>			// boolean
-# include <stdio.h>				// printf
-# include <readline/readline.h>	// readline
-// rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay, add_history
-# include <readline/history.h>
-# include <stdlib.h>			// malloc, free, exit
-// access, fork, execve, getcwd, chdir, close, read,
-// write, pipe, dup, dup2, wait, waitpid
-# include <unistd.h>
-# include <fcntl.h>				// open
-// signal, sigaction, sigemptyset, sigaddset, kill
-# include <signal.h>
-// wait, waitpid, fork, access, open, stat, lstat, fstat,
-// dup, dup2, pipe, opendir, readdir, closedir
-# include <sys/types.h>
-# include <sys/wait.h>			// wait, waitpid, wait3, wait4
-# include <sys/stat.h>			// stat, lstat, fstat, unlink
-# include <dirent.h>			// opendir, readdir, closedir
-# include <string.h>			// strerror
-# include <errno.h>				// perror
-# include <termios.h>			// tcsetattr, tcgetattr
-# include <unistd.h>			// isatty, ttyname, ttyslot, ioctl
-// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-# include <curses.h>
-# include <stdlib.h>			// getenv
-# include <limits.h>
-# include "libft.h"
-# include <stdbool.h>
-
-/*
-type:
-	0 = words (NULL)
-	1 = pipe
-	2 = redirection
-redirect_type:
-	0 = NULL
-	1 = pipe
-	2 = redirect input
-	3 = redirect output
-	4 = redirect input heredoc
-	5 = redirect output append
-*/
-# define WORDS 0
-# define PIPE 1
-# define REDIRECTION 2
-
-# define REDIRECT_IN 2
-# define REDIRECT_OUT 3
-# define REDIRECT_HEREDOC 4
-# define REDIRECT_APPEND 5
-
-/* Redirection */
-# define TMP_FILENAME "/tmp/heredoc_tmp.tmp"
-# define FILE_NF		20
-# define RED_IN_ERR		21
-# define RED_OUT_ERR	22
-# define INVALID_FNAME	23
-
-typedef struct s_token {
-	char			*value;
-	int				type;
-	int				redirect_type;
-	// int 			command_index;
-	struct s_token	*next;
-	struct s_token	*prev;
-}	t_token;
-
-//need io struct?
-typedef struct s_io {
-	int				save_fd;
-	int				dest_fd;
-	struct s_io		*next;
-}	t_ios;
-
-typedef struct s_values {
-	struct s_token	*head_token;
-	int				total_tokens;
-	int				total_commands;
-	struct s_io		*head_io;
-	char			**env;
-	int				syntax_error;
-	int				execute_error;
-	int				last_exit_code;
-}	t_values;
+# include <minishell_libs.h>
+# include <minishell_defs.h>
 
 /**************** prototypes ****************/
 // main.c
@@ -157,7 +62,6 @@ int			check_operator(char *input);
 int			is_operator(char *input);
 int			count_operator_letters(char *input);
 int			count_value_size(char *input);
-
 
 /**************** pipe ****************/
 // pipe/pipe.c
