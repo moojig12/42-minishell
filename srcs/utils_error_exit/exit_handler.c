@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:57:26 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/01 08:55:34 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:01:25 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	exit_command_not_found(char *cmd, char **argv, t_values *vals)
 	ft_putendl_fd(cmd, STDERR_FILENO);
 	free_array(argv);
 	vals->last_exit_code = 127;
+	free_vals_elements(vals);
 	exit (127);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/01 08:59:09 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:01:19 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ int	child_process(t_token *tokens, int index_command, \
 	argv = tokens_to_argv(tokens, index_command);
 	pgr = find_pgr(argv[0], vals);
 	if (pgr == NULL)
+	{
+		free_int_array(pipe_fds_array, total_commands);
 		exit_command_not_found(argv[0], argv, vals);
+	}
 	if (is_builtin(pgr))
 		status = execute_builtin(argv, vals);
 	else
