@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 01:28:36 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/02/02 09:37:07 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/04 09:09:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ RETURN VALUE
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
+	if (!s1 && !s2)
+		return (0);
+	else if (!s1 || !s2)
+		return (-1);
 	while ((*s1 != 0 || *s2 != 0) && n > 0)
 	{
 		if (*s1 != *s2)
