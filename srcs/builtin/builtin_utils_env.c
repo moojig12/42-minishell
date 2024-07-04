@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils_env.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 22:10:13 by root              #+#    #+#             */
-/*   Updated: 2024/06/30 23:36:54 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/04 08:41:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	update_pwd(t_values *vals) // TODO: update past OLDPWD?
 	while (ft_strncmp(vals->env[j], "OLDPWD", 6))
 		j++;
 	old_pwd = ft_strdup(vals->env[i]);
-	free(vals->env[j]);
+	if (vals->env[j])
+		free(vals->env[j]);
 	vals->env[j] = ft_strjoin("OLD", old_pwd);
 	free(old_pwd);
 	free(vals->env[i]);
