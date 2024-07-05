@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/03 13:01:19 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:10:21 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	fork_process(t_token *head_token, int **pipe_fds_array, t_values *vals)
 			exit_with_perror("fork()", vals);
 		else if (0 < pid && 0 < command_count)
 			close_past_parent_pipe(pipe_fds_array, command_count);
+		signals_hander_ignore();
 		waitpid(pid, &status, 0);
 		set_error_waitpid(status, vals);
 		command_count++;

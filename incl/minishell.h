@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/07/01 09:37:59 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:11:05 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void		reset_vals_elements(t_values *vals);
 
 // signal.c
 void		signals_process(int signum);
+void		signals_hander_ignore(void);
+void		sig_ignore(int signum);
 int			signals_handler(void);
 
 /**************** lex_analysis ****************/

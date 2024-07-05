@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:38:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/06/30 23:20:32 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:12:48 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
 ◦ ctrl-D exits the shell.
 ◦ ctrl-\ does nothing
 */
+
+
+void	sig_ignore(int signum)
+{
+	(void)signum;
+	write(1, "\n", 1);
+	rl_on_new_line();
+}
+
+void	signals_hander_ignore(void)
+{
+	signal(SIGINT, sig_ignore);
+}
 
 void	signals_process(int signum)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:27:20 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/01 08:54:03 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:32:35 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,30 @@ cd: cd [-L|[-P [-e]] [-@]] [dir]
 	-P is used; non-zero otherwise.
 */
 
+int	chdir_to_oldpwd(t_values *vals)
+{
+	int		i;
+	int		ret;
+	char	*dest;
+
+	i = 0;
+	while (ft_strncmp(vals->env[i], "OLDPWD", 6))
+		i++;
+	if (vals->env[i])
+	{
+		dest = ft_substr(vals->env[i], 7, INT_MAX);
+		ret = chdir(dest);
+		free(dest);
+		return (ret);
+	}
+	else
+		return (EXIT_FAILURE);
+}
+
 int	builtin_cd(char **args, t_values *vals)
 {
     int	ret;
-	int argc;
+	int	argc;
 
 	argc = count_str_array(args);
 	if (argc != 2)
@@ -62,7 +82,10 @@ int	builtin_cd(char **args, t_values *vals)
         ft_putendl_fd("cd: too many arguments", STDERR_FILENO);
         return (EXIT_FAILURE);
     }
-	ret = chdir(args[1]);
+	if (ft_strncmp("-", args[1], 2))
+		ret = chdir(args[1]);
+	else
+		ret = chdir_to_oldpwd(vals);
 	if (ret != 0)
 	{
         perror("cd");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/01 08:38:49 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:47:31 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,55 @@ echo: echo [-neE] [arg ...]
 
 	// -n Option needs to be implemented later on!
 
+bool	check_string_newl(char *string)
+{
+	int	i;
+
+	i = 1;
+	if (!string)
+		return (FALSE);
+	else if (ft_strncmp(string, "-n", 2) != 0)
+		return (FALSE);
+	while (string[i])
+	{
+		if (string[i] != 'n')
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
+int	check_newline(char ***head, char **argv)
+{
+	int	i;
+	
+	i = 1;
+	if (check_string_newl(argv[1]))
+	{
+		while (argv[i])
+		{
+			i++;
+			if (!check_string_newl(argv[i]))
+				break ;
+		}
+	}
+	if (argv[i])
+	{
+		if (i > 0)
+			*head += i;
+		if (i > 1)
+			return (1);
+	}
+	return (0);
+}
+
 int	builtin_echo(char **argv)
 {
 	bool	new_l;
 
 	new_l = TRUE;
-	argv++;
+	if (check_newline(&argv, argv) == 1)
+		new_l = FALSE;
 	while (*argv)
 	{
 		ft_putstr_fd(*argv, STDOUT_FILENO);
