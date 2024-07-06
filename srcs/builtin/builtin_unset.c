@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/05/12 17:24:22 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:38:41 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ int	builtin_unset(char **argv, t_values *vals)
 {
 	int status;
 
-	status = change_env(argv[1], NULL, "UNSET_ENV", vals);
+	if (argv[1])
+		status = change_env(argv[1], NULL, "UNSET_ENV", vals);
+	else
+		return (1);
 	return (status);
 }
