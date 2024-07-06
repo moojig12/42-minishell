@@ -75,9 +75,9 @@ int	check_grammar(t_token *tokens, t_values *vals)
 	temp = tokens;
 	if (temp->type != WORDS)
 	{
-		if (temp->next == NULL)
+		if (temp == NULL)
 			return (EXIT_FAILURE);
-		error_grammar(temp->next->value, vals);
+		error_grammar(temp->value, vals);
 		return (EXIT_FAILURE);
 	}
 	while (temp != NULL)
