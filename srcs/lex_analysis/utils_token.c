@@ -73,6 +73,6 @@ int	count_value_size(char *input)
 		count++;
 	}
 	if (single_quoted || double_quoted)
-		return (EXIT_FAILURE);
+		return (-1);
 	return (count);
 }
