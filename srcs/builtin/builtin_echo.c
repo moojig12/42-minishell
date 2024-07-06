@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:05:27 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/05 14:47:31 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:43:56 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,15 @@ int	check_newline(char ***head, char **argv)
 
 int	builtin_echo(char **argv)
 {
+	char	**head;
 	bool	new_l;
 
 	new_l = TRUE;
+	head = argv;
 	if (check_newline(&argv, argv) == 1)
 		new_l = FALSE;
+	if (*head == *argv)
+		return (EXIT_SUCCESS);
 	while (*argv)
 	{
 		ft_putstr_fd(*argv, STDOUT_FILENO);
