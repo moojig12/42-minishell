@@ -17,7 +17,7 @@ int	redirect_input(t_token *token, t_values *vals)
 {
 	t_token	*temp;
 	int		fd;
-	int 	fd_stashed;
+	int		fd_stashed;
 
 	temp = token->next;
 	fd = open(temp->value, O_RDONLY);

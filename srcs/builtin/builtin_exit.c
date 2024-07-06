@@ -22,12 +22,11 @@ exit: exit [n]
 	is that of the last command executed.
 */
 
-
 //TODO: need to fix how to handle exit code?? ->check
 
-int ft_isnumber(char *str)
+int	ft_isnumber(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -41,7 +40,7 @@ int ft_isnumber(char *str)
 
 int	builtin_exit(char **argv)
 {
-	int exit_code;
+	int	exit_code;
 
 	if (argv[1] == NULL)
 		exit_code = EXIT_FAILURE;
@@ -50,11 +49,6 @@ int	builtin_exit(char **argv)
 		error_command("exit", argv[1], "numeric argument required");
 		exit_code = 255;
 	}
-	// else if (argv[2] != NULL)
-	// {
-	// 	error_command("exit", NULL, "too many arguments");
-	// 	exit_code = 1;
-	// }
 	else
 		exit_code = ft_atoi(argv[1]);
 	rl_event_hook = NULL;

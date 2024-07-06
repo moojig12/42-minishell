@@ -73,24 +73,24 @@ int	chdir_to_oldpwd(t_values *vals)
 
 int	builtin_cd(char **args, t_values *vals)
 {
-    int	ret;
+	int	ret;
 	int	argc;
 
 	argc = count_str_array(args);
 	if (argc != 2)
 	{
-        ft_putendl_fd("cd: too many arguments", STDERR_FILENO);
-        return (EXIT_FAILURE);
-    }
+		ft_putendl_fd("cd: too many arguments", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	if (ft_strncmp("-", args[1], 2))
 		ret = chdir(args[1]);
 	else
 		ret = chdir_to_oldpwd(vals);
 	if (ret != 0)
 	{
-        perror("cd");
+		perror("cd");
 		return (EXIT_FAILURE);
-    }
+	}
 	change_env("PWD", NULL, "PWD_UPDATE", vals);
-    return (EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

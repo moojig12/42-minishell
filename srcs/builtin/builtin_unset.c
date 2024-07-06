@@ -37,7 +37,7 @@ unset: unset [-f] [-v] [-n] [name ...]
 
 int	builtin_unset(char **argv, t_values *vals)
 {
-	int status;
+	int	status;
 
 	if (argv[1])
 		status = change_env(argv[1], NULL, "UNSET_ENV", vals);

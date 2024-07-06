@@ -20,7 +20,6 @@ Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
 ◦ ctrl-\ does nothing
 */
 
-
 void	sig_ignore(int signum)
 {
 	(void)signum;
@@ -42,7 +41,7 @@ void	signals_process(int signum)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	return;
+	return ;
 }
 
 /*

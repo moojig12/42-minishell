@@ -54,7 +54,7 @@ void	save_input_and_free(char *input)
 		return;
 	if (input[0] != '\0')
 		add_history(input);
-	free(input);
+	free (input);
 	return;
 }
 

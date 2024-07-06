@@ -52,7 +52,7 @@ char	*ft_3strjoin(char *str, char *str2, char *str3)
 	return (tmp2);
 }
 
-char *ft_strndup(const char *s, size_t n)
+char	*ft_strndup(const char *s, size_t n)
 {
 	char	*str;
 	size_t	i;

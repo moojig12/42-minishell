@@ -49,7 +49,7 @@ t_values	*init_values(char **env)
 }
 
 // reset elements of vals except last_eror_code
-void reset_vals_elements(t_values *vals)
+void	reset_vals_elements(t_values *vals)
 {
 	reset_redirect(vals);
 	if (vals->head_token != NULL)

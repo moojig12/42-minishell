@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	update_pwd(t_values *vals) // TODO: update past OLDPWD?
+void	update_pwd(t_values *vals)
 {
 	char	*new_pwd;
 	char	*old_pwd;
@@ -43,17 +43,14 @@ int	update_env(char *key, char *value, t_values *vals)
 {
 	int	count;
 
-	printf("UPDATE_ENV\n");// TODO: remove later
 	count = 0;
 	while (vals->env[count])
 	{
-		if (ft_strncmp(vals->env[count], key, ft_strlen(key)) == 0 &&
+		if (ft_strncmp(vals->env[count], key, ft_strlen(key)) == 0 && \
 			vals->env[count][ft_strlen(key)] == '=')
 		{
-			printf("*vals->env: %s\n", vals->env[count]); // TODO: remove later
 			free(vals->env[count]);
 			vals->env[count] = ft_strdup(value);
-			printf("*vals->env: %s\n", vals->env[count]); // TODO: remove later
 			return (EXIT_SUCCESS);
 		}
 		count++;
@@ -66,12 +63,10 @@ void	remove_env(char *key, t_values *vals)
 {
 	int		count;
 
-	printf("REMOVE_ENV\n"); // TODO: remove later
 	count = 0;
 	while (ft_strncmp(vals->env[count], key, ft_strlen(key)) != 0 || \
 			vals->env[count][ft_strlen(key)] != '=')
 		count++;
-	printf("*vals->env: %s\n", vals->env[count]); // TODO: remove later
 	free(vals->env[count]);
 	vals->env[count] = vals->env[count + 1];
 	count++;
@@ -90,7 +85,6 @@ void	add_env(char *value, t_values *vals)
 	int		size_env;
 	int		count;
 
-	printf("ADD_ENV\n"); // TODO: remove later
 	size_env = count_str_array(vals->env);
 	new = (char **)malloc((size_env + 2) * sizeof(char *));
 	count = 0;
@@ -104,12 +98,10 @@ void	add_env(char *value, t_values *vals)
 	new[count] = NULL;
 	free(vals->env);
 	vals->env = new;
-	printf("*vals->env: %s\n", vals->env[count-1]); // TODO: remove later
 }
 
 int	change_env(char *key, char *value, char *operation, t_values *vals)
 {
-	// selection of operation
 	if (!ft_strcmp("PWD_UPDATE", operation) && \
 		!ft_strcmp(key, "PWD"))
 		update_pwd(vals);

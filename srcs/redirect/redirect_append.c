@@ -15,7 +15,7 @@
 // take redirect append operator as token then set fd and save it
 int	redirect_append(t_token *token, t_values *vals)
 {
-	t_token *temp;
+	t_token	*temp;
 	int		fd;
 	int		fd_stashed;
 

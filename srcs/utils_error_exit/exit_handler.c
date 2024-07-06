@@ -20,7 +20,6 @@ void	exit_with_perror(char *message, t_values *vals)
 	perror(message);
 	if (errno)
 	{
-		fprintf(stderr, "errno: %d\n", errno); // TODO: delete later
 		vals->last_exit_code = errno;
 		exit (errno);
 	}
@@ -42,9 +41,9 @@ void	exit_command_not_found(char *cmd, char **argv, t_values *vals)
 exit cleanly (with free vals) from minishell
 exit code is undefined with -1, it means exit with last_exit_code
 */
-void exit_shell(int exit_code, t_values *vals)
+void	exit_shell(int exit_code, t_values *vals)
 {
-	int status;
+	int	status;
 
 	if (exit_code == -1)
 		status = vals->last_exit_code;

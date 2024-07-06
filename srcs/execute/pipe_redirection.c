@@ -35,7 +35,7 @@ int	set_pipe_io(int command_count, int **pipe_fds_array, int total_commands)
 	return (EXIT_SUCCESS);
 }
 
-int close_past_parent_pipe(int **pipe_fds_array, int count)
+int	close_past_parent_pipe(int **pipe_fds_array, int count)
 {
 	close(pipe_fds_array[count - 1][PIPE_WRITE_IN]);
 	close(pipe_fds_array[count - 1][PIPE_READ_FROM]);

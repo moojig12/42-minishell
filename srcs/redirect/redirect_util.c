@@ -40,7 +40,7 @@ int	save_fd(int save_fd, int dest_fd, t_values *vals)
 	return (EXIT_SUCCESS);
 }
 
-int stash_fd(int fd)
+int	stash_fd(int fd)
 {
 	int	stash_fd;
 

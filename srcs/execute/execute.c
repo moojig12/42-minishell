@@ -12,44 +12,13 @@
 
 #include "minishell.h"
 
-// void	print_commands(char *path, char **argv, int index_command, int total_commands)
-// {
-// 	fprintf(stderr, "command %i: %s -> %s\n", index_command + 1, argv[0], path); // TODO: delete later
-// 	if (total_commands - 1 == index_command)
-// 		fprintf(stderr, "--------\n");
-// }
-
-/* void	check_redirect(t_token *tokens, t_values *vals)
-{
-	t_token	*temp;
-
-	temp = tokens;
-	while (temp)
-	{
-		if (temp->redirect_type != 0)
-		{
-			if (temp->redirect_type == 2 || temp->redirect_type == 4)
-			{
-				if (temp->prev == NULL)
-					printf("unexpected token\n");
-			}
-			else if (temp->redirect_type == 3 || temp->redirect_type == 5)
-			{
-				if (temp->next == NULL)
-					printf("unexpected token\n");
-			}
-		}
-		temp = temp->next;
-	}
-} */
-
 int	child_process(t_token *tokens, int index_command, \
 	int **pipe_fds_array, t_values *vals)
 {
 	int		total_commands;
 	char	**argv;
 	char	*pgr;
-	int 	status;
+	int		status;
 
 	total_commands = count_commands(tokens);
 	set_pipe_io(index_command, pipe_fds_array, total_commands);

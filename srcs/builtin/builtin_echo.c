@@ -74,7 +74,7 @@ bool	check_string_newl(char *string)
 int	check_newline(char ***head, char **argv)
 {
 	int	i;
-	
+
 	i = 1;
 	if (check_string_newl(argv[1]))
 	{

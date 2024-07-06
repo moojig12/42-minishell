@@ -37,7 +37,7 @@ char	*find_pgr_in_path_list(char *pgr_name, char **env_path_list)
 char	*find_pgr(char *pgr_name, t_values *vals)
 {
 	char	**env_path_list;
-	char 	*pgr_path;
+	char	*pgr_path;
 
 	if (access(pgr_name, F_OK | X_OK) == 0)
 		return (ft_strdup(pgr_name));

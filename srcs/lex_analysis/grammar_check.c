@@ -20,12 +20,13 @@ int	is_acceptable(char c)
 		ft_putendl_fd("some characters are not ascii", STDERR_FILENO);
 		return (FALSE);
 	}
+	// TODO: check if this is okay
 	else if (c == '\\' || c == ';' || c == '*')
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd("This shell does not accept some special characters" \
 		, STDERR_FILENO);
-		ft_putendl_fd("like '\\', ';', '*'", STDERR_FILENO); // TODO: check if this is okay
+		ft_putendl_fd("like '\\', ';', '*'", STDERR_FILENO);
 		return (FALSE);
 	}
 	else if (ft_isalnum(c) == TRUE)

@@ -71,7 +71,8 @@ char	**tokens_to_argv(t_token *tokens, int index_command)
 	t_token	*temp;
 	int		i;
 
-	argv = malloc(sizeof(char *) * (count_token_argc(tokens, index_command + 1) + 1));
+	argv = malloc(sizeof(char *) * \
+		(count_token_argc(tokens, index_command + 1) + 1));
 	if (argv == NULL)
 		return (NULL);
 	temp = tokens;
@@ -114,9 +115,9 @@ int	is_last_command(t_token *tokens, int num_command)
 	return (FALSE);
 }
 
-int count_str_array(char **args)
+int	count_str_array(char **args)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (args[i] != NULL)

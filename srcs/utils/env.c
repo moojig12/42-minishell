@@ -15,7 +15,7 @@
 // Function for get env value and return as array.
 char	**get_env_elements_array(char **env, char *key)
 {
-	int 	len_key;
+	int		len_key;
 	int		i;
 	char	*value_str;
 	char	**element_list;
@@ -78,7 +78,7 @@ char	*replace_env_var(char *str, int start, t_values *vals)
 	char	*val;
 	char	*replaced;
 	int		start_latter;
-	char 	*first;
+	char	*first;
 
 	if (str[start + 1] == '?')
 	{
