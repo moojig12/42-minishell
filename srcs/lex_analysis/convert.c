@@ -75,9 +75,10 @@ int	process_env_vars(t_token *token, t_values *vals)
 			double_quoted = !double_quoted;
 		if (token->value[i] == '$' && !single_quoted && \
 			token->value[i + 1] != '\0')
-			token->value = replace_wrapper(token->value, i, vals);
-		if ((int) ft_strlen(token->value) <= i)
-			i = -1;
+			{
+				token->value = replace_wrapper(token->value, i, vals);
+				i --;
+			}
 		i++;
 	}
 	return (EXIT_SUCCESS);
