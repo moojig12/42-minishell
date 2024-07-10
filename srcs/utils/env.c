@@ -11,37 +11,50 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+char	*replace_env_var(char *str, char *key, char	*val, int start)
+{
+	int		key_len;
+	char	*head;
+	int		tail_start;
+	char	*replaced;
+
+	if (key[0] == '?')
+		key_len = 1;
+	else
+		key_len = ft_strlen(key);
+	tail_start = start + 1 + key_len;
+	head = ft_substr(str, 0, start);
+	replaced = ft_3strjoin(head, val, str + tail_start);
+	free(str);
+	if (val != NULL)
+		free(val);
+	free(head);
+	return (replaced);
+}
 
 // replace env variable when str[start] is '$'
 // FIX: fixed memleak but too messy
-char	*replace_env_var(char *str, int start, t_values *vals)
+char	*replace_wrapper(char *str, int start, t_values *vals)
 {
-	int		key_len;
 	char	*key;
 	char	*val;
 	char	*replaced;
-	int		start_latter;
-	char	*first;
 
 	if (str[start + 1] == '?')
 	{
-		key_len = 1;
 		key = ft_strdup("?");
 		val = ft_itoa(vals->last_exit_code);
 	}
 	else
 	{
-		key_len = count_env_key(str + start + 1);
-		key = ft_substr(str, start + 1, key_len);
-		val = ft_strdup(get_env_str(vals->env, key));
+		key = ft_substr(str, start + 1, count_env_key(str + start + 1));
+		if (get_env_str(vals->env, key) == NULL)
+			val = NULL;
+		else
+			val = ft_strdup(get_env_str(vals->env, key));
 	}
+	replaced = replace_env_var(str, key, val, start);
 	free(key);
-	start_latter = start + key_len + 1;
-	first = ft_substr(str, 0, start);
-	replaced = ft_3strjoin(first, val, str + start_latter);
-	free(str);
-	free(val);
-	free(first);
 	return (replaced);
 }
 

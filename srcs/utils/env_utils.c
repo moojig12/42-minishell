@@ -17,7 +17,11 @@ int	count_env_key(char *str)
 	int	i;
 
 	i = 0;
-	while (*str != '\0' && *str != ' ' && *str != '\'' && *str != '"')
+	while (*str != '\0' && \
+		*str != ' ' && \
+		*str != '\'' && \
+		*str != '"' && \
+		*str != '$')
 	{
 		str++;
 		i++;

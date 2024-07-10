@@ -135,7 +135,8 @@ int			change_env(char *key, char *value, char *operation, t_values *vals);
 char		**get_env_elements_array(char **envp, char *key);
 char		*get_env_value(char *key);
 char		*get_env_str(char **env, char *key);
-char		*replace_env_var(char *str, int start, t_values *vals);
+char		*replace_wrapper(char *str, int start, t_values *vals);
+char		*replace_env_var(char *str, char *key, char *val, int start);
 int			count_env_key(char *str);
 
 // utils/find_pgr_path.c
@@ -150,7 +151,7 @@ void		free_token(t_token *head);
 // utils/ft_myutils.c
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_isspace(char c);
-char		*ft_3strjoin(char *str, char *str2, char *str3);
+char		*ft_3strjoin(char *head, char *mid, char *tail);
 char		*ft_strndup(const char *s, size_t n);
 int			ft_ispathkey(char *key);
 

@@ -67,14 +67,17 @@ int	process_env_vars(t_token *token, t_values *vals)
 	single_quoted = FALSE;
 	double_quoted = FALSE;
 	i = 0;
-	while (token->value[i] && token->value[i] != '\0')
+	while (token->value[i] != '\0')
 	{
 		if (token->value[i] == '\'' && !double_quoted)
 			single_quoted = !single_quoted;
 		if (token->value[i] == '"' && !single_quoted)
 			double_quoted = !double_quoted;
-		if (token->value[i] == '$' && !single_quoted)
-			token->value = replace_env_var(token->value, i, vals);
+		if (token->value[i] == '$' && !single_quoted && \
+			token->value[i + 1] != '\0')
+			token->value = replace_wrapper(token->value, i, vals);
+		if ((int) ft_strlen(token->value) <= i)
+			i = -1;
 		i++;
 	}
 	return (EXIT_SUCCESS);

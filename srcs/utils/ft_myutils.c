@@ -31,25 +31,31 @@ int	ft_isspace(char c)
 }
 
 // join 3 strings (str2 can be NULL in this program)
-char	*ft_3strjoin(char *str, char *str2, char *str3)
+char	*ft_3strjoin(char *head, char *mid, char *tail)
 {
-	char	*tmp;
-	char	*tmp2;
+	char	*head_tmp;
+	char	*whole_tmp;
 
-	if (str2 != NULL)
-		tmp = ft_strjoin(str, str2);
+	if (head!= NULL && mid != NULL)
+		head_tmp = ft_strjoin(head, mid);
+	else if (head!= NULL && mid == NULL)
+		head_tmp = ft_strdup(head);
 	else
-		tmp = ft_strdup(str);
-	if (!tmp)
-		return (NULL);
-	tmp2 = ft_strjoin(tmp, str3);
-	if (!tmp2)
+		head_tmp = ft_strdup("");
+	if (tail == NULL)
 	{
-		free(tmp);
+		whole_tmp = head_tmp;
+		return (whole_tmp);
+	}
+	else
+		whole_tmp = ft_strjoin(head_tmp, tail);
+	if (!whole_tmp)
+	{
+		free(head_tmp);
 		return (NULL);
 	}
-	free(tmp);
-	return (tmp2);
+	free(head_tmp);
+	return (whole_tmp);
 }
 
 char	*ft_strndup(const char *s, size_t n)
