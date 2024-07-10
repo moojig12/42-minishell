@@ -33,7 +33,7 @@ char	*replace_env_var(char *str, int start, t_values *vals)
 	{
 		key_len = count_env_key(str + start + 1);
 		key = ft_substr(str, start + 1, key_len);
-		val = ft_strdup(getenv(key));
+		val = ft_strdup(get_env_str(vals->env, key));
 	}
 	free(key);
 	start_latter = start + key_len + 1;
