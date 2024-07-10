@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/07/08 14:11:23 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:35:00 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int			count_token_argc(t_token *tokens, int num_command);
 int			count_commands(t_token *tokens);
 char		**tokens_to_argv(t_token *tokens, int num_command);
 int			is_last_command(t_token *tokens, int num_command);
+void		free_pipe_vals(t_values *vals, \
+	int **pipe_fds_array, int total_commands);
+void		free_and_redirect(t_values *vals, char **argv, char *pgr);
 
 /**************** redirect ****************/
 // redirect/redirect.c

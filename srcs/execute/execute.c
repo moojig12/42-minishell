@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/08 14:12:07 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:39:50 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,8 @@ int	child_process(t_token *tokens, int index_command, \
 		status = execute_builtin(argv, vals);
 	else
 		status = execve(pgr, argv, vals->env);
-	reset_redirect(vals);
-	free_array(argv);
-	free(pgr);
-	free_int_array(pipe_fds_array, total_commands);
-	free_vals_elements(vals);
+	free_and_redirect(vals, argv, pgr);
+	free_pipe_vals(vals, pipe_fds_array, total_commands);
 	exit (status);
 }
 
@@ -82,6 +79,15 @@ int	fork_process(t_token *head_token, int **pipe_fds_array, t_values *vals)
 	return (EXIT_SUCCESS);
 }
 
+void	execution_call(t_token *head_token, t_values *vals, char **argv)
+{
+	argv = tokens_to_argv(head_token, 0);
+	set_redirect(head_token, 0, vals);
+	execute_builtin(argv, vals);
+	reset_redirect(vals);
+	free_array(argv);
+}
+
 /*
 Prepare for execution and handle two cases:
 - Single built-in command: executed in the parent process.
@@ -94,18 +100,13 @@ int	execute_wrapper(char *input, t_values *vals)
 	char	**argv;
 	t_token	*head_token;
 
+	argv = NULL;
 	if (lexical_analysis(input, vals) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	head_token = vals->head_token;
 	total_commands = count_commands(head_token);
 	if (total_commands == 1 && is_builtin(head_token->value))
-	{
-		argv = tokens_to_argv(head_token, 0);
-		set_redirect(head_token, 0, vals);
-		execute_builtin(argv, vals);
-		reset_redirect(vals);
-		free_array(argv);
-	}
+		execution_call(head_token, vals, argv);
 	else
 	{
 		pipe_fds_array = calloc_int_array(total_commands, 2);

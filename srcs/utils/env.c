@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:17:25 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/08 14:05:52 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:30:44 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,3 +44,4 @@ char	*replace_env_var(char *str, int start, t_values *vals)
 	free(first);
 	return (replaced);
 }
+

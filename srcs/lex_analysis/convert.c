@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/07/08 13:59:38 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:27:20 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	process_env_vars(t_token *token, t_values *vals)
 	single_quoted = FALSE;
 	double_quoted = FALSE;
 	i = 0;
-	while (token->value[i] != '\0')
+	while (token->value[i] && token->value[i] != '\0')
 	{
 		if (token->value[i] == '\'' && !double_quoted)
 			single_quoted = !single_quoted;
