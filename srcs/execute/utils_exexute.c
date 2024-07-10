@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exexute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/06/30 23:36:33 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:11:38 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	count_all_tokens(t_token *tokens)
 	return (count);
 }
 
-int	count_token_argc(t_token *tokens, int num_command)
+int	count_token(t_token *tokens, int num_command)
 {
 	t_token	*temp;
 	int		argc;
@@ -65,29 +65,26 @@ int	count_commands(t_token *tokens)
 	return (count);
 }
 
-char	**tokens_to_argv(t_token *tokens, int index_command)
+char	**tokens_to_argv(t_token *tokens, int index_c)
 {
 	char	**argv;
 	t_token	*temp;
 	int		i;
 
-	argv = malloc(sizeof(char *) * \
-		(count_token_argc(tokens, index_command + 1) + 1));
+	argv = malloc(sizeof(char *) * (count_token(tokens, index_c + 1) + 1));
 	if (argv == NULL)
 		return (NULL);
 	temp = tokens;
-	while (temp != NULL && 0 < index_command)
+	while (temp != NULL && 0 < index_c)
 	{
 		if (temp->type == PIPE)
-			index_command--;
+			index_c--;
 		temp = temp->next;
 	}
 	i = 0;
 	while (temp != NULL && temp->type == WORDS)
 	{
 		argv[i] = ft_strdup(temp->value);
-		// if (argv[i] == NULL)
-		// 	return (NULL);
 		temp = temp->next;
 		i++;
 	}
@@ -113,14 +110,4 @@ int	is_last_command(t_token *tokens, int num_command)
 	if (temp->next == NULL)
 		return (TRUE);
 	return (FALSE);
-}
-
-int	count_str_array(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i] != NULL)
-		i++;
-	return (i);
 }

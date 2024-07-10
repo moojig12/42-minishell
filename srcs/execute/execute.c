@@ -6,11 +6,21 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/05 13:10:21 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:12:07 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	count_str_array(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i] != NULL)
+		i++;
+	return (i);
+}
 
 int	child_process(t_token *tokens, int index_command, \
 	int **pipe_fds_array, t_values *vals)
@@ -98,7 +108,8 @@ int	execute_wrapper(char *input, t_values *vals)
 	}
 	else
 	{
-		if ((pipe_fds_array = calloc_int_array(total_commands, 2)) == NULL)
+		pipe_fds_array = calloc_int_array(total_commands, 2);
+		if (pipe_fds_array == NULL)
 			return (system_error(MEM_ERROR));
 		fork_process(head_token, pipe_fds_array, vals);
 		free_int_array(pipe_fds_array, total_commands);

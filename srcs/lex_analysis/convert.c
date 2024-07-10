@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:13:58 by marvin            #+#    #+#             */
-/*   Updated: 2024/07/01 08:35:50 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:59:38 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ t_token	*token_init(void)
 	new->type = 0;
 	new->value = 0;
 	new->redirect_type = 0;
-	// new->command_index = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
 }
+	// new->command_index = 0;??
 
 void	add_token_types(t_token *token)
 {

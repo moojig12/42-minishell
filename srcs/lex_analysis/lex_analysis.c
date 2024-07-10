@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_analysis.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:17:51 by root              #+#    #+#             */
-/*   Updated: 2024/06/30 22:40:53 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:01:12 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ char	*get_next_value(char **input, t_values *vals)
 		error_unclosed_quote("quote is not closed", vals);
 		return (NULL);
 	}
-	if ((ptr = (char *) malloc((value_size + 1) * sizeof(char))) == NULL)
+	ptr = (char *)malloc((value_size + 1) * sizeof(char));
+	if (ptr == NULL)
 		return (NULL);
 	count = 0;
 	while (count < value_size)
@@ -43,7 +44,7 @@ char	*get_next_value(char **input, t_values *vals)
 // convert input to tokens
 int	lexical_analysis(char *input, t_values *vals)
 {
-	t_token **tokens;
+	t_token	**tokens;
 	char	*temp;
 	char	*token_value;
 
@@ -53,7 +54,8 @@ int	lexical_analysis(char *input, t_values *vals)
 	{
 		if (!ft_isspace(*temp))
 		{
-			if ((token_value = get_next_value(&temp, vals)) == NULL)
+			token_value = get_next_value(&temp, vals);
+			if (token_value == NULL)
 				return (EXIT_FAILURE);
 			convert_to_token(tokens, token_value, vals);
 		}

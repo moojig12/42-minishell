@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:44:09 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/07/05 13:11:05 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:11:23 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ int			set_pipe_io(int command_count, int **pipe_fds_array, \
 int			close_past_parent_pipe(int **pipe_fds_array, int count);
 
 // execute/utils_execute.c
+int			count_str_array(char **args);
 int			count_all_tokens(t_token *tokens);
 int			count_token_argc(t_token *tokens, int num_command);
 int			count_commands(t_token *tokens);
 char		**tokens_to_argv(t_token *tokens, int num_command);
 int			is_last_command(t_token *tokens, int num_command);
-int			count_str_array(char **args);
 
 /**************** redirect ****************/
 // redirect/redirect.c
@@ -133,6 +133,7 @@ char		**get_env_elements_array(char **envp, char *key);
 char		*get_env_value(char *key);
 char		*get_env_str(char **env, char *key);
 char		*replace_env_var(char *str, int start, t_values *vals);
+int			count_env_key(char *str);
 
 // utils/find_pgr_path.c
 char		*find_pgr(char *pgr_name, t_values *vals);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:59:37 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/01 08:54:11 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:59:17 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ pwd: pwd [-LP]
 	cannot be read.
 */
 
-int	builtin_pwd(void) //char **env
+int	builtin_pwd(void)
 {
 	char	*pwd;
 

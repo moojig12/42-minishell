@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_heredoc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/01 08:38:15 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:15:21 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,29 @@ int	redirect_heredoc_input(t_values *vals)
 	return (EXIT_SUCCESS);
 }
 
+int	heredoc_loop(char *line, char *delimiter, int fd)
+{
+	line = readline("> ");
+	if (line == NULL)
+		return (1);
+	if (ft_strcmp(line, delimiter) == 0)
+	{
+		free(line);
+		return (1);
+	}
+	ft_putstr_fd(line, fd);
+	ft_putstr_fd("\n", fd);
+	free(line);
+	return (0);
+}
+
 int	redirect_heredoc(t_token *token, t_values *vals)
 {
 	int		fd;
 	char	*line;
 	char	*delimiter;
 
+	line = NULL;
 	fd = open(TMP_FILENAME, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
@@ -45,21 +62,12 @@ int	redirect_heredoc(t_token *token, t_values *vals)
 	delimiter = token->next->value;
 	while (1)
 	{
-		line = readline("> ");
-		if (line == NULL)
+		if (heredoc_loop(line, delimiter, fd) == 1)
 			break ;
-		if (ft_strcmp(line, delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
-		// line = process_env_heredocs(line, vals);
-		// TODO: need to add quoted delimiter?
-		ft_putstr_fd(line, fd);
-		ft_putstr_fd("\n", fd);
-		free(line);
 	}
 	close(fd);
 	redirect_heredoc_input(vals);
 	return (EXIT_SUCCESS);
 }
+		// line = process_env_heredocs(line, vals);
+		// TODO: need to add quoted delimiter?

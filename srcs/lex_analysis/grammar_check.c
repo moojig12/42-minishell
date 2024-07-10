@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   grammar_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:16:13 by root              #+#    #+#             */
-/*   Updated: 2024/07/01 08:54:57 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:01:36 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+	// TODO: check if this is okay
 int	is_acceptable(char c)
 {
 	if (ft_isascii(c) == FALSE)
@@ -20,7 +21,6 @@ int	is_acceptable(char c)
 		ft_putendl_fd("some characters are not ascii", STDERR_FILENO);
 		return (FALSE);
 	}
-	// TODO: check if this is okay
 	else if (c == '\\' || c == ';' || c == '*')
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);

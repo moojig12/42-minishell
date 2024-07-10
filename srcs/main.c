@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:43:58 by nmandakh          #+#    #+#             */
-/*   Updated: 2024/07/01 08:56:37 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:59:00 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ int	preparation_before_command(int argc, char **argv)
 void	save_input_and_free(char *input)
 {
 	if (input == NULL)
-		return;
+		return ;
 	if (input[0] != '\0')
 		add_history(input);
 	free (input);
-	return;
+	return ;
 }
 
 int	main(int argc, char **argv, char **env)
@@ -65,7 +65,8 @@ int	main(int argc, char **argv, char **env)
 
 	if (preparation_before_command(argc, argv) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if ((vals = init_values(env)) == NULL)
+	vals = init_values(env);
+	if (vals == NULL)
 		return (system_error(MEM_ERROR));
 	while (rl_event_hook != NULL)
 	{
