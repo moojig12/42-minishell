@@ -1,13 +1,65 @@
-echo hoge
-cat hoge
+/bin/ls
+/bin/echo this
+
+	
+ 
+
+/bin/ls srcs
+/bin/ls /bin
+ls srcs
+ls /bin
+
+echo this
+echo -n this
+
+exit
+exit 1
+exit 2
+
+ls hoge
+echo $?
+/bin/ls filethatdoesntexist
+ls echo $?
+expr $? + $?
+
+cat
+grep “something“
+
+echo "cat lol.c | cat > lol.c"
+echo "$USER"
+
+echo '$USER'
+
+env
+
+cd ../
+cd /bin/ls
+pwd
+
 ls
+wc
+awk
+
+echo $PATH
+
+echo meow > test.txt
+echo meowmeow >> test.txt
+cat < test.txt
+
+cat file | grep bla | more
+ls filethatdoesntexist | grep bla | more
 ls | echo
 ls | cat
-pwd
-echo this
+
+dsbksdgbksdghsd
+cat | cat | ls
+
 echo "this"
 echo 'this'
 echo "$(PATH)"
 echo '$(PATH)'
 echo "$PATH"
 echo '$PATH'
+echo "meow$?$USER $USERmeow"
+echo "'$USER'"
+echo '"$USER"'
