@@ -39,7 +39,7 @@ int	child_process(t_token *tokens, int index_command, \
 	if (pgr == NULL)
 	{
 		free_int_array(pipe_fds_array, total_commands);
-		free_and_redirect(vals, argv, pgr);
+		reset_redirect(vals);
 		exit_command_not_found(argv[0], argv, vals);
 	}
 	if (is_builtin(pgr))
