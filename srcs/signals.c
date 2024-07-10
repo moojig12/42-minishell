@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:38:53 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/05 13:12:48 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:06:44 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	sig_ignore(int signum)
 void	signals_hander_ignore(void)
 {
 	signal(SIGINT, sig_ignore);
+	signal(SIGQUIT, sig_ignore);
 }
 
 void	signals_process(int signum)

@@ -6,7 +6,7 @@
 /*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:23 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/10 14:39:50 by nmandakh         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:35:56 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	child_process(t_token *tokens, int index_command, \
 	if (pgr == NULL)
 	{
 		free_int_array(pipe_fds_array, total_commands);
+		free_and_redirect(vals, argv, pgr);
 		exit_command_not_found(argv[0], argv, vals);
 	}
 	if (is_builtin(pgr))

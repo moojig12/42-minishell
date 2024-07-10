@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_output.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yjinnouc <yjinnouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmandakh <nmandakh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:33:38 by yjinnouc          #+#    #+#             */
-/*   Updated: 2024/07/01 08:39:10 by yjinnouc         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:26:11 by nmandakh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	redirect_output(t_token *token, t_values *vals)
 	int		fd_stashed;
 
 	temp = token->next;
-	fd = open(temp->value, O_WRONLY | O_CREAT | O_TRUNC);
+	fd = open(temp->value, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY);
 	if (fd < 0)
 	{
 		error_io(temp->value, vals);
