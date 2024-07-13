@@ -36,9 +36,9 @@ char	*ft_3strjoin(char *head, char *mid, char *tail)
 	char	*head_tmp;
 	char	*whole_tmp;
 
-	if (head!= NULL && mid != NULL)
+	if (head != NULL && mid != NULL)
 		head_tmp = ft_strjoin(head, mid);
-	else if (head!= NULL && mid == NULL)
+	else if (head != NULL && mid == NULL)
 		head_tmp = ft_strdup(head);
 	else
 		head_tmp = ft_strdup("");

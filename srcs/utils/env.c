@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 char	*replace_env_var(char *str, char *key, char	*val, int start)
 {
 	int		key_len;
@@ -57,4 +58,3 @@ char	*replace_wrapper(char *str, int start, t_values *vals)
 	free(key);
 	return (replaced);
 }
-
