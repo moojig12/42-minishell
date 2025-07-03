@@ -13,6 +13,9 @@
 .github
 .devcontainer
 
+# Documents
+docs/
+
 #project based
 minishell
 .minishell_history
